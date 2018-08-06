@@ -1,4 +1,0 @@
-C:\Users\ryzng\Source\Repos\Chipotle.CSV\src\obj\Debug\netstandard2\Chipotle.CSV.csprojAssemblyReference.cache
-C:\Users\ryzng\Source\Repos\Chipotle.CSV\src\obj\Debug\netstandard2\Chipotle.CSV.csproj.CoreCompileInputs.cache
-C:\Users\ryzng\Source\Repos\Chipotle.CSV\src\obj\Debug\netstandard2\Chipotle.CSV.AssemblyInfoInputs.cache
-C:\Users\ryzng\Source\Repos\Chipotle.CSV\src\obj\Debug\netstandard2\Chipotle.CSV.AssemblyInfo.cs
