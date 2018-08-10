@@ -23,23 +23,16 @@ namespace Chipotle.CSV
             // Split by the seperator
             int offset = 0;
             int length = 0;
-            foreach (var blob in buffer)
+            foreach (var segment in buffer)
             {
-                if (blob.Span.Length == 0)
-                {
-                    Debug.WriteLine($"Skipping byte in buffer :: {blob}");
-                    continue;
-                }
-
-                foreach (var b in blob.Span)
+                foreach (var b in segment.Span)
                 {
                     // Split the buffer by the seperator, storing each chunk
                     // as a value
                     if (b?.Equals(seperator) == true)
                     {
                         var lineBuffer = buffer.Slice(offset, length);
-                        _values.Add(new Memory<T>(lineBuffer.ToArray()));
-
+                        addToValues(lineBuffer);
                         offset = offset + length + 1;
                         length = 0;
                     }
@@ -54,7 +47,18 @@ namespace Chipotle.CSV
             if (offset < buffer.Length)
             {
                 var lineBuffer = buffer.Slice(offset);
-                _values.Add(new Memory<T>(lineBuffer.ToArray()));
+                addToValues(lineBuffer);
+            }
+
+            void addToValues(ReadOnlySequence<T> sequence)
+            {
+                var start = sequence.Start;
+                if (!sequence.TryGet(ref start, out ReadOnlyMemory<T> memory))
+                {
+                    throw new Exception($"Encountered an exception reading the memory");
+                }
+
+                _values.Add(memory);
             }
         }
 
