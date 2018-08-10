@@ -62,10 +62,6 @@ namespace Chipotle.CSV
 
                 if (position == null)
                 {
-                    foreach (var b in buffer.ToArray())
-                    {
-                        Debug.WriteLine($"{b} = {System.Text.Encoding.ASCII.GetString(new[] { b })}");
-                    }
                     reader.AdvanceTo(buffer.Start);
                 }
 
@@ -73,12 +69,32 @@ namespace Chipotle.CSV
 
             if (position != null)
             {
+                buffer = buffer.Slice(0, position.Value);
+
                 // Tell the PipeReader how much of the buffer we have consumed
-                reader.AdvanceTo((SequencePosition)position);
+                SequencePosition consumedPosition = position.Value;
+                bool isLineEnd = true;
+                do
+                {
+                    isLineEnd = false;
+                    consumedPosition = result.Buffer.GetPosition(1, consumedPosition);
+
+                    if (result.Buffer.TryGet(ref consumedPosition, out ReadOnlyMemory<byte> m))
+                    {
+                        if (m.Span[0] == '\r' || m.Span[0] == '\n')
+                        {
+                            isLineEnd = true;
+                        }
+                    }
+                }
+                while (isLineEnd);
+
+                reader.AdvanceTo(consumedPosition);
+
             }
 
             // Stop reading if there's no more data coming
-            if (result.IsCompleted)
+            else if (result.IsCompleted)
             {
                 _complete = true;
 

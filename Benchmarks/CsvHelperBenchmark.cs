@@ -7,11 +7,11 @@ namespace test
 {
     [MinColumn, MaxColumn, MeanColumn, MedianColumn]
     [MemoryDiagnoser]
-    public class CsvHelperTests
+    public class CsvHelperBenchmark
     {
         private static StreamReader GetStreamReader(string name)
         {
-            var assembly = typeof(ChipotleCsvTests).Assembly;
+            var assembly = typeof(ChipotleCsvBenchmark).Assembly;
             return new StreamReader(assembly.GetManifestResourceStream($"test.{name}"));
         }
 

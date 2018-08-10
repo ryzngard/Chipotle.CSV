@@ -22,21 +22,39 @@ namespace Chipotle.CSV
 
             // Split by the seperator
             int offset = 0;
-            int length = 1;
-            foreach (var b in buffer)
+            int length = 0;
+            foreach (var blob in buffer)
             {
-                if (b.Span.Length == 0)
+                if (blob.Span.Length == 0)
                 {
-                    Debug.WriteLine($"Skipping byte in buffer :: {b}");
+                    Debug.WriteLine($"Skipping byte in buffer :: {blob}");
                     continue;
                 }
 
-                if (b.Span[0]?.Equals(seperator) == true)
+                foreach (var b in blob.Span)
                 {
-                    var lineBuffer = buffer.Slice(offset, length);
+                    // Split the buffer by the seperator, storing each chunk
+                    // as a value
+                    if (b?.Equals(seperator) == true)
+                    {
+                        var lineBuffer = buffer.Slice(offset, length);
+                        _values.Add(new Memory<T>(lineBuffer.ToArray()));
 
-                    _values.Add(new Memory<T>(lineBuffer.ToArray()));
+                        offset = offset + length + 1;
+                        length = 0;
+                    }
+                    else
+                    {
+                        length++;
+                    }
                 }
+            }
+
+            // Add any remaining buffer as the final value
+            if (offset < buffer.Length)
+            {
+                var lineBuffer = buffer.Slice(offset);
+                _values.Add(new Memory<T>(lineBuffer.ToArray()));
             }
         }
 

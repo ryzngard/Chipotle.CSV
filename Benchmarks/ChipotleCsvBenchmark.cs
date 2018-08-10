@@ -9,15 +9,15 @@ namespace test
 {
     [MinColumn, MaxColumn, MeanColumn, MedianColumn]
     [MemoryDiagnoser]
-    public class ChipotleCsvTests
+    public class ChipotleCsvBenchmark
     {
-        public ChipotleCsvTests()
+        public ChipotleCsvBenchmark()
         {
         }
 
         private static Stream GetStream(string name)
         {
-            var assembly = typeof(ChipotleCsvTests).Assembly;
+            var assembly = typeof(ChipotleCsvBenchmark).Assembly;
             return assembly.GetManifestResourceStream($"test.{name}");
         }
 
