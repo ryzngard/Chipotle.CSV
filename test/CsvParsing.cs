@@ -1,6 +1,8 @@
 using BenchmarkDotNet.Attributes;
+using Chipotle.CSV;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace test
 {
@@ -26,9 +28,18 @@ namespace test
             return bytes;
         }
         [Benchmark]
-        public Csv ParseCsv()
+        public async Task<Csv> ParseCsv()
         {
-            
+            var csv = Csv.Parse(_fileStream);
+                
+            var row = await csv.GetNextAsync();
+
+            while (row != null)
+            {
+                row = await csv.GetNextAsync();
+            }
+
+            return csv;
         }
     }
 }

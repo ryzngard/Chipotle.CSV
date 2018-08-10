@@ -8,20 +8,22 @@ namespace Chipotle.CSV
 {
     public class Row<T> : IEnumerable<ReadOnlyMemory<T>>
     {
+        private const int defaultListSize = 8;
+
         private IList<ReadOnlyMemory<T>> _values;
         private IDictionary<string, int> _headers;
 
         internal Row(ReadOnlySequence<T> buffer, T seperator, IDictionary<string, int> headers = null)
         {
             _headers = headers;
-            _values = new List<ReadOnlyMemory<T>>(_headers?.Keys.Count ?? 10);
+            _values = new List<ReadOnlyMemory<T>>(_headers?.Keys.Count ?? defaultListSize);
 
             // Split by the seperator
             int offset = 0;
             int length = 1;
             foreach (var b in buffer)
             {
-                if (b.Span[0] == seperator)
+                if (b.Span[0]?.Equals(seperator) == true)
                 {
                     var lineBuffer = buffer.Slice(offset, length);
 

@@ -14,7 +14,7 @@ namespace Chipotle.CSV
         public char Seperator { get; } = ',';
 
         private readonly Pipe _pipe;
-        private readonly FileStream _stream;
+        private readonly Stream _stream;
 
         private bool _hasRead = false;
         private bool _disposed = false;
@@ -22,7 +22,7 @@ namespace Chipotle.CSV
 
         public bool Completed => _hasRead && _complete;
 
-        protected Csv(FileStream stream, Pipe pipe)
+        protected Csv(Stream stream, Pipe pipe)
         {
             _pipe = pipe;
             _stream = stream;
@@ -32,7 +32,7 @@ namespace Chipotle.CSV
         {
             if (_complete)
             {
-                throw new InvalidOperationException("Cannot enumerate multiple times");
+                return null;
             }
 
             if (_disposed)
@@ -80,13 +80,13 @@ namespace Chipotle.CSV
             return new Row<byte>(buffer, (byte)Seperator);
         }
 
-        public static Csv Parse(FileStream stream)
+        public static Csv Parse(Stream stream)
         {
             var pipe = new Pipe();
             return new Csv(stream, pipe);
         }
 
-        private static async Task FillPipeAsync(FileStream stream, PipeWriter writer)
+        private static async Task FillPipeAsync(Stream stream, PipeWriter writer)
         {
             const int minimumBufferSize = 512;
 
