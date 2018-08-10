@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2047
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chipotle.CSV", "src\Chipotle.CSV.csproj", "{82E33E40-E948-4FED-A98B-B312788107C1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", "{149775C4-EB8F-4F4D-B085-D315E70DD325}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82E33E40-E948-4FED-A98B-B312788107C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82E33E40-E948-4FED-A98B-B312788107C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82E33E40-E948-4FED-A98B-B312788107C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82E33E40-E948-4FED-A98B-B312788107C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{149775C4-EB8F-4F4D-B085-D315E70DD325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{149775C4-EB8F-4F4D-B085-D315E70DD325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{149775C4-EB8F-4F4D-B085-D315E70DD325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{149775C4-EB8F-4F4D-B085-D315E70DD325}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C49831A8-46BF-4514-9222-58F9867EFB50}
+	EndGlobalSection
+EndGlobal

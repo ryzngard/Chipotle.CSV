@@ -10,7 +10,7 @@ namespace test
         {
             var test = new ChipotleCsvTests();
 
-            test.ParseCsv().Wait();
+            test.Parse16KB().Wait();
         }
         #else 
         static void Main(string[] args)

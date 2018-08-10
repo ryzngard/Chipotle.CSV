@@ -11,7 +11,7 @@ namespace test
     {
         private static StreamReader GetStreamReader(string name)
         {
-            var assembly = typeof(CsvParsing).Assembly;
+            var assembly = typeof(ChipotleCsvTests).Assembly;
             return new StreamReader(assembly.GetManifestResourceStream($"test.{name}"));
         }
 
