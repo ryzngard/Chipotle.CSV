@@ -14,7 +14,7 @@
 <body>
 <pre><code>
 BenchmarkDotNet=v0.11.0, OS=Windows 10.0.17134.191 (1803/April2018Update/Redstone4)
-Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
+Intel Core i7-8650U CPU 1.90GHz (Max: 1.41GHz) (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
 .NET Core SDK=2.1.302
   [Host]     : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
   DefaultJob : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
@@ -22,13 +22,13 @@ Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical a
 <pre><code></code></pre>
 
 <table>
-<thead><tr><th>Method</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Median</th><th>  Min</th><th> Max</th><th>Gen 0</th><th>Allocated</th>
+<thead><tr><th>Method</th><th> Mean</th><th>Error</th><th>StdDev</th><th>Median</th><th>  Min</th><th> Max</th><th>Gen 0</th><th>Allocated</th>
 </tr>
-</thead><tbody><tr><td>Parse2KB</td><td>126.3 us</td><td>11.266 us</td><td>33.217 us</td><td>100.5 us</td><td>93.40 us</td><td>168.1 us</td><td>7.8125</td><td>32.1 KB</td>
-</tr><tr><td>Parse4KB</td><td>290.1 us</td><td>5.769 us</td><td>9.797 us</td><td>283.7 us</td><td>280.66 us</td><td>323.1 us</td><td>22.9492</td><td>94.59 KB</td>
-</tr><tr><td>Parse8KB</td><td>712.1 us</td><td>14.166 us</td><td>21.203 us</td><td>716.8 us</td><td>683.69 us</td><td>751.7 us</td><td>55.6641</td><td>230.25 KB</td>
-</tr><tr><td>Parse16KB</td><td>1,419.1 us</td><td>28.217 us</td><td>43.931 us</td><td>1,413.4 us</td><td>1,363.33 us</td><td>1,524.8 us</td><td>111.3281</td><td>459.29 KB</td>
-</tr><tr><td>Parse32KB</td><td>2,935.5 us</td><td>58.664 us</td><td>82.239 us</td><td>2,923.2 us</td><td>2,772.34 us</td><td>3,110.7 us</td><td>230.4688</td><td>959.41 KB</td>
+</thead><tbody><tr><td>Parse2KB</td><td>97.19 us</td><td>2.272 us</td><td>6.519 us</td><td>98.83 us</td><td>63.49 us</td><td>106.0 us</td><td>7.8125</td><td>32.1 KB</td>
+</tr><tr><td>Parse4KB</td><td>293.27 us</td><td>5.777 us</td><td>9.810 us</td><td>292.82 us</td><td>278.50 us</td><td>319.7 us</td><td>22.9492</td><td>94.59 KB</td>
+</tr><tr><td>Parse8KB</td><td>715.99 us</td><td>13.930 us</td><td>21.273 us</td><td>725.91 us</td><td>685.69 us</td><td>768.9 us</td><td>55.6641</td><td>230.25 KB</td>
+</tr><tr><td>Parse16KB</td><td>2,071.54 us</td><td>140.994 us</td><td>415.723 us</td><td>2,307.00 us</td><td>932.23 us</td><td>2,544.7 us</td><td>111.3281</td><td>459.29 KB</td>
+</tr><tr><td>Parse32KB</td><td>3,427.87 us</td><td>284.761 us</td><td>839.623 us</td><td>3,019.58 us</td><td>1,868.55 us</td><td>4,924.7 us</td><td>230.4688</td><td>959.41 KB</td>
 </tr></tbody></table>
 </body>
 </html>
