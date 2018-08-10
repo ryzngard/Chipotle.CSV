@@ -1,5 +1,5 @@
 # Chipotle.CSV
-A csv parser written while eating a burrito. Meant to be lean as possible
+A csv parser written while eating a burrito. Meant to be lean as possible. A project to try out the new System.IO.Pipelines and Memory<T>/Span<T> features for dotnet
 
 ## Usage 
 
