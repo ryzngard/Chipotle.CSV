@@ -108,8 +108,7 @@ namespace Chipotle.CSV
                 // Mark the PipeReader as complete
                 reader.Complete();
             }
-
-            if (position == null && buffer.Length == 0)
+            else if (position == null && buffer.Length == 0)
             {
                 throw new EntryPointNotFoundException("Unable to find another line");
             }

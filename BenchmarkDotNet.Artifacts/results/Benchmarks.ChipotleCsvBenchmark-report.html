@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Benchmarks.ChipotleCsvBenchmark</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.11.0, OS=Windows 10.0.17134.191 (1803/April2018Update/Redstone4)
+Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=2.1.302
+  [Host]     : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+  DefaultJob : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>Mean</th><th>Error</th><th>StdDev</th><th> Min</th><th> Max</th><th>Median</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Parse2KB</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Parse4KB</td><td>295.2 us</td><td>5.854 us</td><td>7.404 us</td><td>282.2 us</td><td>307.0 us</td><td>297.6 us</td><td>22.9492</td><td>96856 B</td>
+</tr><tr><td>Parse8KB</td><td>697.8 us</td><td>13.637 us</td><td>18.666 us</td><td>660.7 us</td><td>741.3 us</td><td>691.7 us</td><td>55.6641</td><td>235776 B</td>
+</tr><tr><td>Parse16KB</td><td>1,432.8 us</td><td>27.851 us</td><td>45.760 us</td><td>1,374.1 us</td><td>1,540.2 us</td><td>1,437.9 us</td><td>111.3281</td><td>470312 B</td>
+</tr><tr><td>Parse32KB</td><td>2,957.5 us</td><td>58.006 us</td><td>75.424 us</td><td>2,854.9 us</td><td>3,069.9 us</td><td>2,942.5 us</td><td>230.4688</td><td>982432 B</td>
+</tr></tbody></table>
+</body>
+</html>

@@ -66,12 +66,17 @@ namespace Benchmarks
 
                 Row<byte> row;
                 int count = 0;
-                do
+                while (true)
                 {
                     row = await csv.GetNextAsync();
+
+                    if (row == null)
+                    {
+                        break;
+                    }
+
                     count++;
                 }
-                while (row != null);
 
                 Debug.WriteLine($"Read {count} rows");
 

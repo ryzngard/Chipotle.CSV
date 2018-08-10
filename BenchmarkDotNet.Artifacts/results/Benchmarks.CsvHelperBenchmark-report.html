@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Benchmarks.CsvHelperBenchmark</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.11.0, OS=Windows 10.0.17134.191 (1803/April2018Update/Redstone4)
+Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=2.1.302
+  [Host]     : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+  DefaultJob : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Median</th><th> Min</th><th> Max</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Parse1KB</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Parse4KB</td><td>318.7 us</td><td>23.257 us</td><td>68.575 us</td><td>357.7 us</td><td>179.8 us</td><td>388.6 us</td><td>21.4844</td><td>91024 B</td>
+</tr><tr><td>Parse8KB</td><td>826.8 us</td><td>9.421 us</td><td>8.812 us</td><td>829.2 us</td><td>797.7 us</td><td>833.6 us</td><td>43.9453</td><td>188163 B</td>
+</tr><tr><td>Parse16KB</td><td>972.2 us</td><td>19.412 us</td><td>34.505 us</td><td>974.6 us</td><td>919.5 us</td><td>1,031.8 us</td><td>83.9844</td><td>355093 B</td>
+</tr><tr><td>Parse32KB</td><td>2,002.2 us</td><td>39.491 us</td><td>84.159 us</td><td>2,014.1 us</td><td>1,889.2 us</td><td>2,217.9 us</td><td>167.9688</td><td>716250 B</td>
+</tr></tbody></table>
+</body>
+</html>
