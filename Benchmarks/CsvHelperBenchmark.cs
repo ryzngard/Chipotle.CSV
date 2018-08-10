@@ -10,9 +10,9 @@ namespace Benchmarks
     public class CsvHelperBenchmark
     {
         [Benchmark]
-        public CsvReader Parse1KB()
+        public CsvReader Parse2KB()
         {
-            return ParseCsvFile(Resources.FileSize.KB1);
+            return ParseCsvFile(Resources.FileSize.KB2);
         }
 
         [Benchmark]

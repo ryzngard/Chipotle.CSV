@@ -18,7 +18,7 @@ namespace Benchmarks
         [Benchmark]
         public async Task<Csv> Parse2KB()
         {
-            return await ParseCsvFile(Resources.FileSize.KB1);
+            return await ParseCsvFile(Resources.FileSize.KB2);
         }
 
         [Benchmark]

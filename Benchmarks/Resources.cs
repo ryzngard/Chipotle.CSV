@@ -9,7 +9,6 @@ namespace Benchmarks
     {
         public enum FileSize
         {
-            KB1,
             KB2,
             KB4,
             KB8,
@@ -28,7 +27,6 @@ namespace Benchmarks
         {
             switch (size)
             {
-                case FileSize.KB1: return "1KB.csv";
                 case FileSize.KB2: return "2KB.csv";
                 case FileSize.KB4: return "4KB.csv";
                 case FileSize.KB8: return "8KB.csv";

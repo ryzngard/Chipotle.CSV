@@ -8,13 +8,10 @@ Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical a
 
 
 ```
-|    Method |       Mean |     Error |    StdDev |        Min |        Max |     Median |    Gen 0 | Allocated |
-|---------- |-----------:|----------:|----------:|-----------:|-----------:|-----------:|---------:|----------:|
-|  Parse2KB |         NA |        NA |        NA |         NA |         NA |         NA |      N/A |       N/A |
-|  Parse4KB |   295.2 us |  5.854 us |  7.404 us |   282.2 us |   307.0 us |   297.6 us |  22.9492 |   96856 B |
-|  Parse8KB |   697.8 us | 13.637 us | 18.666 us |   660.7 us |   741.3 us |   691.7 us |  55.6641 |  235776 B |
-| Parse16KB | 1,432.8 us | 27.851 us | 45.760 us | 1,374.1 us | 1,540.2 us | 1,437.9 us | 111.3281 |  470312 B |
-| Parse32KB | 2,957.5 us | 58.006 us | 75.424 us | 2,854.9 us | 3,069.9 us | 2,942.5 us | 230.4688 |  982432 B |
-
-Benchmarks with issues:
-  ChipotleCsvBenchmark.Parse2KB: DefaultJob
+|    Method |       Mean |     Error |    StdDev |     Median |         Min |        Max |    Gen 0 | Allocated |
+|---------- |-----------:|----------:|----------:|-----------:|------------:|-----------:|---------:|----------:|
+|  Parse2KB |   126.3 us | 11.266 us | 33.217 us |   100.5 us |    93.40 us |   168.1 us |   7.8125 |   32.1 KB |
+|  Parse4KB |   290.1 us |  5.769 us |  9.797 us |   283.7 us |   280.66 us |   323.1 us |  22.9492 |  94.59 KB |
+|  Parse8KB |   712.1 us | 14.166 us | 21.203 us |   716.8 us |   683.69 us |   751.7 us |  55.6641 | 230.25 KB |
+| Parse16KB | 1,419.1 us | 28.217 us | 43.931 us | 1,413.4 us | 1,363.33 us | 1,524.8 us | 111.3281 | 459.29 KB |
+| Parse32KB | 2,935.5 us | 58.664 us | 82.239 us | 2,923.2 us | 2,772.34 us | 3,110.7 us | 230.4688 | 959.41 KB |

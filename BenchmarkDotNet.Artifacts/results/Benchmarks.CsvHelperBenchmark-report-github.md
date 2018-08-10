@@ -8,13 +8,10 @@ Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical a
 
 
 ```
-|    Method |       Mean |     Error |    StdDev |     Median |        Min |        Max |    Gen 0 | Allocated |
-|---------- |-----------:|----------:|----------:|-----------:|-----------:|-----------:|---------:|----------:|
-|  Parse1KB |         NA |        NA |        NA |         NA |         NA |         NA |      N/A |       N/A |
-|  Parse4KB |   318.7 us | 23.257 us | 68.575 us |   357.7 us |   179.8 us |   388.6 us |  21.4844 |   91024 B |
-|  Parse8KB |   826.8 us |  9.421 us |  8.812 us |   829.2 us |   797.7 us |   833.6 us |  43.9453 |  188163 B |
-| Parse16KB |   972.2 us | 19.412 us | 34.505 us |   974.6 us |   919.5 us | 1,031.8 us |  83.9844 |  355093 B |
-| Parse32KB | 2,002.2 us | 39.491 us | 84.159 us | 2,014.1 us | 1,889.2 us | 2,217.9 us | 167.9688 |  716250 B |
-
-Benchmarks with issues:
-  CsvHelperBenchmark.Parse1KB: DefaultJob
+|    Method |        Mean |     Error |     StdDev |      Median |         Min |         Max |    Gen 0 | Allocated |
+|---------- |------------:|----------:|-----------:|------------:|------------:|------------:|---------:|----------:|
+|  Parse2KB |    89.79 us |  1.703 us |   1.822 us |    88.79 us |    87.97 us |    92.83 us |  10.8643 |   44.8 KB |
+|  Parse4KB |   216.62 us |  4.264 us |   7.355 us |   215.37 us |   203.42 us |   232.57 us |  21.4844 |  88.89 KB |
+|  Parse8KB |   676.79 us | 55.239 us | 162.873 us |   775.10 us |   435.14 us |   885.90 us |  44.4336 | 183.75 KB |
+| Parse16KB |   980.47 us | 19.595 us |  42.598 us |   963.66 us |   921.45 us | 1,097.82 us |  83.9844 | 346.76 KB |
+| Parse32KB | 1,942.80 us | 38.067 us |  49.498 us | 1,958.30 us | 1,852.31 us | 2,011.50 us | 169.9219 | 699.45 KB |
