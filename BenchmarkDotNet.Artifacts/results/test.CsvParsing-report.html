@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>test.CsvParsing</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.11.0, OS=Windows 10.0.17134.191 (1803/April2018Update/Redstone4)
+Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=2.1.302
+  [Host]     : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+  DefaultJob : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>Method</th><th> Mean</th><th>Error</th><th>StdDev</th><th>  Min</th><th>  Max</th><th>Median</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Parse2KB</td><td>44.11 us</td><td>0.3278 us</td><td>0.3066 us</td><td>43.79 us</td><td>44.66 us</td><td>43.98 us</td><td>0.3052</td><td>1.33 KB</td>
+</tr><tr><td>Parse4KB</td><td>130.07 us</td><td>1.4911 us</td><td>1.2451 us</td><td>128.21 us</td><td>132.38 us</td><td>130.06 us</td><td>0.2441</td><td>1.47 KB</td>
+</tr><tr><td>Parse8KB</td><td>318.22 us</td><td>3.2933 us</td><td>2.9194 us</td><td>314.15 us</td><td>324.53 us</td><td>317.70 us</td><td>-</td><td>1.87 KB</td>
+</tr><tr><td>Parse16KB</td><td>633.21 us</td><td>8.4734 us</td><td>7.5115 us</td><td>620.39 us</td><td>651.51 us</td><td>631.44 us</td><td>-</td><td>2.31 KB</td>
+</tr><tr><td>Parse32KB</td><td>1,320.97 us</td><td>7.6220 us</td><td>6.7567 us</td><td>1,308.84 us</td><td>1,334.00 us</td><td>1,321.37 us</td><td>-</td><td>3.55 KB</td>
+</tr></tbody></table>
+</body>
+</html>

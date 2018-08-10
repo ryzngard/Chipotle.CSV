@@ -8,7 +8,7 @@ namespace test
         #if DEBUG
         static void Main(string[] args)
         {
-            var test = new CsvParsing();
+            var test = new ChipotleCsvTests();
 
             test.ParseCsv().Wait();
         }

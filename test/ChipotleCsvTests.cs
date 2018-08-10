@@ -9,15 +9,15 @@ namespace test
 {
     [MinColumn, MaxColumn, MeanColumn, MedianColumn]
     [MemoryDiagnoser]
-    public class CsvParsing
+    public class ChipotleCsvTests
     {
-        public CsvParsing()
+        public ChipotleCsvTests()
         {
         }
 
         private static Stream GetStream(string name)
         {
-            var assembly = typeof(CsvParsing).Assembly;
+            var assembly = typeof(ChipotleCsvTests).Assembly;
             return assembly.GetManifestResourceStream($"test.{name}");
         }
 
@@ -37,6 +37,18 @@ namespace test
         public async Task<Csv> Parse8KB()
         {
             return await ParseCsvFile("8KB.csv");
+        }
+
+        [Benchmark]
+        public async Task<Csv> Parse16KB()
+        {
+            return await ParseCsvFile("16KB.csv");
+        }
+
+        [Benchmark]
+        public async Task<Csv> Parse32KB()
+        {
+            return await ParseCsvFile("32KB.csv");
         }
 
         [Benchmark]
