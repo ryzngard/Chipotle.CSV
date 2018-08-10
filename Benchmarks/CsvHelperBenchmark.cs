@@ -3,63 +3,57 @@ using CsvHelper;
 using System.Diagnostics;
 using System.IO;
 
-namespace test
+namespace Benchmarks
 {
     [MinColumn, MaxColumn, MeanColumn, MedianColumn]
     [MemoryDiagnoser]
     public class CsvHelperBenchmark
     {
-        private static StreamReader GetStreamReader(string name)
-        {
-            var assembly = typeof(ChipotleCsvBenchmark).Assembly;
-            return new StreamReader(assembly.GetManifestResourceStream($"test.{name}"));
-        }
-
         [Benchmark]
-        public CsvReader Parse2KB()
+        public CsvReader Parse1KB()
         {
-            return ParseCsvFile("2KB.csv");
+            return ParseCsvFile(Resources.FileSize.KB1);
         }
 
         [Benchmark]
         public CsvReader Parse4KB()
         {
-            return ParseCsvFile("4KB.csv");
+            return ParseCsvFile(Resources.FileSize.KB4);
         }
 
         [Benchmark]
         public CsvReader Parse8KB()
         {
-            return ParseCsvFile("8KB.csv");
+            return ParseCsvFile(Resources.FileSize.KB8);
         }
 
         [Benchmark]
         public CsvReader Parse16KB()
         {
-            return ParseCsvFile("16KB.csv");
+            return ParseCsvFile(Resources.FileSize.KB16);
         }
 
         [Benchmark]
         public CsvReader Parse32KB()
         {
-            return ParseCsvFile("32KB.csv");
+            return ParseCsvFile(Resources.FileSize.KB32);
         }
 
-        [Benchmark]
-        public CsvReader Parse1MB()
-        {
-            return ParseCsvFile("Import_User_Sample_en_Duplicated.csv");
-        }
+        //[Benchmark]
+        //public CsvReader Parse1MB()
+        //{
+        //    return ParseCsvFile("Import_User_Sample_en_Duplicated.csv");
+        //}
 
-        [Benchmark]
-        public CsvReader Parse4MB()
-        {
-            return ParseCsvFile("FL_insurance_sample.csv");
-        }
+        //[Benchmark]
+        //public CsvReader Parse4MB()
+        //{
+        //    return ParseCsvFile("FL_insurance_sample.csv");
+        //}
 
-        private static CsvReader ParseCsvFile(string name)
+        private static CsvReader ParseCsvFile(Resources.FileSize size)
         {
-            using (var stream = GetStreamReader(name))
+            using (var stream = new StreamReader(Resources.GetStream(size)))
             using (var reader = new CsvReader(stream, false))
             {
                 int count = 0;

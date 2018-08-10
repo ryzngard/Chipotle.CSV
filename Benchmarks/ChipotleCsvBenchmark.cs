@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace test
+namespace Benchmarks
 {
     [MinColumn, MaxColumn, MeanColumn, MedianColumn]
     [MemoryDiagnoser]
@@ -15,57 +15,51 @@ namespace test
         {
         }
 
-        private static Stream GetStream(string name)
-        {
-            var assembly = typeof(ChipotleCsvBenchmark).Assembly;
-            return assembly.GetManifestResourceStream($"test.{name}");
-        }
-
         [Benchmark]
         public async Task<Csv> Parse2KB()
         {
-            return await ParseCsvFile("2KB.csv");
+            return await ParseCsvFile(Resources.FileSize.KB1);
         }
 
         [Benchmark]
         public async Task<Csv> Parse4KB()
         {
-            return await ParseCsvFile("4KB.csv");
+            return await ParseCsvFile(Resources.FileSize.KB4);
         }
 
         [Benchmark]
         public async Task<Csv> Parse8KB()
         {
-            return await ParseCsvFile("8KB.csv");
+            return await ParseCsvFile(Resources.FileSize.KB8);
         }
 
         [Benchmark]
         public async Task<Csv> Parse16KB()
         {
-            return await ParseCsvFile("16KB.csv");
+            return await ParseCsvFile(Resources.FileSize.KB16);
         }
 
         [Benchmark]
         public async Task<Csv> Parse32KB()
         {
-            return await ParseCsvFile("32KB.csv");
+            return await ParseCsvFile(Resources.FileSize.KB32);
         }
 
-        [Benchmark]
-        public async Task<Csv> Parse1MB()
-        {
-            return await ParseCsvFile("Import_User_Sample_en_Duplicated.csv");
-        }
+        //[Benchmark]
+        //public async Task<Csv> Parse1MB()
+        //{
+        //    return await ParseCsvFile("Import_User_Sample_en_Duplicated.csv");
+        //}
 
-        [Benchmark]
-        public async Task<Csv> Parse4MB()
-        {
-            return await ParseCsvFile("FL_insurance_sample.csv");
-        }
+        //[Benchmark]
+        //public async Task<Csv> Parse4MB()
+        //{
+        //    return await ParseCsvFile("FL_insurance_sample.csv");
+        //}
 
-        private static async Task<Csv> ParseCsvFile(string name)
+        private static async Task<Csv> ParseCsvFile(Resources.FileSize size)
         {
-            using (var stream = GetStream(name))
+            using (var stream = Resources.GetStream(size))
             using (var csv = Csv.Parse(stream))
             {
                 Debug.WriteLine($"Reading file, size = {stream.Length}");

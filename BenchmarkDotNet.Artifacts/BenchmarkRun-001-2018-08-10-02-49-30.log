@@ -1,0 +1,704 @@
+// Validating benchmarks:
+// ***** BenchmarkRunner: Start   *****
+// ***** Building 1 exe(s) in Parallel: Start   *****
+// restore --no-dependencies  /p:UseSharedCompilation=false took 2.45s and exited with 0
+// build --framework netcoreapp2.0 --configuration Release --no-restore --no-dependencies  /p:UseSharedCompilation=false took 4.41s and exited with 0
+// ***** Done, took 00:00:07 (7.15 sec)   *****
+// Found benchmarks:
+//   ChipotleCsvBenchmark.Parse2KB: DefaultJob
+//   ChipotleCsvBenchmark.Parse4KB: DefaultJob
+//   ChipotleCsvBenchmark.Parse8KB: DefaultJob
+//   ChipotleCsvBenchmark.Parse16KB: DefaultJob
+//   ChipotleCsvBenchmark.Parse32KB: DefaultJob
+
+// **************************
+// Benchmark: ChipotleCsvBenchmark.Parse2KB: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// BeforeAnythingElse
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+OverheadJitting  1: 1 op, 801500.00 ns, 801.5000 us/op
+WorkloadJitting  1: 1 op, 128394400.00 ns, 128.3944 ms/op
+WorkloadPilot    1: 2 op, 333700.00 ns, 166.8500 us/op
+WorkloadPilot    2: 3 op, 396600.00 ns, 132.2000 us/op
+WorkloadPilot    3: 4 op, 635600.00 ns, 158.9000 us/op
+WorkloadPilot    4: 5 op, 785400.00 ns, 157.0800 us/op
+WorkloadPilot    5: 6 op, 979200.00 ns, 163.2000 us/op
+WorkloadPilot    6: 7 op, 1225200.00 ns, 175.0286 us/op
+WorkloadPilot    7: 8 op, 1445400.00 ns, 180.6750 us/op
+WorkloadPilot    8: 9 op, 1323500.00 ns, 147.0556 us/op
+WorkloadPilot    9: 10 op, 1523200.00 ns, 152.3200 us/op
+WorkloadPilot   10: 11 op, 1447300.00 ns, 131.5727 us/op
+WorkloadPilot   11: 12 op, 1786800.00 ns, 148.9000 us/op
+WorkloadPilot   12: 13 op, 1928000.00 ns, 148.3077 us/op
+WorkloadPilot   13: 14 op, 2329300.00 ns, 166.3786 us/op
+WorkloadPilot   14: 15 op, 2524500.00 ns, 168.3000 us/op
+WorkloadPilot   15: 16 op, 2751100.00 ns, 171.9438 us/op
+WorkloadPilot   16: 32 op, 6078300.00 ns, 189.9469 us/op
+WorkloadPilot   17: 64 op, 11284400.00 ns, 176.3188 us/op
+WorkloadPilot   18: 128 op, 24449500.00 ns, 191.0117 us/op
+WorkloadPilot   19: 256 op, 42036600.00 ns, 164.2055 us/op
+WorkloadPilot   20: 512 op, 53722500.00 ns, 104.9268 us/op
+WorkloadPilot   21: 1024 op, 115762400.00 ns, 113.0492 us/op
+WorkloadPilot   22: 2048 op, 197180200.00 ns, 96.2794 us/op
+WorkloadPilot   23: 4096 op, 384985700.00 ns, 93.9906 us/op
+WorkloadPilot   24: 8192 op, 766538600.00 ns, 93.5716 us/op
+WorkloadWarmup   1: 8192 op, 713242100.00 ns, 87.0657 us/op
+WorkloadWarmup   2: 8192 op, 749125800.00 ns, 91.4460 us/op
+WorkloadWarmup   3: 8192 op, 791571800.00 ns, 96.6274 us/op
+WorkloadWarmup   4: 8192 op, 780014900.00 ns, 95.2167 us/op
+WorkloadWarmup   5: 8192 op, 777519200.00 ns, 94.9120 us/op
+WorkloadWarmup   6: 8192 op, 770362200.00 ns, 94.0384 us/op
+WorkloadWarmup   7: 8192 op, 766057100.00 ns, 93.5128 us/op
+WorkloadWarmup   8: 8192 op, 808336700.00 ns, 98.6739 us/op
+WorkloadWarmup   9: 8192 op, 797273400.00 ns, 97.3234 us/op
+// BeforeActualRun
+WorkloadActual   1: 8192 op, 807788400.00 ns, 98.6070 us/op
+WorkloadActual   2: 8192 op, 781776600.00 ns, 95.4317 us/op
+WorkloadActual   3: 8192 op, 752285300.00 ns, 91.8317 us/op
+WorkloadActual   4: 8192 op, 826897500.00 ns, 100.9396 us/op
+WorkloadActual   5: 8192 op, 814557200.00 ns, 99.4333 us/op
+WorkloadActual   6: 8192 op, 775479800.00 ns, 94.6631 us/op
+WorkloadActual   7: 8192 op, 782183100.00 ns, 95.4813 us/op
+WorkloadActual   8: 8192 op, 743731200.00 ns, 90.7875 us/op
+WorkloadActual   9: 8192 op, 806261800.00 ns, 98.4206 us/op
+WorkloadActual  10: 8192 op, 764516200.00 ns, 93.3247 us/op
+WorkloadActual  11: 8192 op, 793898200.00 ns, 96.9114 us/op
+WorkloadActual  12: 8192 op, 810139800.00 ns, 98.8940 us/op
+WorkloadActual  13: 8192 op, 765658800.00 ns, 93.4642 us/op
+WorkloadActual  14: 8192 op, 765873700.00 ns, 93.4904 us/op
+WorkloadActual  15: 8192 op, 790406400.00 ns, 96.4852 us/op
+WorkloadActual  16: 8192 op, 817934200.00 ns, 99.8455 us/op
+WorkloadActual  17: 8192 op, 823048900.00 ns, 100.4698 us/op
+WorkloadActual  18: 8192 op, 818300100.00 ns, 99.8901 us/op
+WorkloadActual  19: 8192 op, 775103000.00 ns, 94.6171 us/op
+WorkloadActual  20: 8192 op, 769474800.00 ns, 93.9300 us/op
+WorkloadActual  21: 8192 op, 779800200.00 ns, 95.1905 us/op
+WorkloadActual  22: 8192 op, 776352600.00 ns, 94.7696 us/op
+WorkloadActual  23: 8192 op, 781388000.00 ns, 95.3843 us/op
+WorkloadActual  24: 8192 op, 778188600.00 ns, 94.9937 us/op
+WorkloadActual  25: 8192 op, 784756100.00 ns, 95.7954 us/op
+WorkloadActual  26: 8192 op, 801665500.00 ns, 97.8596 us/op
+WorkloadActual  27: 8192 op, 795403300.00 ns, 97.0951 us/op
+// AfterActualRun
+WorkloadResult   1: 8192 op, 807788400.00 ns, 98.6070 us/op
+WorkloadResult   2: 8192 op, 781776600.00 ns, 95.4317 us/op
+WorkloadResult   3: 8192 op, 752285300.00 ns, 91.8317 us/op
+WorkloadResult   4: 8192 op, 826897500.00 ns, 100.9396 us/op
+WorkloadResult   5: 8192 op, 814557200.00 ns, 99.4333 us/op
+WorkloadResult   6: 8192 op, 775479800.00 ns, 94.6631 us/op
+WorkloadResult   7: 8192 op, 782183100.00 ns, 95.4813 us/op
+WorkloadResult   8: 8192 op, 743731200.00 ns, 90.7875 us/op
+WorkloadResult   9: 8192 op, 806261800.00 ns, 98.4206 us/op
+WorkloadResult  10: 8192 op, 764516200.00 ns, 93.3247 us/op
+WorkloadResult  11: 8192 op, 793898200.00 ns, 96.9114 us/op
+WorkloadResult  12: 8192 op, 810139800.00 ns, 98.8940 us/op
+WorkloadResult  13: 8192 op, 765658800.00 ns, 93.4642 us/op
+WorkloadResult  14: 8192 op, 765873700.00 ns, 93.4904 us/op
+WorkloadResult  15: 8192 op, 790406400.00 ns, 96.4852 us/op
+WorkloadResult  16: 8192 op, 817934200.00 ns, 99.8455 us/op
+WorkloadResult  17: 8192 op, 823048900.00 ns, 100.4698 us/op
+WorkloadResult  18: 8192 op, 818300100.00 ns, 99.8901 us/op
+WorkloadResult  19: 8192 op, 775103000.00 ns, 94.6171 us/op
+WorkloadResult  20: 8192 op, 769474800.00 ns, 93.9300 us/op
+WorkloadResult  21: 8192 op, 779800200.00 ns, 95.1905 us/op
+WorkloadResult  22: 8192 op, 776352600.00 ns, 94.7696 us/op
+WorkloadResult  23: 8192 op, 781388000.00 ns, 95.3843 us/op
+WorkloadResult  24: 8192 op, 778188600.00 ns, 94.9937 us/op
+WorkloadResult  25: 8192 op, 784756100.00 ns, 95.7954 us/op
+WorkloadResult  26: 8192 op, 801665500.00 ns, 97.8596 us/op
+WorkloadResult  27: 8192 op, 795403300.00 ns, 97.0951 us/op
+GC:  64 0 0 269287448 8192
+// AfterAll
+
+Mean = 96.2225 us, StdErr = 0.5177 us (0.54%); N = 27, StdDev = 2.6898 us
+Min = 90.7875 us, Q1 = 94.6171 us, Median = 95.4813 us, Q3 = 98.6070 us, Max = 100.9396 us
+IQR = 3.9899 us, LowerFence = 88.6322 us, UpperFence = 104.5919 us
+ConfidenceInterval = [94.3037 us; 98.1412 us] (CI 99.9%), Margin = 1.9188 us (1.99% of Mean)
+Skewness = 0.04, Kurtosis = 2.03, MValue = 2.62
+
+// **************************
+// Benchmark: ChipotleCsvBenchmark.Parse4KB: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// BeforeAnythingElse
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+OverheadJitting  1: 1 op, 820200.00 ns, 820.2000 us/op
+WorkloadJitting  1: 1 op, 102294500.00 ns, 102.2945 ms/op
+WorkloadPilot    1: 2 op, 1069800.00 ns, 534.9000 us/op
+WorkloadPilot    2: 3 op, 882600.00 ns, 294.2000 us/op
+WorkloadPilot    3: 4 op, 1317100.00 ns, 329.2750 us/op
+WorkloadPilot    4: 5 op, 1537900.00 ns, 307.5800 us/op
+WorkloadPilot    5: 6 op, 1757100.00 ns, 292.8500 us/op
+WorkloadPilot    6: 7 op, 2174100.00 ns, 310.5857 us/op
+WorkloadPilot    7: 8 op, 2481800.00 ns, 310.2250 us/op
+WorkloadPilot    8: 9 op, 2890300.00 ns, 321.1444 us/op
+WorkloadPilot    9: 10 op, 3065700.00 ns, 306.5700 us/op
+WorkloadPilot   10: 11 op, 3263800.00 ns, 296.7091 us/op
+WorkloadPilot   11: 12 op, 3534800.00 ns, 294.5667 us/op
+WorkloadPilot   12: 13 op, 3795500.00 ns, 291.9615 us/op
+WorkloadPilot   13: 14 op, 4430900.00 ns, 316.4929 us/op
+WorkloadPilot   14: 15 op, 4842100.00 ns, 322.8067 us/op
+WorkloadPilot   15: 16 op, 5738900.00 ns, 358.6813 us/op
+WorkloadPilot   16: 32 op, 12534400.00 ns, 391.7000 us/op
+WorkloadPilot   17: 64 op, 27351900.00 ns, 427.3734 us/op
+WorkloadPilot   18: 128 op, 41765000.00 ns, 326.2891 us/op
+WorkloadPilot   19: 256 op, 87112800.00 ns, 340.2844 us/op
+WorkloadPilot   20: 512 op, 149288400.00 ns, 291.5789 us/op
+WorkloadPilot   21: 1024 op, 320672600.00 ns, 313.1568 us/op
+WorkloadPilot   22: 2048 op, 550502000.00 ns, 268.7998 us/op
+WorkloadWarmup   1: 2048 op, 610255300.00 ns, 297.9762 us/op
+WorkloadWarmup   2: 2048 op, 662821500.00 ns, 323.6433 us/op
+WorkloadWarmup   3: 2048 op, 615281400.00 ns, 300.4304 us/op
+WorkloadWarmup   4: 2048 op, 575751100.00 ns, 281.1285 us/op
+WorkloadWarmup   5: 2048 op, 555377500.00 ns, 271.1804 us/op
+WorkloadWarmup   6: 2048 op, 577721200.00 ns, 282.0904 us/op
+WorkloadWarmup   7: 2048 op, 575726700.00 ns, 281.1166 us/op
+// BeforeActualRun
+WorkloadActual   1: 2048 op, 633314500.00 ns, 309.2356 us/op
+WorkloadActual   2: 2048 op, 583770500.00 ns, 285.0442 us/op
+WorkloadActual   3: 2048 op, 569216700.00 ns, 277.9378 us/op
+WorkloadActual   4: 2048 op, 587243600.00 ns, 286.7400 us/op
+WorkloadActual   5: 2048 op, 611839900.00 ns, 298.7500 us/op
+WorkloadActual   6: 2048 op, 588055600.00 ns, 287.1365 us/op
+WorkloadActual   7: 2048 op, 584760900.00 ns, 285.5278 us/op
+WorkloadActual   8: 2048 op, 612123400.00 ns, 298.8884 us/op
+WorkloadActual   9: 2048 op, 589258200.00 ns, 287.7237 us/op
+WorkloadActual  10: 2048 op, 616497300.00 ns, 301.0241 us/op
+WorkloadActual  11: 2048 op, 622397800.00 ns, 303.9052 us/op
+WorkloadActual  12: 2048 op, 618901300.00 ns, 302.1979 us/op
+WorkloadActual  13: 2048 op, 663072000.00 ns, 323.7656 us/op
+WorkloadActual  14: 2048 op, 618407000.00 ns, 301.9565 us/op
+WorkloadActual  15: 2048 op, 620907500.00 ns, 303.1775 us/op
+WorkloadActual  16: 2048 op, 610191100.00 ns, 297.9449 us/op
+WorkloadActual  17: 2048 op, 574819500.00 ns, 280.6736 us/op
+WorkloadActual  18: 2048 op, 588879800.00 ns, 287.5390 us/op
+WorkloadActual  19: 2048 op, 588306500.00 ns, 287.2590 us/op
+WorkloadActual  20: 2048 op, 609851000.00 ns, 297.7788 us/op
+WorkloadActual  21: 2048 op, 625861300.00 ns, 305.5963 us/op
+WorkloadActual  22: 2048 op, 588584200.00 ns, 287.3946 us/op
+WorkloadActual  23: 2048 op, 602071800.00 ns, 293.9804 us/op
+WorkloadActual  24: 2048 op, 614874900.00 ns, 300.2319 us/op
+WorkloadActual  25: 2048 op, 593241300.00 ns, 289.6686 us/op
+WorkloadActual  26: 2048 op, 602900900.00 ns, 294.3852 us/op
+WorkloadActual  27: 2048 op, 611599700.00 ns, 298.6327 us/op
+WorkloadActual  28: 2048 op, 626075700.00 ns, 305.7010 us/op
+WorkloadActual  29: 2048 op, 616258500.00 ns, 300.9075 us/op
+WorkloadActual  30: 2048 op, 593387800.00 ns, 289.7401 us/op
+WorkloadActual  31: 2048 op, 590518100.00 ns, 288.3389 us/op
+// AfterActualRun
+WorkloadResult   1: 2048 op, 633314500.00 ns, 309.2356 us/op
+WorkloadResult   2: 2048 op, 583770500.00 ns, 285.0442 us/op
+WorkloadResult   3: 2048 op, 569216700.00 ns, 277.9378 us/op
+WorkloadResult   4: 2048 op, 587243600.00 ns, 286.7400 us/op
+WorkloadResult   5: 2048 op, 611839900.00 ns, 298.7500 us/op
+WorkloadResult   6: 2048 op, 588055600.00 ns, 287.1365 us/op
+WorkloadResult   7: 2048 op, 584760900.00 ns, 285.5278 us/op
+WorkloadResult   8: 2048 op, 612123400.00 ns, 298.8884 us/op
+WorkloadResult   9: 2048 op, 589258200.00 ns, 287.7237 us/op
+WorkloadResult  10: 2048 op, 616497300.00 ns, 301.0241 us/op
+WorkloadResult  11: 2048 op, 622397800.00 ns, 303.9052 us/op
+WorkloadResult  12: 2048 op, 618901300.00 ns, 302.1979 us/op
+WorkloadResult  13: 2048 op, 663072000.00 ns, 323.7656 us/op
+WorkloadResult  14: 2048 op, 618407000.00 ns, 301.9565 us/op
+WorkloadResult  15: 2048 op, 620907500.00 ns, 303.1775 us/op
+WorkloadResult  16: 2048 op, 610191100.00 ns, 297.9449 us/op
+WorkloadResult  17: 2048 op, 574819500.00 ns, 280.6736 us/op
+WorkloadResult  18: 2048 op, 588879800.00 ns, 287.5390 us/op
+WorkloadResult  19: 2048 op, 588306500.00 ns, 287.2590 us/op
+WorkloadResult  20: 2048 op, 609851000.00 ns, 297.7788 us/op
+WorkloadResult  21: 2048 op, 625861300.00 ns, 305.5963 us/op
+WorkloadResult  22: 2048 op, 588584200.00 ns, 287.3946 us/op
+WorkloadResult  23: 2048 op, 602071800.00 ns, 293.9804 us/op
+WorkloadResult  24: 2048 op, 614874900.00 ns, 300.2319 us/op
+WorkloadResult  25: 2048 op, 593241300.00 ns, 289.6686 us/op
+WorkloadResult  26: 2048 op, 602900900.00 ns, 294.3852 us/op
+WorkloadResult  27: 2048 op, 611599700.00 ns, 298.6327 us/op
+WorkloadResult  28: 2048 op, 626075700.00 ns, 305.7010 us/op
+WorkloadResult  29: 2048 op, 616258500.00 ns, 300.9075 us/op
+WorkloadResult  30: 2048 op, 593387800.00 ns, 289.7401 us/op
+WorkloadResult  31: 2048 op, 590518100.00 ns, 288.3389 us/op
+GC:  47 0 0 198361112 2048
+// AfterAll
+
+Mean = 295.4446 us, StdErr = 1.7345 us (0.59%); N = 31, StdDev = 9.6575 us
+Min = 277.9378 us, Q1 = 287.3946 us, Median = 297.7788 us, Q3 = 301.9565 us, Max = 323.7656 us
+IQR = 14.5619 us, LowerFence = 265.5518 us, UpperFence = 323.7994 us
+ConfidenceInterval = [289.1206 us; 301.7687 us] (CI 99.9%), Margin = 6.3240 us (2.14% of Mean)
+Skewness = 0.54, Kurtosis = 3.38, MValue = 2
+
+// **************************
+// Benchmark: ChipotleCsvBenchmark.Parse8KB: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// BeforeAnythingElse
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+OverheadJitting  1: 1 op, 1014600.00 ns, 1.0146 ms/op
+WorkloadJitting  1: 1 op, 131371600.00 ns, 131.3716 ms/op
+WorkloadPilot    1: 2 op, 1538200.00 ns, 769.1000 us/op
+WorkloadPilot    2: 3 op, 2533400.00 ns, 844.4667 us/op
+WorkloadPilot    3: 4 op, 2996800.00 ns, 749.2000 us/op
+WorkloadPilot    4: 5 op, 3683000.00 ns, 736.6000 us/op
+WorkloadPilot    5: 6 op, 4515000.00 ns, 752.5000 us/op
+WorkloadPilot    6: 7 op, 5119800.00 ns, 731.4000 us/op
+WorkloadPilot    7: 8 op, 5792200.00 ns, 724.0250 us/op
+WorkloadPilot    8: 9 op, 7422400.00 ns, 824.7111 us/op
+WorkloadPilot    9: 10 op, 8444000.00 ns, 844.4000 us/op
+WorkloadPilot   10: 11 op, 8387200.00 ns, 762.4727 us/op
+WorkloadPilot   11: 12 op, 9780600.00 ns, 815.0500 us/op
+WorkloadPilot   12: 13 op, 9394400.00 ns, 722.6462 us/op
+WorkloadPilot   13: 14 op, 10455500.00 ns, 746.8214 us/op
+WorkloadPilot   14: 15 op, 11852600.00 ns, 790.1733 us/op
+WorkloadPilot   15: 16 op, 12103800.00 ns, 756.4875 us/op
+WorkloadPilot   16: 32 op, 24018300.00 ns, 750.5719 us/op
+WorkloadPilot   17: 64 op, 46498400.00 ns, 726.5375 us/op
+WorkloadPilot   18: 128 op, 92684500.00 ns, 724.0977 us/op
+WorkloadPilot   19: 256 op, 212130200.00 ns, 828.6336 us/op
+WorkloadPilot   20: 512 op, 387423200.00 ns, 756.6859 us/op
+WorkloadPilot   21: 1024 op, 691153800.00 ns, 674.9549 us/op
+WorkloadWarmup   1: 1024 op, 697883700.00 ns, 681.5271 us/op
+WorkloadWarmup   2: 1024 op, 694839200.00 ns, 678.5539 us/op
+WorkloadWarmup   3: 1024 op, 700000100.00 ns, 683.5938 us/op
+WorkloadWarmup   4: 1024 op, 692301000.00 ns, 676.0752 us/op
+WorkloadWarmup   5: 1024 op, 700819600.00 ns, 684.3941 us/op
+WorkloadWarmup   6: 1024 op, 701259000.00 ns, 684.8232 us/op
+WorkloadWarmup   7: 1024 op, 703908500.00 ns, 687.4106 us/op
+WorkloadWarmup   8: 1024 op, 702883300.00 ns, 686.4095 us/op
+// BeforeActualRun
+WorkloadActual   1: 1024 op, 706978700.00 ns, 690.4089 us/op
+WorkloadActual   2: 1024 op, 701982900.00 ns, 685.5302 us/op
+WorkloadActual   3: 1024 op, 704407000.00 ns, 687.8975 us/op
+WorkloadActual   4: 1024 op, 738310000.00 ns, 721.0059 us/op
+WorkloadActual   5: 1024 op, 696172900.00 ns, 679.8563 us/op
+WorkloadActual   6: 1024 op, 704678200.00 ns, 688.1623 us/op
+WorkloadActual   7: 1024 op, 774882000.00 ns, 756.7207 us/op
+WorkloadActual   8: 1024 op, 717345500.00 ns, 700.5327 us/op
+WorkloadActual   9: 1024 op, 737815800.00 ns, 720.5232 us/op
+WorkloadActual  10: 1024 op, 747352400.00 ns, 729.8363 us/op
+WorkloadActual  11: 1024 op, 680505800.00 ns, 664.5564 us/op
+WorkloadActual  12: 1024 op, 684744300.00 ns, 668.6956 us/op
+WorkloadActual  13: 1024 op, 688680300.00 ns, 672.5394 us/op
+WorkloadActual  14: 1024 op, 670157600.00 ns, 654.4508 us/op
+WorkloadActual  15: 1024 op, 681721900.00 ns, 665.7440 us/op
+WorkloadActual  16: 1024 op, 638893300.00 ns, 623.9192 us/op
+WorkloadActual  17: 1024 op, 665504800.00 ns, 649.9070 us/op
+WorkloadActual  18: 1024 op, 658104700.00 ns, 642.6804 us/op
+WorkloadActual  19: 1024 op, 660741900.00 ns, 645.2558 us/op
+WorkloadActual  20: 1024 op, 624446300.00 ns, 609.8108 us/op
+WorkloadActual  21: 1024 op, 629996600.00 ns, 615.2311 us/op
+WorkloadActual  22: 1024 op, 649942300.00 ns, 634.7093 us/op
+WorkloadActual  23: 1024 op, 679392500.00 ns, 663.4692 us/op
+WorkloadActual  24: 1024 op, 698335800.00 ns, 681.9686 us/op
+WorkloadActual  25: 1024 op, 727357900.00 ns, 710.3104 us/op
+WorkloadActual  26: 1024 op, 740571100.00 ns, 723.2140 us/op
+WorkloadActual  27: 1024 op, 730631400.00 ns, 713.5072 us/op
+WorkloadActual  28: 1024 op, 701098500.00 ns, 684.6665 us/op
+WorkloadActual  29: 1024 op, 739675400.00 ns, 722.3393 us/op
+WorkloadActual  30: 1024 op, 701217900.00 ns, 684.7831 us/op
+WorkloadActual  31: 1024 op, 731685200.00 ns, 714.5363 us/op
+WorkloadActual  32: 1024 op, 729101200.00 ns, 712.0129 us/op
+WorkloadActual  33: 1024 op, 720361300.00 ns, 703.4778 us/op
+WorkloadActual  34: 1024 op, 738654400.00 ns, 721.3422 us/op
+WorkloadActual  35: 1024 op, 715350700.00 ns, 698.5847 us/op
+WorkloadActual  36: 1024 op, 735370600.00 ns, 718.1354 us/op
+WorkloadActual  37: 1024 op, 719980200.00 ns, 703.1057 us/op
+WorkloadActual  38: 1024 op, 739287900.00 ns, 721.9608 us/op
+WorkloadActual  39: 1024 op, 737012900.00 ns, 719.7392 us/op
+WorkloadActual  40: 1024 op, 696039900.00 ns, 679.7265 us/op
+WorkloadActual  41: 1024 op, 703084100.00 ns, 686.6056 us/op
+WorkloadActual  42: 1024 op, 718163300.00 ns, 701.3313 us/op
+WorkloadActual  43: 1024 op, 749242400.00 ns, 731.6820 us/op
+WorkloadActual  44: 1024 op, 687527500.00 ns, 671.4136 us/op
+WorkloadActual  45: 1024 op, 703241000.00 ns, 686.7588 us/op
+WorkloadActual  46: 1024 op, 706027900.00 ns, 689.4804 us/op
+WorkloadActual  47: 1024 op, 703831000.00 ns, 687.3350 us/op
+WorkloadActual  48: 1024 op, 703028800.00 ns, 686.5516 us/op
+WorkloadActual  49: 1024 op, 702241900.00 ns, 685.7831 us/op
+WorkloadActual  50: 1024 op, 703723000.00 ns, 687.2295 us/op
+WorkloadActual  51: 1024 op, 704602600.00 ns, 688.0885 us/op
+WorkloadActual  52: 1024 op, 705137800.00 ns, 688.6111 us/op
+WorkloadActual  53: 1024 op, 702858900.00 ns, 686.3856 us/op
+WorkloadActual  54: 1024 op, 701508700.00 ns, 685.0671 us/op
+WorkloadActual  55: 1024 op, 706111600.00 ns, 689.5621 us/op
+WorkloadActual  56: 1024 op, 704736800.00 ns, 688.2195 us/op
+// AfterActualRun
+WorkloadResult   1: 1024 op, 706978700.00 ns, 690.4089 us/op
+WorkloadResult   2: 1024 op, 701982900.00 ns, 685.5302 us/op
+WorkloadResult   3: 1024 op, 704407000.00 ns, 687.8975 us/op
+WorkloadResult   4: 1024 op, 738310000.00 ns, 721.0059 us/op
+WorkloadResult   5: 1024 op, 696172900.00 ns, 679.8563 us/op
+WorkloadResult   6: 1024 op, 704678200.00 ns, 688.1623 us/op
+WorkloadResult   7: 1024 op, 774882000.00 ns, 756.7207 us/op
+WorkloadResult   8: 1024 op, 717345500.00 ns, 700.5327 us/op
+WorkloadResult   9: 1024 op, 737815800.00 ns, 720.5232 us/op
+WorkloadResult  10: 1024 op, 747352400.00 ns, 729.8363 us/op
+WorkloadResult  11: 1024 op, 680505800.00 ns, 664.5564 us/op
+WorkloadResult  12: 1024 op, 684744300.00 ns, 668.6956 us/op
+WorkloadResult  13: 1024 op, 688680300.00 ns, 672.5394 us/op
+WorkloadResult  14: 1024 op, 670157600.00 ns, 654.4508 us/op
+WorkloadResult  15: 1024 op, 681721900.00 ns, 665.7440 us/op
+WorkloadResult  16: 1024 op, 638893300.00 ns, 623.9192 us/op
+WorkloadResult  17: 1024 op, 665504800.00 ns, 649.9070 us/op
+WorkloadResult  18: 1024 op, 658104700.00 ns, 642.6804 us/op
+WorkloadResult  19: 1024 op, 660741900.00 ns, 645.2558 us/op
+WorkloadResult  20: 1024 op, 624446300.00 ns, 609.8108 us/op
+WorkloadResult  21: 1024 op, 629996600.00 ns, 615.2311 us/op
+WorkloadResult  22: 1024 op, 649942300.00 ns, 634.7093 us/op
+WorkloadResult  23: 1024 op, 679392500.00 ns, 663.4692 us/op
+WorkloadResult  24: 1024 op, 698335800.00 ns, 681.9686 us/op
+WorkloadResult  25: 1024 op, 727357900.00 ns, 710.3104 us/op
+WorkloadResult  26: 1024 op, 740571100.00 ns, 723.2140 us/op
+WorkloadResult  27: 1024 op, 730631400.00 ns, 713.5072 us/op
+WorkloadResult  28: 1024 op, 701098500.00 ns, 684.6665 us/op
+WorkloadResult  29: 1024 op, 739675400.00 ns, 722.3393 us/op
+WorkloadResult  30: 1024 op, 701217900.00 ns, 684.7831 us/op
+WorkloadResult  31: 1024 op, 731685200.00 ns, 714.5363 us/op
+WorkloadResult  32: 1024 op, 729101200.00 ns, 712.0129 us/op
+WorkloadResult  33: 1024 op, 720361300.00 ns, 703.4778 us/op
+WorkloadResult  34: 1024 op, 738654400.00 ns, 721.3422 us/op
+WorkloadResult  35: 1024 op, 715350700.00 ns, 698.5847 us/op
+WorkloadResult  36: 1024 op, 735370600.00 ns, 718.1354 us/op
+WorkloadResult  37: 1024 op, 719980200.00 ns, 703.1057 us/op
+WorkloadResult  38: 1024 op, 739287900.00 ns, 721.9608 us/op
+WorkloadResult  39: 1024 op, 737012900.00 ns, 719.7392 us/op
+WorkloadResult  40: 1024 op, 696039900.00 ns, 679.7265 us/op
+WorkloadResult  41: 1024 op, 703084100.00 ns, 686.6056 us/op
+WorkloadResult  42: 1024 op, 718163300.00 ns, 701.3313 us/op
+WorkloadResult  43: 1024 op, 749242400.00 ns, 731.6820 us/op
+WorkloadResult  44: 1024 op, 687527500.00 ns, 671.4136 us/op
+WorkloadResult  45: 1024 op, 703241000.00 ns, 686.7588 us/op
+WorkloadResult  46: 1024 op, 706027900.00 ns, 689.4804 us/op
+WorkloadResult  47: 1024 op, 703831000.00 ns, 687.3350 us/op
+WorkloadResult  48: 1024 op, 703028800.00 ns, 686.5516 us/op
+WorkloadResult  49: 1024 op, 702241900.00 ns, 685.7831 us/op
+WorkloadResult  50: 1024 op, 703723000.00 ns, 687.2295 us/op
+WorkloadResult  51: 1024 op, 704602600.00 ns, 688.0885 us/op
+WorkloadResult  52: 1024 op, 705137800.00 ns, 688.6111 us/op
+WorkloadResult  53: 1024 op, 702858900.00 ns, 686.3856 us/op
+WorkloadResult  54: 1024 op, 701508700.00 ns, 685.0671 us/op
+WorkloadResult  55: 1024 op, 706111600.00 ns, 689.5621 us/op
+WorkloadResult  56: 1024 op, 704736800.00 ns, 688.2195 us/op
+GC:  57 0 0 241434648 1024
+// AfterAll
+
+Mean = 687.9457 us, StdErr = 3.9498 us (0.57%); N = 56, StdDev = 29.5573 us
+Min = 609.8108 us, Q1 = 676.1329 us, Median = 687.6162 us, Q3 = 711.1617 us, Max = 756.7207 us
+IQR = 35.0288 us, LowerFence = 623.5898 us, UpperFence = 763.7048 us
+ConfidenceInterval = [674.2147 us; 701.6766 us] (CI 99.9%), Margin = 13.7310 us (2.00% of Mean)
+Skewness = -0.52, Kurtosis = 3.34, MValue = 2
+
+// **************************
+// Benchmark: ChipotleCsvBenchmark.Parse16KB: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// BeforeAnythingElse
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+OverheadJitting  1: 1 op, 937900.00 ns, 937.9000 us/op
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.EntryPointNotFoundException: Unable to find another line
+   at Chipotle.CSV.Csv.<GetNextAsync>d__15.MoveNext() in C:\Users\ryzng\Source\Repos\Chipotle.CSV\src\Csv.cs:line 41
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at test.ChipotleCsvBenchmark.<ParseCsvFile>d__9.MoveNext() in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\ChipotleCsvBenchmark.cs:line 77
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at test.ChipotleCsvBenchmark.<Parse16KB>d__5.MoveNext() in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\ChipotleCsvBenchmark.cs:line 45
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at BenchmarkDotNet.Autogenerated.Runnable_3.<.ctor>b__3_4() in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 2104
+   at BenchmarkDotNet.Autogenerated.Runnable_3.WorkloadActionNoUnroll(Int64 invokeCount) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 2406
+   at BenchmarkDotNet.Engines.Engine.RunIteration(IterationData data)
+   at BenchmarkDotNet.Engines.EngineFactory.Jit(Engine engine, Int32 jitIndex, Int32 invokeCount, Int32 unrollFactor)
+   at BenchmarkDotNet.Engines.EngineFactory.CreateReadyToRun(EngineParameters engineParameters)
+   at BenchmarkDotNet.Autogenerated.Runnable_3.Run(IHost host) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 2083
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at BenchmarkDotNet.Autogenerated.UniqueProgramName.AfterAssemblyLoadingAttached(String[] args) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 70
+// AfterAll
+ExitCode != 0
+No more Benchmark runs will be launched as NO measurements were obtained from the previous run!
+
+
+// **************************
+// Benchmark: ChipotleCsvBenchmark.Parse32KB: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// BeforeAnythingElse
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+OverheadJitting  1: 1 op, 790400.00 ns, 790.4000 us/op
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.EntryPointNotFoundException: Unable to find another line
+   at Chipotle.CSV.Csv.<GetNextAsync>d__15.MoveNext() in C:\Users\ryzng\Source\Repos\Chipotle.CSV\src\Csv.cs:line 41
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at test.ChipotleCsvBenchmark.<ParseCsvFile>d__9.MoveNext() in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\ChipotleCsvBenchmark.cs:line 77
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at test.ChipotleCsvBenchmark.<Parse32KB>d__6.MoveNext() in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\ChipotleCsvBenchmark.cs:line 51
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at BenchmarkDotNet.Autogenerated.Runnable_4.<.ctor>b__3_4() in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 2747
+   at BenchmarkDotNet.Autogenerated.Runnable_4.WorkloadActionNoUnroll(Int64 invokeCount) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 3049
+   at BenchmarkDotNet.Engines.Engine.RunIteration(IterationData data)
+   at BenchmarkDotNet.Engines.EngineFactory.Jit(Engine engine, Int32 jitIndex, Int32 invokeCount, Int32 unrollFactor)
+   at BenchmarkDotNet.Engines.EngineFactory.CreateReadyToRun(EngineParameters engineParameters)
+   at BenchmarkDotNet.Autogenerated.Runnable_4.Run(IHost host) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 2726
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at BenchmarkDotNet.Autogenerated.UniqueProgramName.AfterAssemblyLoadingAttached(String[] args) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 70
+// AfterAll
+ExitCode != 0
+No more Benchmark runs will be launched as NO measurements were obtained from the previous run!
+
+
+// ***** BenchmarkRunner: Finish  *****
+
+// * Export *
+  BenchmarkDotNet.Artifacts\results\test.ChipotleCsvBenchmark-report.csv
+  BenchmarkDotNet.Artifacts\results\test.ChipotleCsvBenchmark-report-github.md
+  BenchmarkDotNet.Artifacts\results\test.ChipotleCsvBenchmark-report.html
+
+// * Detailed results *
+ChipotleCsvBenchmark.Parse2KB: DefaultJob
+Runtime = .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT; GC = Concurrent Workstation
+Mean = 96.2225 us, StdErr = 0.5177 us (0.54%); N = 27, StdDev = 2.6898 us
+Min = 90.7875 us, Q1 = 94.6171 us, Median = 95.4813 us, Q3 = 98.6070 us, Max = 100.9396 us
+IQR = 3.9899 us, LowerFence = 88.6322 us, UpperFence = 104.5919 us
+ConfidenceInterval = [94.3037 us; 98.1412 us] (CI 99.9%), Margin = 1.9188 us (1.99% of Mean)
+Skewness = 0.04, Kurtosis = 2.03, MValue = 2.62
+-------------------- Histogram --------------------
+[90.397 us ;  92.691 us) | @@
+[92.691 us ;  96.158 us) | @@@@@@@@@@@@@
+[96.158 us ;  98.164 us) | @@@@
+[98.164 us ; 101.724 us) | @@@@@@@@
+---------------------------------------------------
+
+ChipotleCsvBenchmark.Parse4KB: DefaultJob
+Runtime = .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT; GC = Concurrent Workstation
+Mean = 295.4446 us, StdErr = 1.7345 us (0.59%); N = 31, StdDev = 9.6575 us
+Min = 277.9378 us, Q1 = 287.3946 us, Median = 297.7788 us, Q3 = 301.9565 us, Max = 323.7656 us
+IQR = 14.5619 us, LowerFence = 265.5518 us, UpperFence = 323.7994 us
+ConfidenceInterval = [289.1206 us; 301.7687 us] (CI 99.9%), Margin = 6.3240 us (2.14% of Mean)
+Skewness = 0.54, Kurtosis = 3.38, MValue = 2
+-------------------- Histogram --------------------
+[276.513 us ; 284.518 us) | @@
+[284.518 us ; 291.241 us) | @@@@@@@@@@@
+[291.241 us ; 302.988 us) | @@@@@@@@@@@@
+[302.988 us ; 312.328 us) | @@@@@
+[312.328 us ; 326.456 us) | @
+---------------------------------------------------
+
+ChipotleCsvBenchmark.Parse8KB: DefaultJob
+Runtime = .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT; GC = Concurrent Workstation
+Mean = 687.9457 us, StdErr = 3.9498 us (0.57%); N = 56, StdDev = 29.5573 us
+Min = 609.8108 us, Q1 = 676.1329 us, Median = 687.6162 us, Q3 = 711.1617 us, Max = 756.7207 us
+IQR = 35.0288 us, LowerFence = 623.5898 us, UpperFence = 763.7048 us
+ConfidenceInterval = [674.2147 us; 701.6766 us] (CI 99.9%), Margin = 13.7310 us (2.00% of Mean)
+Skewness = -0.52, Kurtosis = 3.34, MValue = 2
+-------------------- Histogram --------------------
+[605.761 us ; 619.281 us) | @@
+[619.281 us ; 636.074 us) | @@
+[636.074 us ; 655.326 us) | @@@@
+[655.326 us ; 674.764 us) | @@@@@@
+[674.764 us ; 691.918 us) | @@@@@@@@@@@@@@@@@@@@@@
+[691.918 us ; 709.595 us) | @@@@@
+[709.595 us ; 738.067 us) | @@@@@@@@@@@@@@
+[738.067 us ; 763.481 us) | @
+---------------------------------------------------
+
+ChipotleCsvBenchmark.Parse16KB: DefaultJob
+Runtime = ; GC = 
+There are not any results runs
+
+ChipotleCsvBenchmark.Parse32KB: DefaultJob
+Runtime = ; GC = 
+There are not any results runs
+
+// * Summary *
+
+BenchmarkDotNet=v0.11.0, OS=Windows 10.0.17134.191 (1803/April2018Update/Redstone4)
+Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=2.1.302
+  [Host]     : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+  DefaultJob : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+
+
+    Method |      Mean |     Error |    StdDev |       Min |      Max |    Median |   Gen 0 | Allocated |
+---------- |----------:|----------:|----------:|----------:|---------:|----------:|--------:|----------:|
+  Parse2KB |  96.22 us |  1.919 us |  2.690 us |  90.79 us | 100.9 us |  95.48 us |  7.8125 |   32872 B |
+  Parse4KB | 295.44 us |  6.324 us |  9.657 us | 277.94 us | 323.8 us | 297.78 us | 22.9492 |   96856 B |
+  Parse8KB | 687.95 us | 13.731 us | 29.557 us | 609.81 us | 756.7 us | 687.62 us | 55.6641 |  235776 B |
+ Parse16KB |        NA |        NA |        NA |        NA |       NA |        NA |     N/A |       N/A |
+ Parse32KB |        NA |        NA |        NA |        NA |       NA |        NA |     N/A |       N/A |
+
+Benchmarks with issues:
+  ChipotleCsvBenchmark.Parse16KB: DefaultJob
+  ChipotleCsvBenchmark.Parse32KB: DefaultJob
+
+// * Warnings *
+Environment
+  Summary -> Detected error exit code from one of the benchmarks. It might be caused by following antivirus software:
+        - Windows Defender (windowsdefender://)
+Use InProcessToolchain to avoid new process creation.
+
+
+// * Hints *
+Outliers
+  ChipotleCsvBenchmark.Parse8KB: Default -> 2 outliers were detected
+
+// * Legends *
+  Mean      : Arithmetic mean of all measurements
+  Error     : Half of 99.9% confidence interval
+  StdDev    : Standard deviation of all measurements
+  Min       : Minimum
+  Max       : Maximum
+  Median    : Value separating the higher half of all measurements (50th percentile)
+  Gen 0     : GC Generation 0 collects per 1k Operations
+  Allocated : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
+  1 us      : 1 Microsecond (0.000001 sec)
+
+// * Diagnostic Output - MemoryDiagnoser *
+
+
+// ***** BenchmarkRunner: End *****
+Run time: 00:01:54 (114.15 sec), executed benchmarks: 5
+
+// Found benchmarks:
+//   CsvHelperBenchmark.Parse2KB: DefaultJob
+//   CsvHelperBenchmark.Parse4KB: DefaultJob
+//   CsvHelperBenchmark.Parse8KB: DefaultJob
+//   CsvHelperBenchmark.Parse16KB: DefaultJob
+//   CsvHelperBenchmark.Parse32KB: DefaultJob
+
+// **************************
+// Benchmark: CsvHelperBenchmark.Parse2KB: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// BeforeAnythingElse
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+OverheadJitting  1: 1 op, 1180000.00 ns, 1.1800 ms/op
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+Parameter name: stream
+   at System.IO.StreamReader..ctor(Stream stream, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean leaveOpen)
+   at test.CsvHelperBenchmark.GetStreamReader(String name) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\CsvHelperBenchmark.cs:line 15
+   at test.CsvHelperBenchmark.ParseCsvFile(String name) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\CsvHelperBenchmark.cs:line 62
+   at BenchmarkDotNet.Autogenerated.Runnable_5.WorkloadActionNoUnroll(Int64 invokeCount) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 3692
+   at BenchmarkDotNet.Engines.Engine.RunIteration(IterationData data)
+   at BenchmarkDotNet.Engines.EngineFactory.Jit(Engine engine, Int32 jitIndex, Int32 invokeCount, Int32 unrollFactor)
+   at BenchmarkDotNet.Engines.EngineFactory.CreateReadyToRun(EngineParameters engineParameters)
+   at BenchmarkDotNet.Autogenerated.Runnable_5.Run(IHost host) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 3369
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at BenchmarkDotNet.Autogenerated.UniqueProgramName.AfterAssemblyLoadingAttached(String[] args) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 70
+// AfterAll
+ExitCode != 0
+No more Benchmark runs will be launched as NO measurements were obtained from the previous run!
+
+
+// **************************
+// Benchmark: CsvHelperBenchmark.Parse4KB: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// BeforeAnythingElse
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+OverheadJitting  1: 1 op, 866200.00 ns, 866.2000 us/op
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+Parameter name: stream
+   at System.IO.StreamReader..ctor(Stream stream, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean leaveOpen)
+   at test.CsvHelperBenchmark.GetStreamReader(String name) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\CsvHelperBenchmark.cs:line 15
+   at test.CsvHelperBenchmark.ParseCsvFile(String name) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\CsvHelperBenchmark.cs:line 62
+   at BenchmarkDotNet.Autogenerated.Runnable_6.WorkloadActionNoUnroll(Int64 invokeCount) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 4335
+   at BenchmarkDotNet.Engines.Engine.RunIteration(IterationData data)
+   at BenchmarkDotNet.Engines.EngineFactory.Jit(Engine engine, Int32 jitIndex, Int32 invokeCount, Int32 unrollFactor)
+   at BenchmarkDotNet.Engines.EngineFactory.CreateReadyToRun(EngineParameters engineParameters)
+   at BenchmarkDotNet.Autogenerated.Runnable_6.Run(IHost host) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 4012
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at BenchmarkDotNet.Autogenerated.UniqueProgramName.AfterAssemblyLoadingAttached(String[] args) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 70
+// AfterAll
+ExitCode != 0
+No more Benchmark runs will be launched as NO measurements were obtained from the previous run!
+
+
+// **************************
+// Benchmark: CsvHelperBenchmark.Parse8KB: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// BeforeAnythingElse
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+OverheadJitting  1: 1 op, 863300.00 ns, 863.3000 us/op
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+Parameter name: stream
+   at System.IO.StreamReader..ctor(Stream stream, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean leaveOpen)
+   at test.CsvHelperBenchmark.GetStreamReader(String name) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\CsvHelperBenchmark.cs:line 15
+   at test.CsvHelperBenchmark.ParseCsvFile(String name) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\CsvHelperBenchmark.cs:line 62
+   at BenchmarkDotNet.Autogenerated.Runnable_7.WorkloadActionNoUnroll(Int64 invokeCount) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 4978
+   at BenchmarkDotNet.Engines.Engine.RunIteration(IterationData data)
+   at BenchmarkDotNet.Engines.EngineFactory.Jit(Engine engine, Int32 jitIndex, Int32 invokeCount, Int32 unrollFactor)
+   at BenchmarkDotNet.Engines.EngineFactory.CreateReadyToRun(EngineParameters engineParameters)
+   at BenchmarkDotNet.Autogenerated.Runnable_7.Run(IHost host) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 4655
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at BenchmarkDotNet.Autogenerated.UniqueProgramName.AfterAssemblyLoadingAttached(String[] args) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 70
+// AfterAll
+ExitCode != 0
+No more Benchmark runs will be launched as NO measurements were obtained from the previous run!
+
+
+// **************************
+// Benchmark: CsvHelperBenchmark.Parse16KB: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// BeforeAnythingElse
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+OverheadJitting  1: 1 op, 868200.00 ns, 868.2000 us/op
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+Parameter name: stream
+   at System.IO.StreamReader..ctor(Stream stream, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean leaveOpen)
+   at test.CsvHelperBenchmark.GetStreamReader(String name) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\CsvHelperBenchmark.cs:line 15
+   at test.CsvHelperBenchmark.ParseCsvFile(String name) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\CsvHelperBenchmark.cs:line 62
+   at BenchmarkDotNet.Autogenerated.Runnable_8.WorkloadActionNoUnroll(Int64 invokeCount) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 5621
+   at BenchmarkDotNet.Engines.Engine.RunIteration(IterationData data)
+   at BenchmarkDotNet.Engines.EngineFactory.Jit(Engine engine, Int32 jitIndex, Int32 invokeCount, Int32 unrollFactor)
+   at BenchmarkDotNet.Engines.EngineFactory.CreateReadyToRun(EngineParameters engineParameters)
+   at BenchmarkDotNet.Autogenerated.Runnable_8.Run(IHost host) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-4fa5-901a-88ede7da3113.notcs:line 5298
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at BenchmarkDotNet.Autogenerated.UniqueProgramName.AfterAssemblyLoadingAttached(String[] args) in C:\Users\ryzng\Source\Repos\Chipotle.CSV\Benchmarks\bin\release\netcoreapp2.0\fc0c46d6-060f-4fa5-901a-88ede7da3113\fc0c46d6-060f-

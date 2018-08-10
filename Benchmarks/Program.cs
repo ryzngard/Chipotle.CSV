@@ -1,7 +1,7 @@
 ﻿using System;
 using BenchmarkDotNet.Running;
 
-namespace test
+namespace Benchmarks
 {
     class Program
     {
