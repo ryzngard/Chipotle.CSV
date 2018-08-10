@@ -73,21 +73,28 @@ namespace Chipotle.CSV
 
                 // Tell the PipeReader how much of the buffer we have consumed
                 SequencePosition consumedPosition = position.Value;
-                bool isLineEnd = true;
-                do
+                int offset = 1;
+                while (true)
                 {
-                    isLineEnd = false;
-                    consumedPosition = result.Buffer.GetPosition(1, consumedPosition);
+                    consumedPosition = result.Buffer.GetPosition(offset, position.Value);
 
-                    if (result.Buffer.TryGet(ref consumedPosition, out ReadOnlyMemory<byte> m))
+                    if (result.Buffer.TryGet(ref consumedPosition, out ReadOnlyMemory<byte> m, advance: false))
                     {
+                        if (m.Span.Length == 0)
+                        {
+                            break;
+                        }
+
                         if (m.Span[0] == '\r' || m.Span[0] == '\n')
                         {
-                            isLineEnd = true;
+                            offset++;
+                        }
+                        else
+                        {
+                            break;
                         }
                     }
                 }
-                while (isLineEnd);
 
                 reader.AdvanceTo(consumedPosition);
 
