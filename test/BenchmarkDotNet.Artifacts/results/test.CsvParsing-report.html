@@ -16,14 +16,17 @@
 BenchmarkDotNet=v0.11.0, OS=Windows 10.0.17134.191 (1803/April2018Update/Redstone4)
 Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
 .NET Core SDK=2.1.302
-  [Host] : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+  [Host]     : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+  DefaultJob : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
 </code></pre>
 <pre><code></code></pre>
 
 <table>
-<thead><tr><th>Method</th><th>Mean</th><th>Error</th><th>Min</th><th>Max</th><th>Median</th><th>Allocated</th>
+<thead><tr><th>Method</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Min</th><th>Max</th><th>Median</th><th>Gen 0</th><th>Allocated</th>
 </tr>
-</thead><tbody><tr><td>ParseCsv</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td>
+</thead><tbody><tr><td>Parse2KB</td><td>44.56 us</td><td>0.7153 us</td><td>0.5585 us</td><td>43.91 us</td><td>45.54 us</td><td>44.42 us</td><td>0.3052</td><td>1.33 KB</td>
+</tr><tr><td>Parse4KB</td><td>131.44 us</td><td>1.3865 us</td><td>1.0825 us</td><td>129.48 us</td><td>132.64 us</td><td>131.26 us</td><td>0.2441</td><td>1.47 KB</td>
+</tr><tr><td>Parse8KB</td><td>330.94 us</td><td>6.7727 us</td><td>11.5006 us</td><td>317.31 us</td><td>363.97 us</td><td>326.72 us</td><td>-</td><td>1.87 KB</td>
 </tr></tbody></table>
 </body>
 </html>

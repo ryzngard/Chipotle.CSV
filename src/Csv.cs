@@ -2,6 +2,7 @@ using System;
 using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Pipelines;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace Chipotle.CSV
         protected Csv(Stream stream, Pipe pipe)
         {
             _pipe = pipe;
-            _stream = stream;
+            _stream = stream ?? throw new ArgumentNullException(nameof(stream));
         }
 
         public async Task<Row<byte>> GetNextAsync()
@@ -57,11 +58,24 @@ namespace Chipotle.CSV
                 result = await reader.ReadAsync();
 
                 buffer = result.Buffer;
-                position = buffer.PositionOf((byte)'\n');
+                position = buffer.PositionOf((byte)'\r');
+
+                if (position == null)
+                {
+                    foreach (var b in buffer.ToArray())
+                    {
+                        Debug.WriteLine($"{b} = {System.Text.Encoding.ASCII.GetString(new[] { b })}");
+                    }
+                    reader.AdvanceTo(buffer.Start);
+                }
+
             } while (position == null && !result.IsCompleted);
 
-            // Tell the PipeReader how much of the buffer we have consumed
-            reader.AdvanceTo((SequencePosition)position);
+            if (position != null)
+            {
+                // Tell the PipeReader how much of the buffer we have consumed
+                reader.AdvanceTo((SequencePosition)position);
+            }
 
             // Stop reading if there's no more data coming
             if (result.IsCompleted)
@@ -110,9 +124,10 @@ namespace Chipotle.CSV
                     writer.Advance(bytesRead);
 
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    break;
+                    writer.Complete(e);
+                    return;
                 }
 
                 // Make the data available to the PipeReader
@@ -129,7 +144,7 @@ namespace Chipotle.CSV
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            this._disposed = true;
         }
     }
 }

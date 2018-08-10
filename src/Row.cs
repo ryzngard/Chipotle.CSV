@@ -2,7 +2,9 @@ using System;
 using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 
 namespace Chipotle.CSV
 {
@@ -23,6 +25,12 @@ namespace Chipotle.CSV
             int length = 1;
             foreach (var b in buffer)
             {
+                if (b.Span.Length == 0)
+                {
+                    Debug.WriteLine($"Skipping byte in buffer :: {b}");
+                    continue;
+                }
+
                 if (b.Span[0]?.Equals(seperator) == true)
                 {
                     var lineBuffer = buffer.Slice(offset, length);
@@ -36,6 +44,18 @@ namespace Chipotle.CSV
         public ReadOnlySpan<T> this[string key] => _getValueFromKey(key);
 
         public ReadOnlySpan<T> this[int index] => _values[index].Span;
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var v in _values)
+            {
+                sb.Append($"{v},");
+            }
+
+            return sb.ToString();
+        }
 
         private ReadOnlySpan<T> _getValueFromKey(string key)
         {
