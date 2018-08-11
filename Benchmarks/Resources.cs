@@ -13,7 +13,8 @@ namespace Benchmarks
             KB4,
             KB8,
             KB16,
-            KB32
+            KB32,
+            MB4
         }
 
         public static Stream GetStream(FileSize size)
@@ -32,6 +33,7 @@ namespace Benchmarks
                 case FileSize.KB8: return "8KB.csv";
                 case FileSize.KB16: return "16KB.csv";
                 case FileSize.KB32: return "32KB.csv";
+                case FileSize.MB4: return "FL_insurance_sample.csv";
                 default: throw new InvalidOperationException($"Unknown file for {size}");
             }
         }

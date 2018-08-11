@@ -51,11 +51,11 @@ namespace Benchmarks
         //    return await ParseCsvFile("Import_User_Sample_en_Duplicated.csv");
         //}
 
-        //[Benchmark]
-        //public async Task<Csv> Parse4MB()
-        //{
-        //    return await ParseCsvFile("FL_insurance_sample.csv");
-        //}
+        [Benchmark]
+        public async Task<Csv> Parse4MB()
+        {
+            return await ParseCsvFile(Resources.FileSize.MB4);
+        }
 
         private static async Task<Csv> ParseCsvFile(Resources.FileSize size)
         {

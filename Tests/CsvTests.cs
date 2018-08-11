@@ -1,6 +1,7 @@
 ﻿using Chipotle.CSV;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -37,6 +38,11 @@ namespace test
             sb.AppendLine("foo,bar,chunky,bacon");
             sb.AppendLine("bacon,is,very,chunky");
 
+            for (int i = 0; i < 10000; i++)
+            {
+                sb.AppendLine("this,is,lots,of,lines");
+            }
+
             using (var stream = GetStreamFromString(sb.ToString()))
             using (var csv = Csv.Parse(stream))
             {
@@ -57,6 +63,13 @@ namespace test
                 Assert.Equal("is", _encoding.GetString(row[1].ToArray()));
                 Assert.Equal("very", _encoding.GetString(row[2].ToArray()));
                 Assert.Equal("chunky", _encoding.GetString(row[3].ToArray()));
+
+                int count = 2;
+                do
+                {
+                    //Debug.WriteLine($"Trying to read line {++count}");
+                    row = await csv.GetNextAsync();
+                } while (row != null);
             }
         }
 

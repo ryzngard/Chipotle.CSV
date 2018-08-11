@@ -10,7 +10,7 @@ namespace Benchmarks
         {
             var test = new ChipotleCsvBenchmark();
 
-            test.Parse16KB().Wait();
+            test.Parse4MB().Wait();
         }
         #else 
         static void Main(string[] args)
