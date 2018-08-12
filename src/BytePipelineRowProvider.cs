@@ -8,15 +8,21 @@ using System.Threading.Tasks;
 
 namespace Chipotle.CSV
 {
-    class BytePipelineRowProvider : IRowProvider
+    /// <summary>
+    /// Reads a stream using System.IO.Pipelines. The first row retrieval
+    /// kicks off the writer thread that reads bytes from the underlying
+    /// stream and writes them to the pipeline.
+    /// </summary>
+    public class BytePipelineRowProvider : IRowProvider
     {
-        private bool _complete = false;
         private bool _disposed = false;
         private bool _hasRead = false;
 
         private readonly char _seperator;
         private readonly Pipe _pipe;
         private readonly Stream _stream;
+
+        public bool Completed { get; private set; } = false;
 
         public BytePipelineRowProvider(Stream stream, char seperator = ',')
         {
@@ -27,7 +33,7 @@ namespace Chipotle.CSV
 
         public async Task<Row<byte>> GetNextAsync()
         {
-            if (_complete)
+            if (Completed)
             {
                 return null;
             }
@@ -99,7 +105,7 @@ namespace Chipotle.CSV
             // Stop reading if there's no more data coming
             else if (result.IsCompleted)
             {
-                _complete = true;
+                Completed = true;
 
                 // Mark the PipeReader as complete
                 reader.Complete();

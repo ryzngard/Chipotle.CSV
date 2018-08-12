@@ -27,9 +27,14 @@ namespace Chipotle.CSV
             
         }
 
-        public static Csv Parse(Stream stream)
+        public static Csv Parse(Stream stream, IRowProvider rowProvider = null)
         {
-            return new Csv(new BytePipelineRowProvider(stream));
+            if (rowProvider == null)
+            {
+                rowProvider = new BytePipelineRowProvider(stream);
+            }
+
+            return new Csv(rowProvider);
         }
 
         public void Dispose()

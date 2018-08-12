@@ -8,7 +8,7 @@ namespace Benchmarks
         #if DEBUG
         static void Main(string[] args)
         {
-            var test = new ChipotleCsvBenchmark();
+            var test = new ChipotleCsvBytePipelineBenchmark();
 
             test.Parse4MB().Wait();
         }

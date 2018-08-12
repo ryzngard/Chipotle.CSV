@@ -8,12 +8,18 @@ using System.Text;
 
 namespace Chipotle.CSV
 {
-    public class Row<T> : IEnumerable<ReadOnlyMemory<T>>
+    public class Row<T> : IEnumerable<ReadOnlyMemory<T>>, IDisposable
     {
         private const int defaultListSize = 8;
 
         private IList<ReadOnlyMemory<T>> _values;
         private IDictionary<string, int> _headers;
+
+        internal Row(ReadOnlyMemory<T> readOnlyMemory, T seperator, IDictionary<string, int> headers = null)
+            : this(new ReadOnlySequence<T>(readOnlyMemory), seperator, headers)
+        {
+
+        }
 
         internal Row(ReadOnlySequence<T> buffer, T seperator, IDictionary<string, int> headers = null)
         {
@@ -61,7 +67,6 @@ namespace Chipotle.CSV
                 _values.Add(memory);
             }
         }
-
         
         public ReadOnlySpan<T> this[string key] => _getValueFromKey(key);
 
@@ -92,5 +97,9 @@ namespace Chipotle.CSV
         public IEnumerator<ReadOnlyMemory<T>> GetEnumerator() => _values.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => _values.GetEnumerator();
+
+        public virtual void Dispose()
+        {
+        }
     }
 }

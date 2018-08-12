@@ -1,7 +1,4 @@
 ﻿using Chipotle.CSV;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,12 +10,31 @@ namespace test
     public class CsvTests
     {
         private static readonly Encoding _encoding = Encoding.UTF8;
+        public enum RowProviderType
+        {
+            BytePipeline,
+            Pipeline,
+            MemoryPool
+        }
 
-        [Fact]
-        public async Task BasicCsvParse()
+        private IRowProvider GetProvider(RowProviderType rowProviderType, Stream stream)
+        {
+            switch(rowProviderType)
+            {
+                case RowProviderType.BytePipeline: return new BytePipelineRowProvider(stream);
+                case RowProviderType.Pipeline: return new PipelineRowProvider(stream);
+                case RowProviderType.MemoryPool: return new MemoryPoolRowProvider(stream);
+                default: throw new InvalidDataException();
+            }
+        }
+
+        [Theory]
+        [InlineData(RowProviderType.BytePipeline)]
+        [InlineData(RowProviderType.MemoryPool)]
+        public async Task BasicCsvParse(RowProviderType rowProviderType)
         {
             using (var stream = GetStreamFromString("foo,bar,chunky,bacon"))
-            using (var csv = Csv.Parse(stream))
+            using (var csv = Csv.Parse(stream, GetProvider(rowProviderType, stream)))
             {
                 var row = await csv.GetNextAsync();
 
@@ -31,8 +47,10 @@ namespace test
             }
         }
 
-        [Fact]
-        public async Task MultilineCsvParse()
+        [Theory]
+        [InlineData(RowProviderType.BytePipeline)]
+        [InlineData(RowProviderType.MemoryPool)]
+        public async Task MultilineCsvParse(RowProviderType rowProviderType)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("foo,bar,chunky,bacon");
@@ -44,7 +62,7 @@ namespace test
             }
 
             using (var stream = GetStreamFromString(sb.ToString()))
-            using (var csv = Csv.Parse(stream))
+            using (var csv = Csv.Parse(stream, GetProvider(rowProviderType, stream)))
             {
                 var row = await csv.GetNextAsync();
 

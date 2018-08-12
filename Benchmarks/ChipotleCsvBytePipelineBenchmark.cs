@@ -9,9 +9,9 @@ namespace Benchmarks
 {
     [MinColumn, MaxColumn, MeanColumn, MedianColumn]
     [MemoryDiagnoser]
-    public class ChipotleCsvBenchmark
+    public class ChipotleCsvBytePipelineBenchmark
     {
-        public ChipotleCsvBenchmark()
+        public ChipotleCsvBytePipelineBenchmark()
         {
         }
 
