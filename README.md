@@ -7,4 +7,4 @@ Just run `dotnet build` in the root directory.
 
 ## Benchmarks
 
-All benchmarks are made with Benchmark.NET run with `dotnet run -c release --filter *KB* --project .\test\test.csproj`
+All benchmarks are made with Benchmark.NET run with `dotnet run -c release --filter * --project .\Benchmarks\Benchmarks.csproj`
