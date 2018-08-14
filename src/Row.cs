@@ -40,6 +40,7 @@ namespace Chipotle.CSV
             int length = 0;
             foreach (var segment in buffer)
             {
+                bool skip = false;
                 foreach (var b in segment.Span)
                 {
                     // Split the buffer by the seperator, storing each chunk
@@ -50,6 +51,7 @@ namespace Chipotle.CSV
                         addToValues(lineBuffer);
                         offset = offset + length + 1;
                         length = 0;
+                        skip = true;
                     }
                     else
                     {

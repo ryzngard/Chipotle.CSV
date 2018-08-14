@@ -67,42 +67,28 @@ namespace Chipotle.CSV
 
         public Task<IRow<byte>> GetNextAsync()
         {
-            if (Completed)
-            {
-                return null;
-            }
-
             if (_disposed)
             {
                 throw new InvalidOperationException("Object already disposed");
             }
 
-            var stopWatch = Stopwatch.StartNew();
-            bool hadToWait = false;
+            if (Completed)
+            {
+                return Task.FromResult<IRow<byte>>(null);
+            }
+
             do
             {
                 if (_queue.TryDequeue(out IRow<byte> result))
                 {
-                    return Task.FromResult<IRow<byte>>(result);
-                }
-                else
-                {
-                    hadToWait = true;
+                    return Task.FromResult(result);
                 }
             }
             while (!_finishedReading);
 
-            stopWatch.Stop();
-
-            if (hadToWait)
-            {
-                _totalReadStarveTime += stopWatch.ElapsedTicks;
-                Debug.WriteLine($"Spent {_totalReadStarveTime} ticks waiting on writer");
-            }
-
 
             Completed = true;
-            return null;
+            return Task.FromResult<IRow<byte>>(null);
         }
 
         private void ReadStream()
@@ -147,7 +133,7 @@ namespace Chipotle.CSV
                     // Current memory represents a row. Write it to be read by the reader.
                     // Memory should be trimmed to only number of bytes read. It may have 
                     // been overallocated
-                    var row = new MemoryOwningRow<byte>(memoryOwner, bytesRead, (byte)_seperator);
+                    var row = CreateRow(memoryOwner, bytesRead);
                     _queue.Enqueue(row);
                     bytesRead = 0;
                     memoryOwner = _memoryPool.Rent(predictedLineSize);

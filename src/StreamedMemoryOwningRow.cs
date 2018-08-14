@@ -42,7 +42,7 @@ namespace Chipotle.CSV
                 _enumerator.Reset();
 
                 int count = -1;
-                while(count++ <= index && _enumerator.MoveNext())
+                while(++count <= index && _enumerator.MoveNext())
                 {
                 }
 
@@ -95,12 +95,16 @@ namespace Chipotle.CSV
                     throw new InvalidOperationException();
                 }
 
-                // Find the next instance of the seperator 
-                var index = _startIndex;
-                bool found = false;
-
                 // Reset current value to null. Will be set again if found
                 Current = null;
+
+                if (_startIndex >= _owner._memory.Length)
+                {
+                    return false;
+                }
+
+                // Find the next instance of the seperator 
+                var index = _startIndex;
 
                 while (index < _owner._memory.Length)
                 {
@@ -108,16 +112,17 @@ namespace Chipotle.CSV
 
                     if (value?.Equals(_owner._seperator) == true)
                     {
-                        Current = _owner._memory.Slice(_startIndex, index - _startIndex);
+                        Current = _owner._memory.Slice(_startIndex, index - _startIndex - 1);
 
                         _startIndex = index;
-                        found = true;
-
-                        break;
+                        return true;
                     }
                 }
 
-                return found;
+                // If we made it to the end, set to what we have and put the index at the end
+                Current = _owner._memory.Slice(_startIndex);
+                _startIndex = _owner._memory.Length;
+                return true;
             }
 
             public void Reset()

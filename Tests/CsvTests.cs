@@ -96,10 +96,8 @@ namespace test
                 Assert.Equal("very", _encoding.GetString(row[2].ToArray()));
                 Assert.Equal("chunky", _encoding.GetString(row[3].ToArray()));
 
-                int count = 2;
                 do
                 {
-                    //Debug.WriteLine($"Trying to read line {++count}");
                     row = await csv.GetNextAsync();
                 } while (row != null);
             }
