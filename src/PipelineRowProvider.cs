@@ -30,7 +30,7 @@ namespace Chipotle.CSV
             this._disposed = true;
         }
 
-        public async Task<Row<byte>> GetNextAsync()
+        public async Task<IRow<byte>> GetNextAsync()
         {
             if (Completed)
             {

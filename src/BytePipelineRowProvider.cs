@@ -31,7 +31,7 @@ namespace Chipotle.CSV
             this._stream = stream;
         }
 
-        public async Task<Row<byte>> GetNextAsync()
+        public async Task<IRow<byte>> GetNextAsync()
         {
             if (Completed)
             {

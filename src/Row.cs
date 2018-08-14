@@ -2,23 +2,27 @@ using System;
 using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Text;
 
 namespace Chipotle.CSV
 {
-    public class Row<T> : IEnumerable<ReadOnlyMemory<T>>, IDisposable
+    internal class Row<T> : IRow<T>
     {
         private const int defaultListSize = 8;
 
         private IList<ReadOnlyMemory<T>> _values;
         private IDictionary<string, int> _headers;
+        private Action _delayParseAction;
 
         internal Row(ReadOnlyMemory<T> readOnlyMemory, T seperator, IDictionary<string, int> headers = null)
-            : this(new ReadOnlySequence<T>(readOnlyMemory), seperator, headers)
         {
+            _headers = headers;
+            _values = new List<ReadOnlyMemory<T>>(_headers?.Keys.Count ?? defaultListSize);
 
+            _delayParseAction = new Action(() =>
+            {
+                Parse(new ReadOnlySequence<T>(readOnlyMemory), seperator);
+            });
         }
 
         internal Row(ReadOnlySequence<T> buffer, T seperator, IDictionary<string, int> headers = null)
@@ -26,6 +30,11 @@ namespace Chipotle.CSV
             _headers = headers;
             _values = new List<ReadOnlyMemory<T>>(_headers?.Keys.Count ?? defaultListSize);
 
+            Parse(buffer, seperator);
+        }
+
+        private void Parse(ReadOnlySequence<T> buffer, T seperator)
+        {
             // Split by the seperator
             int offset = 0;
             int length = 0;
@@ -70,7 +79,7 @@ namespace Chipotle.CSV
         
         public ReadOnlySpan<T> this[string key] => _getValueFromKey(key);
 
-        public ReadOnlySpan<T> this[int index] => _values[index].Span;
+        public ReadOnlySpan<T> this[int index] => _getValue(index);
 
         public override string ToString()
         {
@@ -94,10 +103,36 @@ namespace Chipotle.CSV
             return this[_headers[key]];
         }
 
-        public IEnumerator<ReadOnlyMemory<T>> GetEnumerator() => _values.GetEnumerator();
+        private ReadOnlySpan<T> _getValue(int index)
+        {
+            EnsureValuesInitialized();
 
-        IEnumerator IEnumerable.GetEnumerator() => _values.GetEnumerator();
+            return _values[index].Span;
+        }
 
+        public IEnumerator<ReadOnlyMemory<T>> GetEnumerator()
+        {
+            EnsureValuesInitialized();
+
+            return _values.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            EnsureValuesInitialized();
+
+            return _values.GetEnumerator();
+        }
+
+
+        private void EnsureValuesInitialized()
+        {
+            if (_delayParseAction != null)
+            {
+                _delayParseAction();
+                _delayParseAction = null;
+            }
+        }
         public virtual void Dispose()
         {
         }

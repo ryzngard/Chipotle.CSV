@@ -2,6 +2,7 @@
 using System.Buffers;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,22 @@ namespace Chipotle.CSV
 {
     public class MemoryPoolRowProvider : IRowProvider
     {
+        public enum RowParseMechanism
+        {
+            Upfront,
+            Streamed
+        }
+
+        public struct Configuration
+        {
+            public RowParseMechanism RowParseMechanism { get; set; }
+        }
+
+        private static Configuration DefaultConfiguration = new Configuration()
+        {
+            RowParseMechanism = RowParseMechanism.Upfront
+        };
+
         public bool Completed { get; private set; }
 
         private readonly MemoryPool<byte> _memoryPool = MemoryPool<byte>.Shared;
@@ -17,15 +34,26 @@ namespace Chipotle.CSV
         private bool _hasRead = false;
         private bool _finishedReading = false;
 
+        private Configuration _config;
+
         private readonly Stream _stream;
         private readonly char _seperator;
 
-        private ConcurrentQueue<MemoryOwningRow<byte>> _queue = new ConcurrentQueue<MemoryOwningRow<byte>>();
+        private long _totalReadStarveTime = 0;
 
-        public MemoryPoolRowProvider(Stream stream, char seperator = ',')
+        private ConcurrentQueue<IRow<byte>> _queue = new ConcurrentQueue<IRow<byte>>();
+
+        public MemoryPoolRowProvider(Stream stream, char seperator = ',', Configuration? config = null)
         {
             _stream = stream;
             _seperator = seperator;
+
+            if (config == null)
+            {
+                config = DefaultConfiguration;
+            }
+
+            _config = config.Value;
 
             _hasRead = true;
             Task.Run(() => ReadStream());
@@ -37,7 +65,7 @@ namespace Chipotle.CSV
             _memoryPool.Dispose();
         }
 
-        public async Task<Row<byte>> GetNextAsync()
+        public Task<IRow<byte>> GetNextAsync()
         {
             if (Completed)
             {
@@ -49,14 +77,28 @@ namespace Chipotle.CSV
                 throw new InvalidOperationException("Object already disposed");
             }
 
+            var stopWatch = Stopwatch.StartNew();
+            bool hadToWait = false;
             do
             {
-                if (_queue.TryDequeue(out MemoryOwningRow<byte> result))
+                if (_queue.TryDequeue(out IRow<byte> result))
                 {
-                    return result;
+                    return Task.FromResult<IRow<byte>>(result);
+                }
+                else
+                {
+                    hadToWait = true;
                 }
             }
             while (!_finishedReading);
+
+            stopWatch.Stop();
+
+            if (hadToWait)
+            {
+                _totalReadStarveTime += stopWatch.ElapsedTicks;
+                Debug.WriteLine($"Spent {_totalReadStarveTime} ticks waiting on writer");
+            }
 
 
             Completed = true;
@@ -131,6 +173,21 @@ namespace Chipotle.CSV
             }
 
             _finishedReading = true;
+        }
+
+        private IRow<byte> CreateRow(IMemoryOwner<byte> memoryOwner, int bytesRead)
+        {
+            switch(_config.RowParseMechanism)
+            {
+                case RowParseMechanism.Upfront:
+                    return new MemoryOwningRow<byte>(memoryOwner, bytesRead, (byte)_seperator);
+
+                case RowParseMechanism.Streamed:
+                    return new StreamedMemoryOwningRow<byte>(memoryOwner, bytesRead, (byte)_seperator);
+
+                default:
+                    throw new InvalidOperationException();
+            }
         }
 
         private static bool ByteIsNewLine(byte b)

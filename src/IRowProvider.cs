@@ -7,7 +7,7 @@ namespace Chipotle.CSV
 {
     public interface IRowProvider : IDisposable
     {
-        Task<Row<byte>> GetNextAsync();
+        Task<IRow<byte>> GetNextAsync();
         bool Completed { get; }
     }
 }

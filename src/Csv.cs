@@ -21,7 +21,7 @@ namespace Chipotle.CSV
             this._rowProvider = rowProvider;
         }
 
-        public async Task<Row<byte>> GetNextAsync()
+        public async Task<IRow<byte>> GetNextAsync()
         {
             return await _rowProvider.GetNextAsync();
             

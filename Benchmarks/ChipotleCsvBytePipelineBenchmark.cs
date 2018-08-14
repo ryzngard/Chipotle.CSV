@@ -64,7 +64,7 @@ namespace Benchmarks
             {
                 Debug.WriteLine($"Reading file, size = {stream.Length}");
 
-                Row<byte> row;
+                IRow<byte> row;
                 int count = 0;
                 while (true)
                 {

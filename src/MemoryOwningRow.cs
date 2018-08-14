@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Chipotle.CSV
 {
-    class MemoryOwningRow<T> : Row<T>
+    internal class MemoryOwningRow<T> : Row<T>
     {
         private readonly IMemoryOwner<T> _memoryOwner;
 
