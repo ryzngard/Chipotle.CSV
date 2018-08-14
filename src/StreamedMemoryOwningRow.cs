@@ -15,11 +15,19 @@ namespace Chipotle.CSV
         private readonly IDictionary<string, int> _headers;
 
         private IEnumerator<ReadOnlyMemory<T>> _enumerator;
+        private IMemoryOwner<byte> memoryOwner;
+        private ReadOnlyMemory<byte> memory;
+        private byte seperator;
 
-        public StreamedMemoryOwningRow(IMemoryOwner<T> memoryOwner, int bytesRead, T seperator, IDictionary<string, int> headers = null)
+        public StreamedMemoryOwningRow(IMemoryOwner<T> memoryOwner, int bytesRead, T seperator, IDictionary<string, int> headers = null) :
+            this(memoryOwner, memoryOwner.Memory.Slice(0, bytesRead), seperator, headers)
+        {
+        }
+
+        public StreamedMemoryOwningRow(IMemoryOwner<T> memoryOwner, ReadOnlyMemory<T> memory, T seperator, IDictionary<string, int> headers = null)
         {
             _memoryOwner = memoryOwner;
-            _memory = memoryOwner.Memory.Slice(0, bytesRead);
+            _memory = memory;
             _seperator = seperator;
             _headers = headers;
 

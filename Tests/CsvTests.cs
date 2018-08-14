@@ -15,7 +15,9 @@ namespace test
             BytePipeline,
             Pipeline,
             MemoryPool,
-            StreamedRowMemoryPool
+            StreamedRowMemoryPool,
+            StreamReader,
+            StreamdRowMemoryPoolStreamLineParser
         }
 
         private IRowProvider GetProvider(RowProviderType rowProviderType, Stream stream)
@@ -27,14 +29,26 @@ namespace test
                 case RowProviderType.MemoryPool:
                     return new MemoryPoolRowProvider(stream, config: new MemoryPoolRowProvider.Configuration()
                     {
-                        RowParseMechanism = MemoryPoolRowProvider.RowParseMechanism.Upfront
+                        RowParseMechanism = MemoryPoolRowProvider.RowParseMechanism.Upfront,
+                        LineParser = MemoryPoolRowProvider.LineParser.Default
                     });
 
                 case RowProviderType.StreamedRowMemoryPool:
                     return new MemoryPoolRowProvider(stream, config: new MemoryPoolRowProvider.Configuration()
                     {
-                        RowParseMechanism = MemoryPoolRowProvider.RowParseMechanism.Streamed
+                        RowParseMechanism = MemoryPoolRowProvider.RowParseMechanism.Streamed,
+                        LineParser = MemoryPoolRowProvider.LineParser.Default
                     });
+
+                case RowProviderType.StreamdRowMemoryPoolStreamLineParser:
+                    return new MemoryPoolRowProvider(stream, config: new MemoryPoolRowProvider.Configuration()
+                    {
+                        RowParseMechanism = MemoryPoolRowProvider.RowParseMechanism.Streamed,
+                        LineParser = MemoryPoolRowProvider.LineParser.Streamed
+                    });
+
+                case RowProviderType.StreamReader:
+                    return new StreamReaderRowProvider(new StreamReader(stream));
 
                 default: throw new InvalidDataException();
             }
@@ -44,6 +58,8 @@ namespace test
         [InlineData(RowProviderType.BytePipeline)]
         [InlineData(RowProviderType.MemoryPool)]
         [InlineData(RowProviderType.StreamedRowMemoryPool)]
+        [InlineData(RowProviderType.StreamReader)]
+        [InlineData(RowProviderType.StreamdRowMemoryPoolStreamLineParser)]
         public async Task BasicCsvParse(RowProviderType rowProviderType)
         {
             using (var stream = GetStreamFromString("foo,bar,chunky,bacon"))
@@ -64,6 +80,8 @@ namespace test
         [InlineData(RowProviderType.BytePipeline)]
         [InlineData(RowProviderType.MemoryPool)]
         [InlineData(RowProviderType.StreamedRowMemoryPool)]
+        [InlineData(RowProviderType.StreamReader)]
+        [InlineData(RowProviderType.StreamdRowMemoryPoolStreamLineParser)]
         public async Task MultilineCsvParse(RowProviderType rowProviderType)
         {
             StringBuilder sb = new StringBuilder();

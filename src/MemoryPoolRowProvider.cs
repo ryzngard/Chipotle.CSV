@@ -17,21 +17,27 @@ namespace Chipotle.CSV
             Streamed
         }
 
+        public enum LineParser
+        {
+            Default,
+            Streamed
+        }
+
         public struct Configuration
         {
             public RowParseMechanism RowParseMechanism { get; set; }
+            public LineParser LineParser { get; set; }
         }
 
         private static Configuration DefaultConfiguration = new Configuration()
         {
-            RowParseMechanism = RowParseMechanism.Upfront
+            RowParseMechanism = RowParseMechanism.Upfront,
+            LineParser = LineParser.Default
         };
 
         public bool Completed { get; private set; }
 
-        private readonly MemoryPool<byte> _memoryPool = MemoryPool<byte>.Shared;
         private bool _disposed = false;
-        private bool _hasRead = false;
         private bool _finishedReading = false;
 
         private Configuration _config;
@@ -39,7 +45,7 @@ namespace Chipotle.CSV
         private readonly Stream _stream;
         private readonly char _seperator;
 
-        private long _totalReadStarveTime = 0;
+        private IDisposable _lineReader;
 
         private ConcurrentQueue<IRow<byte>> _queue = new ConcurrentQueue<IRow<byte>>();
 
@@ -55,14 +61,13 @@ namespace Chipotle.CSV
 
             _config = config.Value;
 
-            _hasRead = true;
             Task.Run(() => ReadStream());
         }
 
         public void Dispose()
         {
             _disposed = true;
-            _memoryPool.Dispose();
+            _lineReader?.Dispose();
         }
 
         public Task<IRow<byte>> GetNextAsync()
@@ -93,92 +98,34 @@ namespace Chipotle.CSV
 
         private void ReadStream()
         {
-            var memoryOwner = _memoryPool.Rent();
-            int bytesRead = 0;
-            bool consumeNewLines = false;
-            int predictedLineSize = memoryOwner.Memory.Length;
-
-            while (!_disposed)
+            switch (_config.LineParser)
             {
-                // Read to the end of the line in the stream
-                int b = _stream.ReadByte();
-
-                if (b == -1)
-                {
-                    break;
-                }
-
-                if (consumeNewLines)
-                {
-                    while (ByteIsNewLine((byte)b))
+                case LineParser.Default:
                     {
-                        b = _stream.ReadByte();
+                        var lineParser = new MemoryPoolLineParser(_stream, _queue, (byte)_seperator, _config.RowParseMechanism);
+                        _lineReader = lineParser;
 
-                        if (b == -1)
-                        {
-                            break;
-                        }
+                        lineParser.Read();
+                        break;
                     }
 
-                    consumeNewLines = false;
-                }
-
-                memoryOwner.Memory.Span[bytesRead] = (byte)b;
-
-                if (ByteIsNewLine((byte)b))
-                {
-                    // Update current memory allocation prediction size
-                    predictedLineSize = Math.Max(bytesRead, predictedLineSize);
-
-                    // Current memory represents a row. Write it to be read by the reader.
-                    // Memory should be trimmed to only number of bytes read. It may have 
-                    // been overallocated
-                    var row = CreateRow(memoryOwner, bytesRead);
-                    _queue.Enqueue(row);
-                    bytesRead = 0;
-                    memoryOwner = _memoryPool.Rent(predictedLineSize);
-                    consumeNewLines = true;
-
-                }
-                else if (++bytesRead >= memoryOwner.Memory.Length)
-                {
-                    // The current allocated memory has run out of space, need to relocate
-                    var tmpMemory = _memoryPool.Rent(memoryOwner.Memory.Length * 2);
-                    memoryOwner.Memory.CopyTo(tmpMemory.Memory);
-
-                    memoryOwner.Dispose();
-
-                    tmpMemory = memoryOwner;
-                }
-            }
-
-            if (bytesRead != 0)
-            {
-                var row = new MemoryOwningRow<byte>(memoryOwner, bytesRead, (byte)_seperator);
-                _queue.Enqueue(row);
-            }
-
-            _finishedReading = true;
-        }
-
-        private IRow<byte> CreateRow(IMemoryOwner<byte> memoryOwner, int bytesRead)
-        {
-            switch(_config.RowParseMechanism)
-            {
-                case RowParseMechanism.Upfront:
-                    return new MemoryOwningRow<byte>(memoryOwner, bytesRead, (byte)_seperator);
-
-                case RowParseMechanism.Streamed:
-                    return new StreamedMemoryOwningRow<byte>(memoryOwner, bytesRead, (byte)_seperator);
+                case LineParser.Streamed:
+                    {
+                        var lineParser = new StreamLineParser(_stream);
+                        _lineReader = lineParser;
+                        foreach (var lineChunk in lineParser)
+                        {
+                            var row = Helpers.CreateRow(_config.RowParseMechanism, lineChunk.Value.MemoryOwner, lineChunk.Value.Memory, (byte)_seperator);
+                            _queue.Enqueue(row);
+                        }
+                        break;
+                    }
 
                 default:
                     throw new InvalidOperationException();
             }
-        }
 
-        private static bool ByteIsNewLine(byte b)
-        {
-            return b == (byte)'\n' || b == (byte)'\r';
+            _finishedReading = true;
         }
     }
 }

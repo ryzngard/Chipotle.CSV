@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Benchmarks.ChipotleCsvStreamedMemoryPoolBenchmark</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.11.0, OS=Windows 10.0.17134.191 (1803/April2018Update/Redstone4)
+Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=2.1.302
+  [Host]     : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+  DefaultJob : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>  Mean</th><th>  Error</th><th> StdDev</th><th>Median</th><th>    Min</th><th>   Max</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Parse2KB</td><td>109.5 us</td><td>2.237 us</td><td>6.527 us</td><td>109.4 us</td><td>95.81 us</td><td>126.5 us</td><td>7.0801</td><td>1.83 KB</td>
+</tr><tr><td>Parse4KB</td><td>302.0 us</td><td>8.733 us</td><td>25.335 us</td><td>299.0 us</td><td>246.24 us</td><td>368.9 us</td><td>20.0195</td><td>2.67 KB</td>
+</tr><tr><td>Parse8KB</td><td>643.5 us</td><td>15.602 us</td><td>45.265 us</td><td>645.3 us</td><td>540.28 us</td><td>749.8 us</td><td>47.8516</td><td>4.5 KB</td>
+</tr><tr><td>Parse16KB</td><td>1,256.4 us</td><td>28.570 us</td><td>82.887 us</td><td>1,254.4 us</td><td>1,057.42 us</td><td>1,476.0 us</td><td>95.7031</td><td>7.59 KB</td>
+</tr><tr><td>Parse32KB</td><td>2,501.4 us</td><td>71.993 us</td><td>212.273 us</td><td>2,492.4 us</td><td>2,122.25 us</td><td>3,051.7 us</td><td>199.2188</td><td>14.41 KB</td>
+</tr><tr><td>Parse4MB</td><td>316,286.1 us</td><td>13,584.932 us</td><td>36,727.654 us</td><td>310,665.7 us</td><td>254,320.00 us</td><td>438,991.2 us</td><td>40000.0000</td><td>2577.33 KB</td>
+</tr><tr><td>FindLast_4MB</td><td>246,885.0 us</td><td>13,474.472 us</td><td>39,729.784 us</td><td>228,286.0 us</td><td>205,929.40 us</td><td>341,081.8 us</td><td>34000.0000</td><td>127560.3 KB</td>
+</tr></tbody></table>
+</body>
+</html>

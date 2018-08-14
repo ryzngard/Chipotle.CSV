@@ -22,9 +22,15 @@ Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical a
 <pre><code></code></pre>
 
 <table>
-<thead><tr><th>Method</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Median</th><th>Min</th><th>Max</th><th>Gen 0</th><th>Allocated</th>
+<thead><tr><th>Method</th><th>   Mean</th><th>  Error</th><th>StdDev</th><th> Median</th><th>    Min</th><th>    Max</th><th>Gen 0</th><th>Allocated</th>
 </tr>
-</thead><tbody><tr><td>FindLast_4MB</td><td>242.3 ms</td><td>8.355 ms</td><td>22.73 ms</td><td>234.7 ms</td><td>207.2 ms</td><td>305.8 ms</td><td>23500.0000</td><td>94.95 MB</td>
+</thead><tbody><tr><td>Parse2KB</td><td>46.07 us</td><td>0.9755 us</td><td>2.162 us</td><td>45.16 us</td><td>44.30 us</td><td>52.87 us</td><td>9.0332</td><td>37.04 KB</td>
+</tr><tr><td>Parse4KB</td><td>106.02 us</td><td>1.2670 us</td><td>1.185 us</td><td>105.81 us</td><td>104.39 us</td><td>108.10 us</td><td>17.3340</td><td>71.34 KB</td>
+</tr><tr><td>Parse8KB</td><td>240.17 us</td><td>3.5748 us</td><td>3.344 us</td><td>239.97 us</td><td>235.42 us</td><td>246.89 us</td><td>35.1563</td><td>145.05 KB</td>
+</tr><tr><td>Parse16KB</td><td>470.42 us</td><td>7.2070 us</td><td>6.741 us</td><td>469.13 us</td><td>461.29 us</td><td>481.92 us</td><td>66.4063</td><td>272.26 KB</td>
+</tr><tr><td>Parse32KB</td><td>965.74 us</td><td>9.7597 us</td><td>8.150 us</td><td>969.54 us</td><td>951.10 us</td><td>978.40 us</td><td>132.8125</td><td>546.75 KB</td>
+</tr><tr><td>Parse4MB</td><td>164,011.38 us</td><td>1,533.8173 us</td><td>1,359.689 us</td><td>164,037.98 us</td><td>161,092.53 us</td><td>166,912.40 us</td><td>23500.0000</td><td>97227.85 KB</td>
+</tr><tr><td>FindLast_4MB</td><td>160,262.97 us</td><td>1,733.9708 us</td><td>1,537.120 us</td><td>160,126.83 us</td><td>157,256.23 us</td><td>163,068.75 us</td><td>23500.0000</td><td>97227.85 KB</td>
 </tr></tbody></table>
 </body>
 </html>

@@ -1,7 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using Chipotle.CSV;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ namespace Benchmarks
 {
     [MinColumn, MaxColumn, MeanColumn, MedianColumn]
     [MemoryDiagnoser]
-    public class ChipotleCsvMemoryPoolBenchmark
+    public class ChipotleCsvStreamedMemoryPoolBenchmark
     {
         [Benchmark]
         public async Task<Csv> Parse2KB()
