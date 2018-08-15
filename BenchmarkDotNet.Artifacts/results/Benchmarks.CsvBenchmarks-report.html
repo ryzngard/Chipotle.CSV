@@ -22,32 +22,12 @@ Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical a
 <pre><code></code></pre>
 
 <table>
-<thead><tr><th>Method</th><th>          pair</th><th>   Mean</th><th>   Error</th><th>  StdDev</th><th> Median</th><th>    Min</th><th>    Max</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
+<thead><tr><th> Method</th><th>method</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Min</th><th>Max</th><th>Median</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
 </tr>
-</thead><tbody><tr><td>Parse</td><td>(BytePipeline, KB16)</td><td>784.89 us</td><td>10.5809 us</td><td>9.8974 us</td><td>779.74 us</td><td>773.84 us</td><td>805.57 us</td><td>99.6094</td><td>-</td><td>-</td><td>420792 B</td>
-</tr><tr><td>Parse</td><td>(BytePipeline, KB2)</td><td>55.12 us</td><td>0.5026 us</td><td>0.4702 us</td><td>55.21 us</td><td>54.08 us</td><td>55.74 us</td><td>6.9580</td><td>-</td><td>-</td><td>29440 B</td>
-</tr><tr><td>Parse</td><td>(BytePipeline, KB32)</td><td>1,676.76 us</td><td>11.1168 us</td><td>9.2830 us</td><td>1,675.27 us</td><td>1,662.14 us</td><td>1,693.66 us</td><td>208.9844</td><td>-</td><td>-</td><td>878944 B</td>
-</tr><tr><td>Parse</td><td>(BytePipeline, KB4)</td><td>159.66 us</td><td>3.0987 us</td><td>3.8055 us</td><td>159.12 us</td><td>154.21 us</td><td>166.83 us</td><td>20.5078</td><td>-</td><td>-</td><td>86680 B</td>
-</tr><tr><td>Parse</td><td>(BytePipeline, KB8)</td><td>386.87 us</td><td>7.6479 us</td><td>11.9069 us</td><td>384.41 us</td><td>372.89 us</td><td>418.40 us</td><td>50.2930</td><td>-</td><td>-</td><td>210992 B</td>
-</tr><tr><td>Parse</td><td>(BytePipeline, MB4)</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td>
-</tr><tr><td>Parse</td><td>(CsvHelper, KB16)</td><td>394.51 us</td><td>7.7328 us</td><td>9.7796 us</td><td>392.05 us</td><td>374.52 us</td><td>415.78 us</td><td>66.4063</td><td>-</td><td>-</td><td>278791 B</td>
-</tr><tr><td>Parse</td><td>(CsvHelper, KB2)</td><td>37.16 us</td><td>0.7314 us</td><td>1.1387 us</td><td>37.44 us</td><td>35.48 us</td><td>39.04 us</td><td>9.0332</td><td>-</td><td>-</td><td>37932 B</td>
-</tr><tr><td>Parse</td><td>(CsvHelper, KB32)</td><td>812.06 us</td><td>21.4263 us</td><td>18.9939 us</td><td>809.79 us</td><td>783.17 us</td><td>871.84 us</td><td>132.8125</td><td>-</td><td>-</td><td>559869 B</td>
-</tr><tr><td>Parse</td><td>(CsvHelper, KB4)</td><td>90.38 us</td><td>0.2851 us</td><td>0.2527 us</td><td>90.39 us</td><td>89.92 us</td><td>90.93 us</td><td>17.3340</td><td>-</td><td>-</td><td>73057 B</td>
-</tr><tr><td>Parse</td><td>(CsvHelper, KB8)</td><td>207.71 us</td><td>0.2241 us</td><td>0.2096 us</td><td>207.69 us</td><td>207.27 us</td><td>208.14 us</td><td>35.4004</td><td>-</td><td>-</td><td>148534 B</td>
-</tr><tr><td>Parse</td><td>(CsvHelper, MB4)</td><td>146,217.80 us</td><td>665.2913 us</td><td>622.3138 us</td><td>146,460.00 us</td><td>144,919.45 us</td><td>146,810.20 us</td><td>23500.0000</td><td>-</td><td>-</td><td>99561318 B</td>
-</tr><tr><td>Parse</td><td>(MemoryPool, KB16)</td><td>934.56 us</td><td>24.8872 us</td><td>73.3805 us</td><td>938.62 us</td><td>765.04 us</td><td>1,133.48 us</td><td>95.7031</td><td>-</td><td>-</td><td>7696 B</td>
-</tr><tr><td>Parse</td><td>(MemoryPool, KB2)</td><td>78.70 us</td><td>2.1858 us</td><td>6.4450 us</td><td>78.41 us</td><td>65.27 us</td><td>94.27 us</td><td>7.0801</td><td>-</td><td>-</td><td>1792 B</td>
-</tr><tr><td>Parse</td><td>(MemoryPool, KB32)</td><td>2,199.01 us</td><td>58.8616 us</td><td>173.5547 us</td><td>2,214.57 us</td><td>1,853.13 us</td><td>2,624.59 us</td><td>203.1250</td><td>-</td><td>-</td><td>14680 B</td>
-</tr><tr><td>Parse</td><td>(MemoryPool, KB4)</td><td>233.37 us</td><td>6.1229 us</td><td>17.5678 us</td><td>232.10 us</td><td>191.25 us</td><td>280.78 us</td><td>20.0195</td><td>-</td><td>-</td><td>2656 B</td>
-</tr><tr><td>Parse</td><td>(MemoryPool, KB8)</td><td>556.64 us</td><td>14.3892 us</td><td>42.2010 us</td><td>553.36 us</td><td>468.19 us</td><td>663.18 us</td><td>47.8516</td><td>-</td><td>-</td><td>4528 B</td>
-</tr><tr><td>Parse</td><td>(MemoryPool, MB4)</td><td>329,736.80 us</td><td>27,225.3423 us</td><td>79,417.6015 us</td><td>308,027.30 us</td><td>214,526.80 us</td><td>529,169.40 us</td><td>40000.0000</td><td>-</td><td>-</td><td>2639104 B</td>
-</tr><tr><td>Parse</td><td>(SMP, KB16)</td><td>3,317.46 us</td><td>116.8752 us</td><td>339.0763 us</td><td>3,301.06 us</td><td>2,627.66 us</td><td>4,119.61 us</td><td>996.0938</td><td>996.0938</td><td>996.0938</td><td>7696 B</td>
-</tr><tr><td>Parse</td><td>(SMP, KB2)</td><td>41.67 us</td><td>0.8256 us</td><td>2.0096 us</td><td>41.37 us</td><td>37.84 us</td><td>46.90 us</td><td>1.8921</td><td>-</td><td>-</td><td>1791 B</td>
-</tr><tr><td>Parse</td><td>(SMP, KB32)</td><td>3,726.49 us</td><td>124.2456 us</td><td>366.3409 us</td><td>3,729.37 us</td><td>2,767.47 us</td><td>4,644.94 us</td><td>996.0938</td><td>996.0938</td><td>996.0938</td><td>14680 B</td>
-</tr><tr><td>Parse</td><td>(SMP, KB4)</td><td>3,598.64 us</td><td>182.3806 us</td><td>537.7532 us</td><td>3,600.20 us</td><td>2,026.54 us</td><td>4,544.58 us</td><td>589.8438</td><td>589.8438</td><td>589.8438</td><td>3962 B</td>
-</tr><tr><td>Parse</td><td>(SMP, KB8)</td><td>3,053.13 us</td><td>124.4939 us</td><td>365.1190 us</td><td>3,112.98 us</td><td>2,055.28 us</td><td>3,913.98 us</td><td>996.0938</td><td>996.0938</td><td>996.0938</td><td>4528 B</td>
-</tr><tr><td>Parse</td><td>(SMP, MB4)</td><td>134,063.31 us</td><td>2,670.9767 us</td><td>7,833.5124 us</td><td>133,991.13 us</td><td>118,122.15 us</td><td>151,543.85 us</td><td>2750.0000</td><td>1500.0000</td><td>1250.0000</td><td>2639086 B</td>
+</thead><tbody><tr><td>Find_Last_4MB</td><td>BytePipeline</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Find_Last_4MB</td><td>CsvHelper</td><td>137.5 ms</td><td>1.341 ms</td><td>1.047 ms</td><td>135.7 ms</td><td>139.9 ms</td><td>137.4 ms</td><td>23500.0000</td><td>-</td><td>-</td><td>99561358 B</td>
+</tr><tr><td>Find_Last_4MB</td><td>MemoryPool</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Find_Last_4MB</td><td>SMP</td><td>189.3 ms</td><td>3.768 ms</td><td>5.523 ms</td><td>174.8 ms</td><td>197.7 ms</td><td>191.2 ms</td><td>15000.0000</td><td>3333.3333</td><td>1666.6667</td><td>57659229 B</td>
 </tr></tbody></table>
 </body>
 </html>

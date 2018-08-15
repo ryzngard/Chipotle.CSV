@@ -23,14 +23,20 @@ namespace Benchmarks
             SMP
         };
 
-        public static IEnumerable<ParsingMethod> ParsingMethods => Enum.GetValues(typeof(ParsingMethod)).Cast<ParsingMethod>();
-        public static IEnumerable<Resources.FileSize> FileSizes => Enum.GetValues(typeof(Resources.FileSize)).Cast<Resources.FileSize>();
+        public IEnumerable<ParsingMethod> ParsingMethods()
+        {
+            return Enum.GetValues(typeof(ParsingMethod)).Cast<ParsingMethod>();
+        }
+        public IEnumerable<Resources.FileSize> FileSizes()
+        {
+            return Enum.GetValues(typeof(Resources.FileSize)).Cast<Resources.FileSize>();
+        }
 
         public IEnumerable<(ParsingMethod, Resources.FileSize)> ParsingFilePairs()
         {
 
-            return ParsingMethods
-                .SelectMany(method => FileSizes.Select(size => (method, size)));
+            return ParsingMethods()
+                .SelectMany(method => FileSizes().Select(size => (method, size)));
         }
 
         [Benchmark]
@@ -38,6 +44,97 @@ namespace Benchmarks
         public Task<object> Parse((ParsingMethod, Resources.FileSize) pair)
         {
             return ParseCsvFile(pair.Item1, pair.Item2);
+        }
+
+        [Benchmark]
+        [ArgumentsSource(nameof(ParsingMethods))]
+        public async Task<object> Find_Last_4MB(ParsingMethod method)
+        {
+            const string ToFind = "596003.67";
+            Memory<byte> ToFindMemory = Encoding.UTF8.GetBytes(ToFind).AsMemory();
+
+            const int ColumnIndex = 8;
+
+            int rowNumber = 0;
+            int rowCount = 0;
+
+            var stream = Resources.GetStream(Resources.FileSize.MB4);
+
+            IRowProvider rowProvider = null;
+
+            switch (method)
+            {
+                case ParsingMethod.CsvHelper:
+                    {
+                        var streamReader = new StreamReader(stream);
+                        var reader = new CsvReader(streamReader, false);
+
+                        while (await reader.ReadAsync())
+                        {
+                            rowCount++;
+
+                            if (ToFind == reader.GetField(ColumnIndex))
+                            {
+                                rowNumber = rowCount;
+                            }
+                        }
+
+                        if (rowCount != rowNumber)
+                        {
+                            throw new Exception("Failing benchmark because invalid conclusion was made");
+                        }
+
+                        return reader;
+                    }
+
+                case ParsingMethod.BytePipeline:
+                    // This is the default 
+                    break;
+
+                case ParsingMethod.MemoryPool:
+                    rowProvider = new MemoryPoolRowProvider(stream);
+                    break;
+
+                case ParsingMethod.SMP:
+                    rowProvider = new MemoryPoolRowProvider(stream, config: new MemoryPoolRowProvider.Configuration()
+                    {
+                        RowParseMechanism = MemoryPoolRowProvider.RowParseMechanism.Streamed,
+                        LineParser = MemoryPoolRowProvider.LineParser.Streamed
+                    });
+
+                    break;
+
+                default:
+                    throw new InvalidOperationException($"Parsing method is not handled! {method}");
+            }
+
+            {
+                var reader = Csv.Parse(stream, rowProvider: rowProvider);
+
+                while (true)
+                {
+                    var row = await reader.GetNextAsync();
+
+                    if (row == null)
+                    {
+                        break;
+                    }
+
+                    rowCount++;
+
+                    if (row[ColumnIndex].SequenceEqual(ToFindMemory.Span))
+                    {
+                        rowNumber = rowCount;
+                    }
+                }
+
+                if (rowCount != rowNumber)
+                {
+                    throw new Exception($"Failing benchmark because invalid conclusion was made. Expected {rowCount} instead of {rowNumber}");
+                }
+
+                return reader;
+            }
         }
 
         private async Task<object> ParseCsvFile(ParsingMethod method, Resources.FileSize fileSize)

@@ -8,12 +8,12 @@ namespace Benchmarks
         #if DEBUG
         static void Main(string[] args)
         {
-            var test = new ChipotleCsvStreamedMemoryPoolBenchmark();
+            var test = new CsvBenchmarks();
 
             for (int i = 0; i < 100; i++)
             {
                 Console.WriteLine($"Run {i}");
-                test.Parse4MB().Wait();
+                test.Parse((CsvBenchmarks.ParsingMethod.SMP, Resources.FileSize.MB4)).Wait();
             }
         }
         #else 
