@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Benchmarks
 {
-    internal static class Resources
+    public static class Resources
     {
         public enum FileSize
         {

@@ -112,18 +112,17 @@ namespace Benchmarks
 
                     if (currentRow == null)
                     {
+                        Debug.WriteLine($"Row: {count}");
+                        foreach (var segment in row)
+                        {
+                            Debug.WriteLine(Encoding.UTF8.GetString(segment.ToArray()));
+                        }
+                        Debug.WriteLine($"//Row");
+
                         break;
                     }
 
                     row = currentRow;
-
-                    Debug.WriteLine($"Row: ");
-                    foreach (var segment in row)
-                    {
-                        Debug.WriteLine(Encoding.UTF8.GetString(segment.ToArray()));
-                    }
-                    Debug.WriteLine($"//Row");
-
                     count++;
                 }
 

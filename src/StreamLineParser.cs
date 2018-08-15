@@ -24,10 +24,11 @@ namespace Chipotle.CSV
         private int _validMemoryIndex = -1;
         private bool _previousWasNewLine = false;
         private readonly int _chunkSizeInLines;
+        private bool _endOfStream = false;
 
         private readonly MemoryPool<byte> _memoryPool = MemoryPool<byte>.Shared;
 
-        public StreamLineParser(Stream stream, int chunkSizeInLines = 100)
+        public StreamLineParser(Stream stream, int chunkSizeInLines = 10000)
         {
             _stream = stream;
             _chunkSizeInLines = chunkSizeInLines;
@@ -77,7 +78,7 @@ namespace Chipotle.CSV
         }
         public bool MoveNext()
         {
-            if (_chunkIndex == _validMemoryIndex)
+            if (_endOfStream)
             {
                 return false;
             }
@@ -99,6 +100,36 @@ namespace Chipotle.CSV
 
             while (true)
             {
+                if (i == _validMemoryIndex)
+                {
+                    if (_validMemoryIndex == _chunk.Memory.Length)
+                    {
+                        _validMemoryIndex = ResizeChunk();
+                    }
+
+                    // If the memory index is the last valid index, we've reached
+                    // the end of the stream
+                    if (i == _validMemoryIndex)
+                    {
+                        if (_chunkIndex == _chunk.Memory.Length)
+                        {
+                            Current = null;
+                            return false;
+                        }
+
+                        Current = new MemoryChunk()
+                        {
+                            MemoryOwner = _chunk,
+                            Memory = _chunk.Memory.Slice(_chunkIndex, _validMemoryIndex - _chunkIndex)
+
+                        };
+
+                        _endOfStream = true;
+
+                        return true;
+                    }
+                }
+
                 if (IsNewLine(_chunk.Memory.Span[i++]))
                 {
                     if (_previousWasNewLine)
@@ -128,35 +159,7 @@ namespace Chipotle.CSV
                     _previousWasNewLine = false;
                 }
 
-                if (i == _validMemoryIndex)
-                {
-                    if (_validMemoryIndex == _chunk.Memory.Length)
-                    {
-                        _validMemoryIndex = ResizeChunk();
-                    }
-
-                    // If the memory index is the last valid index, we've reached
-                    // the end of the stream
-                    if (i == _validMemoryIndex)
-                    {
-                        if (_chunkIndex == _chunk.Memory.Length)
-                        {
-                            Current = null;
-                            return false;
-                        }
-
-                        Current = new MemoryChunk()
-                        {
-                            MemoryOwner = _chunk,
-                            Memory = _chunk.Memory.Slice(_chunkIndex, _validMemoryIndex - _chunkIndex)
-
-                        };
-
-                        _chunkIndex = _validMemoryIndex;
-
-                        return true;
-                    }
-                }
+                
             }
         }
 

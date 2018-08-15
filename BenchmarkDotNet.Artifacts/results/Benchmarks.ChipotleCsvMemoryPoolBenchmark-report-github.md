@@ -10,5 +10,5 @@ Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical a
 ```
 |       Method |     Mean |    Error |   StdDev |   Median |      Min |      Max |      Gen 0 | Allocated |
 |------------- |---------:|---------:|---------:|---------:|---------:|---------:|-----------:|----------:|
-|     Parse4MB | 356.9 ms | 17.98 ms | 50.42 ms | 346.0 ms | 275.4 ms | 495.7 ms | 40000.0000 |   2.52 MB |
-| FindLast_4MB | 289.1 ms | 14.30 ms | 41.02 ms | 276.7 ms | 242.2 ms | 406.1 ms | 34000.0000 | 124.57 MB |
+|     Parse4MB | 339.8 ms | 13.46 ms | 37.96 ms | 338.2 ms | 266.9 ms | 467.0 ms | 40000.0000 |   2.52 MB |
+| FindLast_4MB | 301.7 ms | 19.51 ms | 57.54 ms | 274.4 ms | 242.2 ms | 448.0 ms | 34000.0000 | 124.57 MB |

@@ -8,10 +8,7 @@ Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical a
 
 
 ```
-|       Method |     Mean |    Error |   StdDev |   Median |      Min |      Max |     Gen 0 |     Gen 1 |     Gen 2 | Allocated |
-|------------- |---------:|---------:|---------:|---------:|---------:|---------:|----------:|----------:|----------:|----------:|
-|     Parse4MB | 182.3 ms | 3.956 ms | 11.41 ms | 178.6 ms | 164.8 ms | 213.6 ms | 2666.6667 | 2000.0000 | 1666.6667 | 1327608 B |
-| FindLast_4MB |       NA |       NA |       NA |       NA |       NA |       NA |       N/A |       N/A |       N/A |       N/A |
-
-Benchmarks with issues:
-  ChipotleCsvStreamedMemoryPoolBenchmark.FindLast_4MB: DefaultJob
+|       Method |     Mean |    Error |   StdDev |      Min |      Max |   Median |      Gen 0 |     Gen 1 |     Gen 2 | Allocated |
+|------------- |---------:|---------:|---------:|---------:|---------:|---------:|-----------:|----------:|----------:|----------:|
+|     Parse4MB | 636.8 ms | 12.73 ms | 28.48 ms | 600.6 ms | 705.6 ms | 629.2 ms |  6000.0000 | 4000.0000 | 4000.0000 |   2.52 MB |
+| FindLast_4MB | 716.4 ms | 14.28 ms | 28.86 ms | 665.4 ms | 780.2 ms | 718.3 ms | 17000.0000 | 5000.0000 | 3000.0000 |  54.99 MB |
