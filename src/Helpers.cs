@@ -41,5 +41,6 @@ namespace Chipotle.CSV
                     throw new InvalidOperationException();
             }
         }
+
     }
 }

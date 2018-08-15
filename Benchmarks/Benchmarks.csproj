@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="*.csv" />
+    <EmbeddedResource Include="../csv/*.csv" />
   </ItemGroup>
 
 </Project>

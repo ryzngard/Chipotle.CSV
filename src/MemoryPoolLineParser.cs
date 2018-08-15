@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Chipotle.CSV
 {
-    internal class MemoryPoolLineParser : IDisposable
+    public class MemoryPoolLineParser : IDisposable
     {
         private readonly ConcurrentQueue<IRow<byte>> _queue;
         private readonly MemoryPool<byte> _memoryPool = MemoryPool<byte>.Shared;

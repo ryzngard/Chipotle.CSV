@@ -15,8 +15,6 @@ namespace Chipotle.CSV
         private readonly IDictionary<string, int> _headers;
 
         private IEnumerator<ReadOnlyMemory<T>> _enumerator;
-        private IMemoryOwner<byte> memoryOwner;
-        private ReadOnlyMemory<byte> memory;
         private byte seperator;
 
         public StreamedMemoryOwningRow(IMemoryOwner<T> memoryOwner, int bytesRead, T seperator, IDictionary<string, int> headers = null) :

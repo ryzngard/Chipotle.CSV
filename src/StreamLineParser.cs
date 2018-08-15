@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Chipotle.CSV
 {
-    class StreamLineParser : IEnumerable<StreamLineParser.MemoryChunk?>, IEnumerator<StreamLineParser.MemoryChunk?>
+    public class StreamLineParser : IEnumerable<StreamLineParser.MemoryChunk?>, IEnumerator<StreamLineParser.MemoryChunk?>
     {
         public struct MemoryChunk
         {
@@ -23,12 +23,14 @@ namespace Chipotle.CSV
         private int _chunkIndex = 0;
         private int _validMemoryIndex = -1;
         private bool _previousWasNewLine = false;
+        private readonly int _chunkSizeInLines;
 
         private readonly MemoryPool<byte> _memoryPool = MemoryPool<byte>.Shared;
 
-        public StreamLineParser(Stream stream)
+        public StreamLineParser(Stream stream, int chunkSizeInLines = 100)
         {
             _stream = stream;
+            _chunkSizeInLines = chunkSizeInLines;
         }
 
         public MemoryChunk? Current { get; private set; }
@@ -83,6 +85,13 @@ namespace Chipotle.CSV
             if (_chunk == null)
             {
                 _validMemoryIndex = ResizeChunk();
+
+                // Nothing could be read from the stream
+                if (_validMemoryIndex == 0)
+                {
+                    _chunkIndex = _validMemoryIndex;
+                    return false;
+                }
             }
 
 
@@ -107,7 +116,7 @@ namespace Chipotle.CSV
                         };
 
                         _chunkIndex = i;
-                        _chunkSize = size;
+                        _chunkSize = size * _chunkSizeInLines;
 
                         _previousWasNewLine = true;
 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Benchmarks.LineParserTests</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.11.0, OS=Windows 10.0.17134.191 (1803/April2018Update/Redstone4)
+Intel Core i7-8650U CPU 1.90GHz (Max: 1.41GHz) (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=2.1.302
+  [Host]     : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+  Job-KOQYNN : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+</code></pre>
+<pre><code>InvocationCount=1  UnrollFactor=1  
+</code></pre>
+
+<table>
+<thead><tr><th>                 Method</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Min</th><th>Max</th><th>Median</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>DefaultLineParser_Streamed_1k</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>DefaultLineParser_UpFront_1k</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>StreamLineParser_1k_Chunk10</td><td>513.7 ms</td><td>25.812 ms</td><td>76.108 ms</td><td>370.3 ms</td><td>740.1 ms</td><td>501.5 ms</td><td>21000.0000</td><td>20000.0000</td><td>19000.0000</td><td>263015872 B</td>
+</tr><tr><td>StreamLineParser_1k_Chunk100</td><td>343.3 ms</td><td>1.178 ms</td><td>1.044 ms</td><td>342.0 ms</td><td>345.6 ms</td><td>343.2 ms</td><td>4000.0000</td><td>3000.0000</td><td>3000.0000</td><td>43052392 B</td>
+</tr><tr><td>StreamLineParser_1k_Chunk1000</td><td>317.5 ms</td><td>5.422 ms</td><td>5.072 ms</td><td>307.6 ms</td><td>323.9 ms</td><td>317.6 ms</td><td>2000.0000</td><td>1000.0000</td><td>1000.0000</td><td>20055680 B</td>
+</tr></tbody></table>
+</body>
+</html>

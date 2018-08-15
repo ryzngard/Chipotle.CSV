@@ -2,6 +2,7 @@
 using Chipotle.CSV;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,15 @@ namespace Benchmarks
     [MemoryDiagnoser]
     public class ChipotleCsvStreamedMemoryPoolBenchmark
     {
+        private static MemoryPoolRowProvider.Configuration GetConfiguration()
+        {
+            return new MemoryPoolRowProvider.Configuration()
+            {
+                RowParseMechanism = MemoryPoolRowProvider.RowParseMechanism.Streamed,
+                LineParser = MemoryPoolRowProvider.LineParser.Streamed
+            };
+        }
+
         [Benchmark]
         public async Task<Csv> Parse2KB()
         {
@@ -57,7 +67,7 @@ namespace Benchmarks
             int rowCount = 0;
 
             using (var stream = Resources.GetStream(Resources.FileSize.MB4))
-            using (var reader = Csv.Parse(stream, new MemoryPoolRowProvider(stream)))
+            using (var reader = Csv.Parse(stream, new MemoryPoolRowProvider(stream, config: GetConfiguration())))
             {
                 while (true)
                 {
@@ -90,25 +100,35 @@ namespace Benchmarks
         private static async Task<Csv> ParseCsvFile(Resources.FileSize size)
         {
             using (var stream = Resources.GetStream(size))
-            using (var csv = Csv.Parse(stream, new MemoryPoolRowProvider(stream)))
+            using (var csv = Csv.Parse(stream, new MemoryPoolRowProvider(stream, config: GetConfiguration())))
             {
                 Debug.WriteLine($"Reading file, size = {stream.Length}");
 
-                IRow<byte> row;
+                IRow<byte> row = null;
                 int count = 0;
                 while (true)
                 {
-                    row = await csv.GetNextAsync();
+                    var currentRow = await csv.GetNextAsync();
 
-                    if (row == null)
+                    if (currentRow == null)
                     {
                         break;
                     }
+
+                    row = currentRow;
+
+                    Debug.WriteLine($"Row: ");
+                    foreach (var segment in row)
+                    {
+                        Debug.WriteLine(Encoding.UTF8.GetString(segment.ToArray()));
+                    }
+                    Debug.WriteLine($"//Row");
 
                     count++;
                 }
 
                 Debug.WriteLine($"Read {count} rows");
+                Debug.WriteLine($"Last Row: {row?.ToString() ?? "Null"}");
 
                 return csv;
             }

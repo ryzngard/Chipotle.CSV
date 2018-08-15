@@ -8,9 +8,13 @@ namespace Benchmarks
         #if DEBUG
         static void Main(string[] args)
         {
-            var test = new ChipotleCsvMemoryPoolBenchmark();
+            var test = new ChipotleCsvStreamedMemoryPoolBenchmark();
 
-            test.FindLast_4MB().Wait();
+            for (int i = 0; i < 100; i++)
+            {
+                Console.WriteLine($"Run {i}");
+                test.Parse4MB().Wait();
+            }
         }
         #else 
         static void Main(string[] args)

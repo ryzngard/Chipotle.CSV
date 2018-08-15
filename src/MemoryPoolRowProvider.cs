@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -98,10 +99,12 @@ namespace Chipotle.CSV
 
         private void ReadStream()
         {
+            var stopwatch = Stopwatch.StartNew();
             switch (_config.LineParser)
             {
                 case LineParser.Default:
                     {
+
                         var lineParser = new MemoryPoolLineParser(_stream, _queue, (byte)_seperator, _config.RowParseMechanism);
                         _lineReader = lineParser;
 
@@ -113,17 +116,22 @@ namespace Chipotle.CSV
                     {
                         var lineParser = new StreamLineParser(_stream);
                         _lineReader = lineParser;
-                        foreach (var lineChunk in lineParser)
+
+                        foreach (var lineChunk in lineParser.ToArray())
                         {
                             var row = Helpers.CreateRow(_config.RowParseMechanism, lineChunk.Value.MemoryOwner, lineChunk.Value.Memory, (byte)_seperator);
                             _queue.Enqueue(row);
                         }
+
                         break;
                     }
 
                 default:
                     throw new InvalidOperationException();
             }
+
+            stopwatch.Stop();
+            Debug.WriteLine($"Ellapsed time to read: {stopwatch.ElapsedMilliseconds}");
 
             _finishedReading = true;
         }
