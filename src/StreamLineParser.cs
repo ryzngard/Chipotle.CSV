@@ -50,15 +50,25 @@ namespace Chipotle.CSV
 
         private int ResizeChunk()
         {
+            if (_stream.Position == _stream.Length)
+            {
+                // No need to resize, the whole stream has been consumed
+                return _validMemoryIndex;
+            }
+
             int startIndex = 0;
+            int memorySize = 0;
             if (_chunk == null)
             {
                 _chunk = _memoryProvder.Rent();
+                memorySize = _chunk.Memory.Length;
+
             }
             else
             {
-                startIndex = _chunk.Memory.Length;
-                var tmp = _memoryProvder.Rent(_chunk, startIndex);
+                var tmp = _memoryProvder.Rent(_chunk, _chunkIndex);
+                startIndex = _chunk.Memory.Length - _chunkIndex;
+
                 _chunk.Dispose();
                 _chunk = tmp;
             }
@@ -110,7 +120,7 @@ namespace Chipotle.CSV
                     // the end of the stream
                     if (i == _validMemoryIndex)
                     {
-                        if (_chunkIndex == _chunk.Memory.Length)
+                        if (_validMemoryIndex <= _chunkIndex)
                         {
                             Current = null;
                             return false;
@@ -126,6 +136,12 @@ namespace Chipotle.CSV
                         _endOfStream = true;
 
                         return true;
+                    }
+                    else
+                    {
+                        // If the memory size did change, reset the index since all
+                        // old memory has been discarded and new memory is at the front.
+                        i = 0;
                     }
                 }
 

@@ -13,7 +13,8 @@ namespace Benchmarks
             for (int i = 0; i < 100; i++)
             {
                 Console.WriteLine($"Run {i}");
-                test.Parse((CsvBenchmarks.ParsingMethod.SMP, Resources.FileSize.MB4)).Wait();
+                //test.Parse((CsvBenchmarks.ParsingMethod.SMP, Resources.FileSize.MB4)).Wait();
+                test.Find_Last_4MB(CsvBenchmarks.ParsingMethod.SMP).Wait();
             }
         }
         #else 
