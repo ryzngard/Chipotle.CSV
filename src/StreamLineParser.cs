@@ -19,19 +19,19 @@ namespace Chipotle.CSV
         private readonly Stream _stream;
         private IMemoryOwner<byte> _chunk;
         private int _offset;
-        private int _chunkSize = 2048;
         private int _chunkIndex = 0;
         private int _validMemoryIndex = -1;
         private bool _previousWasNewLine = false;
-        private readonly int _chunkSizeInLines;
         private bool _endOfStream = false;
-
-        private readonly MemoryPool<byte> _memoryPool = MemoryPool<byte>.Shared;
+        private IMemoryProvider<byte> _memoryProvder;
 
         public StreamLineParser(Stream stream, int chunkSizeInLines = 10000)
         {
             _stream = stream;
-            _chunkSizeInLines = chunkSizeInLines;
+
+            var maxNeeded = Math.Min(int.MaxValue, stream.Length);
+            _memoryProvder = new MemoryPoolMemoryProvider((int)maxNeeded);
+
         }
 
         public MemoryChunk? Current { get; private set; }
@@ -53,14 +53,13 @@ namespace Chipotle.CSV
             int startIndex = 0;
             if (_chunk == null)
             {
-                _chunk = _memoryPool.Rent(_chunkSize);
+                _chunk = _memoryProvder.Rent();
             }
             else
             {
                 startIndex = _chunk.Memory.Length;
-                var tmp = _memoryPool.Rent(startIndex + _chunkSize);
-                _chunk.Memory.CopyTo(tmp.Memory);
-
+                var tmp = _memoryProvder.Rent(_chunk, startIndex);
+                _chunk.Dispose();
                 _chunk = tmp;
             }
 
@@ -147,7 +146,7 @@ namespace Chipotle.CSV
                         };
 
                         _chunkIndex = i;
-                        _chunkSize = size * _chunkSizeInLines;
+                        _memoryProvder.SubmitChunkUsage(size);
 
                         _previousWasNewLine = true;
 
