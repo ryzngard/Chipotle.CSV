@@ -15,43 +15,77 @@
 <pre><code>
 BenchmarkDotNet=v0.11.0, OS=Windows 10.0.17134.228 (1803/April2018Update/Redstone4)
 Intel Core i7-8650U CPU 1.90GHz (Max: 1.91GHz) (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
-.NET Core SDK=2.1.302
-  [Host]     : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
-  DefaultJob : .NET Core 2.0.9 (CoreCLR 4.6.26614.01, CoreFX 4.6.26614.01), 64bit RyuJIT
+.NET Core SDK=2.1.400
+  [Host]          : .NET Core 2.1.2 (CoreCLR 4.6.26628.05, CoreFX 4.6.26629.01), 64bit RyuJIT
+  FastAndDirtyJob : .NET Core 2.1.2 (CoreCLR 4.6.26628.05, CoreFX 4.6.26629.01), 64bit RyuJIT
 </code></pre>
-<pre><code></code></pre>
+<pre><code>Job=FastAndDirtyJob  IterationCount=5  LaunchCount=1  
+RunStrategy=ColdStart  WarmupCount=5  
+</code></pre>
 
 <table>
-<thead><tr><th> Method</th><th>          pair</th><th>method</th><th>   Mean</th><th>  Error</th><th>  StdDev</th><th>    Min</th><th>    Max</th><th> Median</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
+<thead><tr><th> Method</th><th> method</th><th>fileSize</th><th>     Mean</th><th>    Error</th><th>  StdDev</th><th>        Min</th><th>      Max</th><th>     Median</th><th> Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
 </tr>
-</thead><tbody><tr><td>Parse</td><td>(BytePipeline, KB16)</td><td>?</td><td>725.11 us</td><td>0.7205 us</td><td>0.6739 us</td><td>724.04 us</td><td>726.03 us</td><td>725.16 us</td><td>99.6094</td><td>-</td><td>-</td><td>420792 B</td>
-</tr><tr><td>Parse</td><td>(BytePipeline, KB2)</td><td>?</td><td>50.05 us</td><td>0.1250 us</td><td>0.1108 us</td><td>49.85 us</td><td>50.19 us</td><td>50.08 us</td><td>6.9580</td><td>-</td><td>-</td><td>29440 B</td>
-</tr><tr><td>Parse</td><td>(BytePipeline, KB32)</td><td>?</td><td>1,513.73 us</td><td>3.5119 us</td><td>3.1132 us</td><td>1,509.85 us</td><td>1,521.67 us</td><td>1,513.18 us</td><td>208.9844</td><td>-</td><td>-</td><td>878944 B</td>
-</tr><tr><td>Parse</td><td>(BytePipeline, KB4)</td><td>?</td><td>149.30 us</td><td>0.3670 us</td><td>0.3433 us</td><td>148.79 us</td><td>150.04 us</td><td>149.40 us</td><td>20.5078</td><td>-</td><td>-</td><td>86680 B</td>
-</tr><tr><td>Parse</td><td>(BytePipeline, KB8)</td><td>?</td><td>362.66 us</td><td>0.5711 us</td><td>0.5342 us</td><td>361.66 us</td><td>363.30 us</td><td>362.79 us</td><td>50.2930</td><td>-</td><td>-</td><td>210992 B</td>
-</tr><tr><td>Parse</td><td>(BytePipeline, MB4)</td><td>?</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td>
-</tr><tr><td>Parse</td><td>(CsvHelper, KB16)</td><td>?</td><td>364.16 us</td><td>7.2279 us</td><td>7.7337 us</td><td>356.11 us</td><td>376.04 us</td><td>360.20 us</td><td>66.4063</td><td>-</td><td>-</td><td>278791 B</td>
-</tr><tr><td>Parse</td><td>(CsvHelper, KB2)</td><td>?</td><td>33.95 us</td><td>0.1133 us</td><td>0.1059 us</td><td>33.77 us</td><td>34.13 us</td><td>33.94 us</td><td>9.0332</td><td>-</td><td>-</td><td>37932 B</td>
-</tr><tr><td>Parse</td><td>(CsvHelper, KB32)</td><td>?</td><td>745.46 us</td><td>16.8149 us</td><td>18.6897 us</td><td>732.27 us</td><td>803.67 us</td><td>736.51 us</td><td>132.8125</td><td>-</td><td>-</td><td>559869 B</td>
-</tr><tr><td>Parse</td><td>(CsvHelper, KB4)</td><td>?</td><td>83.92 us</td><td>1.4534 us</td><td>1.9894 us</td><td>81.21 us</td><td>88.95 us</td><td>83.56 us</td><td>17.3340</td><td>-</td><td>-</td><td>73057 B</td>
-</tr><tr><td>Parse</td><td>(CsvHelper, KB8)</td><td>?</td><td>185.44 us</td><td>1.1783 us</td><td>0.9839 us</td><td>184.25 us</td><td>187.38 us</td><td>185.00 us</td><td>35.1563</td><td>-</td><td>-</td><td>148534 B</td>
-</tr><tr><td>Parse</td><td>(CsvHelper, MB4)</td><td>?</td><td>133,803.13 us</td><td>1,640.0709 us</td><td>1,534.1232 us</td><td>131,244.05 us</td><td>136,105.33 us</td><td>133,370.65 us</td><td>23500.0000</td><td>-</td><td>-</td><td>99561318 B</td>
-</tr><tr><td>Parse</td><td>(MemoryPool, KB16)</td><td>?</td><td>862.24 us</td><td>28.7855 us</td><td>83.5118 us</td><td>673.20 us</td><td>1,050.72 us</td><td>852.64 us</td><td>95.7031</td><td>-</td><td>-</td><td>7696 B</td>
-</tr><tr><td>Parse</td><td>(MemoryPool, KB2)</td><td>?</td><td>63.71 us</td><td>2.1541 us</td><td>6.2494 us</td><td>49.74 us</td><td>78.51 us</td><td>63.73 us</td><td>7.2021</td><td>-</td><td>-</td><td>1792 B</td>
-</tr><tr><td>Parse</td><td>(MemoryPool, KB32)</td><td>?</td><td>1,919.48 us</td><td>73.1862 us</td><td>215.7913 us</td><td>1,449.06 us</td><td>2,489.53 us</td><td>1,902.48 us</td><td>203.1250</td><td>-</td><td>-</td><td>14679 B</td>
-</tr><tr><td>Parse</td><td>(MemoryPool, KB4)</td><td>?</td><td>210.81 us</td><td>8.8338 us</td><td>25.7685 us</td><td>159.13 us</td><td>269.33 us</td><td>211.32 us</td><td>20.0195</td><td>-</td><td>-</td><td>2656 B</td>
-</tr><tr><td>Parse</td><td>(MemoryPool, KB8)</td><td>?</td><td>508.63 us</td><td>15.9451 us</td><td>47.0145 us</td><td>424.95 us</td><td>626.13 us</td><td>511.38 us</td><td>47.8516</td><td>-</td><td>-</td><td>4528 B</td>
-</tr><tr><td>Parse</td><td>(MemoryPool, MB4)</td><td>?</td><td>254,772.58 us</td><td>8,758.9850 us</td><td>25,411.4038 us</td><td>187,095.40 us</td><td>317,383.80 us</td><td>256,635.77 us</td><td>40000.0000</td><td>-</td><td>-</td><td>2639088 B</td>
-</tr><tr><td>Parse</td><td>(SMP, KB16)</td><td>?</td><td>454.15 us</td><td>9.0468 us</td><td>20.0472 us</td><td>421.09 us</td><td>504.33 us</td><td>452.61 us</td><td>15.1367</td><td>-</td><td>-</td><td>7694 B</td>
-</tr><tr><td>Parse</td><td>(SMP, KB2)</td><td>?</td><td>40.75 us</td><td>0.7790 us</td><td>1.7098 us</td><td>37.61 us</td><td>44.17 us</td><td>40.48 us</td><td>1.8921</td><td>-</td><td>-</td><td>1792 B</td>
-</tr><tr><td>Parse</td><td>(SMP, KB32)</td><td>?</td><td>965.44 us</td><td>21.6478 us</td><td>43.7296 us</td><td>895.24 us</td><td>1,081.83 us</td><td>952.43 us</td><td>27.3438</td><td>-</td><td>-</td><td>14608 B</td>
-</tr><tr><td>Parse</td><td>(SMP, KB4)</td><td>?</td><td>107.70 us</td><td>2.9513 us</td><td>8.6092 us</td><td>91.10 us</td><td>131.43 us</td><td>108.60 us</td><td>4.1504</td><td>-</td><td>-</td><td>2656 B</td>
-</tr><tr><td>Parse</td><td>(SMP, KB8)</td><td>?</td><td>235.57 us</td><td>4.7789 us</td><td>10.7867 us</td><td>214.27 us</td><td>261.38 us</td><td>234.00 us</td><td>7.3242</td><td>-</td><td>-</td><td>4525 B</td>
-</tr><tr><td>Parse</td><td>(SMP, MB4)</td><td>?</td><td>127,794.82 us</td><td>4,312.1072 us</td><td>12,646.6639 us</td><td>107,042.88 us</td><td>156,593.48 us</td><td>127,782.88 us</td><td>2600.0000</td><td>1000.0000</td><td>1000.0000</td><td>2639085 B</td>
-</tr><tr><td>Find_Last_4MB</td><td>?</td><td>BytePipeline</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td>
-</tr><tr><td>Find_Last_4MB</td><td>?</td><td>CsvHelper</td><td>139,917.19 us</td><td>2,790.6828 us</td><td>2,985.9990 us</td><td>136,872.48 us</td><td>146,297.15 us</td><td>138,747.95 us</td><td>23500.0000</td><td>-</td><td>-</td><td>99561358 B</td>
-</tr><tr><td>Find_Last_4MB</td><td>?</td><td>MemoryPool</td><td>223,431.73 us</td><td>9,200.4160 us</td><td>26,983.2276 us</td><td>177,871.30 us</td><td>298,649.40 us</td><td>218,438.80 us</td><td>82666.6667</td><td>-</td><td>-</td><td>130621720 B</td>
-</tr><tr><td>Find_Last_4MB</td><td>?</td><td>SMP</td><td>182,704.41 us</td><td>3,880.6883 us</td><td>6,796.7126 us</td><td>172,119.50 us</td><td>202,838.27 us</td><td>180,633.63 us</td><td>15000.0000</td><td>2666.6667</td><td>1333.3333</td><td>57659232 B</td>
+</thead><tbody><tr><td>Parse</td><td>CsvHelper</td><td>IMDB_Titles</td><td>13,826,851.6 us</td><td>2,683,430.2 us</td><td>697,011.0 us</td><td>13,216,030.400 us</td><td>14,651,793.8 us</td><td>13,407,124.200 us</td><td>2069000.0000</td><td>1000.0000</td><td>-</td><td>8476366.54 KB</td>
+</tr><tr><td>Open</td><td>CsvHelper</td><td>IMDB_Titles</td><td>5,909.3 us</td><td>50,477.7 us</td><td>13,111.4 us</td><td>34.500 us</td><td>29,363.7 us</td><td>49.700 us</td><td>-</td><td>-</td><td>-</td><td>13.26 KB</td>
+</tr><tr><td>Parse</td><td>CsvHelper</td><td>KB16</td><td>10,725.9 us</td><td>88,081.9 us</td><td>22,879.0 us</td><td>467.900 us</td><td>51,653.0 us</td><td>508.900 us</td><td>-</td><td>-</td><td>-</td><td>273.28 KB</td>
+</tr><tr><td>Open</td><td>CsvHelper</td><td>KB16</td><td>5,956.8 us</td><td>50,876.5 us</td><td>13,215.0 us</td><td>36.300 us</td><td>29,596.5 us</td><td>51.100 us</td><td>-</td><td>-</td><td>-</td><td>13.24 KB</td>
+</tr><tr><td>Parse</td><td>CsvHelper</td><td>KB2</td><td>10,704.6 us</td><td>91,342.5 us</td><td>23,725.9 us</td><td>76.000 us</td><td>53,146.7 us</td><td>107.800 us</td><td>-</td><td>-</td><td>-</td><td>38.14 KB</td>
+</tr><tr><td>Open</td><td>CsvHelper</td><td>KB2</td><td>5,885.2 us</td><td>50,246.9 us</td><td>13,051.4 us</td><td>32.200 us</td><td>29,232.3 us</td><td>61.700 us</td><td>-</td><td>-</td><td>-</td><td>13.24 KB</td>
+</tr><tr><td>Parse</td><td>CsvHelper</td><td>KB32</td><td>11,321.5 us</td><td>88,811.5 us</td><td>23,068.4 us</td><td>989.600 us</td><td>52,587.6 us</td><td>1,000.700 us</td><td>-</td><td>-</td><td>-</td><td>547.69 KB</td>
+</tr><tr><td>Open</td><td>CsvHelper</td><td>KB32</td><td>5,785.8 us</td><td>49,434.5 us</td><td>12,840.4 us</td><td>34.500 us</td><td>28,755.5 us</td><td>40.000 us</td><td>-</td><td>-</td><td>-</td><td>13.24 KB</td>
+</tr><tr><td>Parse</td><td>CsvHelper</td><td>KB4</td><td>10,667.5 us</td><td>90,402.0 us</td><td>23,481.6 us</td><td>143.800 us</td><td>52,672.6 us</td><td>174.300 us</td><td>-</td><td>-</td><td>-</td><td>72.44 KB</td>
+</tr><tr><td>Open</td><td>CsvHelper</td><td>KB4</td><td>5,763.2 us</td><td>49,082.2 us</td><td>12,748.9 us</td><td>38.100 us</td><td>28,569.1 us</td><td>74.000 us</td><td>-</td><td>-</td><td>-</td><td>13.24 KB</td>
+</tr><tr><td>Parse</td><td>CsvHelper</td><td>KB8</td><td>10,545.7 us</td><td>88,343.7 us</td><td>22,946.9 us</td><td>258.000 us</td><td>51,594.4 us</td><td>292.400 us</td><td>-</td><td>-</td><td>-</td><td>146.12 KB</td>
+</tr><tr><td>Open</td><td>CsvHelper</td><td>KB8</td><td>5,900.2 us</td><td>50,426.5 us</td><td>13,098.1 us</td><td>31.600 us</td><td>29,330.8 us</td><td>45.600 us</td><td>-</td><td>-</td><td>-</td><td>13.24 KB</td>
+</tr><tr><td>Parse</td><td>CsvHelper</td><td>MB4</td><td>176,517.9 us</td><td>110,700.3 us</td><td>28,754.0 us</td><td>161,662.600 us</td><td>227,857.0 us</td><td>164,309.200 us</td><td>23000.0000</td><td>-</td><td>-</td><td>97227.59 KB</td>
+</tr><tr><td>Open</td><td>CsvHelper</td><td>MB4</td><td>5,851.1 us</td><td>49,970.5 us</td><td>12,979.6 us</td><td>31.900 us</td><td>29,069.8 us</td><td>57.500 us</td><td>-</td><td>-</td><td>-</td><td>13.24 KB</td>
+</tr><tr><td>Find_Last_4MB</td><td>CsvHelper</td><td>?</td><td>178,367.0 us</td><td>101,843.8 us</td><td>26,453.6 us</td><td>165,104.700 us</td><td>225,547.7 us</td><td>165,625.800 us</td><td>23000.0000</td><td>-</td><td>-</td><td>97227.59 KB</td>
+</tr><tr><td>Parse</td><td>MemoryManaged</td><td>IMDB_Titles</td><td>32,575,786.4 us</td><td>6,438,405.3 us</td><td>1,672,351.8 us</td><td>30,314,440.900 us</td><td>34,273,298.3 us</td><td>33,239,397.800 us</td><td>240000.0000</td><td>120000.0000</td><td>1000.0000</td><td>365790.59 KB</td>
+</tr><tr><td>Open</td><td>MemoryManaged</td><td>IMDB_Titles</td><td>1,178.0 us</td><td>9,876.4 us</td><td>2,565.4 us</td><td>19.100 us</td><td>5,767.0 us</td><td>22.200 us</td><td>-</td><td>-</td><td>-</td><td>2.99 KB</td>
+</tr><tr><td>Parse</td><td>MemoryManaged</td><td>KB16</td><td>6,233.0 us</td><td>44,810.6 us</td><td>11,639.4 us</td><td>1,008.400 us</td><td>27,054.1 us</td><td>1,029.300 us</td><td>-</td><td>-</td><td>-</td><td>9.59 KB</td>
+</tr><tr><td>Open</td><td>MemoryManaged</td><td>KB16</td><td>1,111.3 us</td><td>9,251.7 us</td><td>2,403.1 us</td><td>23.200 us</td><td>5,410.0 us</td><td>40.000 us</td><td>-</td><td>-</td><td>-</td><td>2.98 KB</td>
+</tr><tr><td>Parse</td><td>MemoryManaged</td><td>KB2</td><td>4,472.3 us</td><td>37,095.0 us</td><td>9,635.3 us</td><td>143.800 us</td><td>21,708.4 us</td><td>178.700 us</td><td>-</td><td>-</td><td>-</td><td>3.82 KB</td>
+</tr><tr><td>Open</td><td>MemoryManaged</td><td>KB2</td><td>1,082.9 us</td><td>9,063.4 us</td><td>2,354.2 us</td><td>18.500 us</td><td>5,294.1 us</td><td>38.300 us</td><td>-</td><td>-</td><td>-</td><td>2.98 KB</td>
+</tr><tr><td>Parse</td><td>MemoryManaged</td><td>KB32</td><td>6,490.2 us</td><td>38,288.2 us</td><td>9,945.2 us</td><td>1,973.100 us</td><td>24,280.5 us</td><td>2,067.100 us</td><td>-</td><td>-</td><td>-</td><td>16.41 KB</td>
+</tr><tr><td>Open</td><td>MemoryManaged</td><td>KB32</td><td>1,216.0 us</td><td>10,252.9 us</td><td>2,663.1 us</td><td>18.600 us</td><td>5,979.9 us</td><td>20.400 us</td><td>-</td><td>-</td><td>-</td><td>2.98 KB</td>
+</tr><tr><td>Parse</td><td>MemoryManaged</td><td>KB4</td><td>4,743.0 us</td><td>38,296.6 us</td><td>9,947.4 us</td><td>255.400 us</td><td>22,537.3 us</td><td>301.700 us</td><td>-</td><td>-</td><td>-</td><td>4.66 KB</td>
+</tr><tr><td>Open</td><td>MemoryManaged</td><td>KB4</td><td>1,222.7 us</td><td>10,310.0 us</td><td>2,678.0 us</td><td>16.900 us</td><td>6,013.2 us</td><td>19.300 us</td><td>-</td><td>-</td><td>-</td><td>2.98 KB</td>
+</tr><tr><td>Parse</td><td>MemoryManaged</td><td>KB8</td><td>4,997.5 us</td><td>38,313.3 us</td><td>9,951.7 us</td><td>503.900 us</td><td>22,799.6 us</td><td>567.300 us</td><td>-</td><td>-</td><td>-</td><td>6.49 KB</td>
+</tr><tr><td>Open</td><td>MemoryManaged</td><td>KB8</td><td>1,193.5 us</td><td>10,043.9 us</td><td>2,608.9 us</td><td>17.900 us</td><td>5,860.4 us</td><td>25.200 us</td><td>-</td><td>-</td><td>-</td><td>2.98 KB</td>
+</tr><tr><td>Parse</td><td>MemoryManaged</td><td>MB4</td><td>286,166.3 us</td><td>22,883.5 us</td><td>5,943.9 us</td><td>279,530.700 us</td><td>294,557.9 us</td><td>284,892.400 us</td><td>2000.0000</td><td>1000.0000</td><td>1000.0000</td><td>2579.3 KB</td>
+</tr><tr><td>Open</td><td>MemoryManaged</td><td>MB4</td><td>1,158.8 us</td><td>9,681.2 us</td><td>2,514.7 us</td><td>21.900 us</td><td>5,657.0 us</td><td>24.800 us</td><td>-</td><td>-</td><td>-</td><td>2.98 KB</td>
+</tr><tr><td>Find_Last_4MB</td><td>MemoryManaged</td><td>?</td><td>318,608.8 us</td><td>105,781.9 us</td><td>27,476.4 us</td><td>299,995.800 us</td><td>367,284.4 us</td><td>308,616.200 us</td><td>3000.0000</td><td>2000.0000</td><td>1000.0000</td><td>6991.49 KB</td>
+</tr><tr><td>Parse</td><td>Pipeline</td><td>IMDB_Titles</td><td>20,826,019.3 us</td><td>10,367,742.4 us</td><td>2,692,982.5 us</td><td>18,840,816.000 us</td><td>25,543,026.2 us</td><td>20,121,903.100 us</td><td>762000.0000</td><td>381000.0000</td><td>1000.0000</td><td>3.28 KB</td>
+</tr><tr><td>Open</td><td>Pipeline</td><td>IMDB_Titles</td><td>1,580.7 us</td><td>13,420.8 us</td><td>3,486.0 us</td><td>15.900 us</td><td>7,816.6 us</td><td>21.800 us</td><td>-</td><td>-</td><td>-</td><td>2.53 KB</td>
+</tr><tr><td>Parse</td><td>Pipeline</td><td>KB16</td><td>9,344.5 us</td><td>73,610.3 us</td><td>19,120.0 us</td><td>734.900 us</td><td>43,547.3 us</td><td>839.600 us</td><td>-</td><td>-</td><td>-</td><td>3.27 KB</td>
+</tr><tr><td>Open</td><td>Pipeline</td><td>KB16</td><td>1,536.0 us</td><td>13,030.6 us</td><td>3,384.6 us</td><td>16.100 us</td><td>7,590.6 us</td><td>18.600 us</td><td>-</td><td>-</td><td>-</td><td>2.52 KB</td>
+</tr><tr><td>Parse</td><td>Pipeline</td><td>KB2</td><td>8,922.8 us</td><td>75,059.2 us</td><td>19,496.3 us</td><td>136.100 us</td><td>43,798.7 us</td><td>211.600 us</td><td>-</td><td>-</td><td>-</td><td>3.27 KB</td>
+</tr><tr><td>Open</td><td>Pipeline</td><td>KB2</td><td>1,446.3 us</td><td>12,173.1 us</td><td>3,161.9 us</td><td>20.400 us</td><td>7,102.5 us</td><td>39.500 us</td><td>-</td><td>-</td><td>-</td><td>2.52 KB</td>
+</tr><tr><td>Parse</td><td>Pipeline</td><td>KB32</td><td>10,603.6 us</td><td>76,141.4 us</td><td>19,777.4 us</td><td>1,467.300 us</td><td>45,974.9 us</td><td>1,567.500 us</td><td>-</td><td>-</td><td>-</td><td>3.27 KB</td>
+</tr><tr><td>Open</td><td>Pipeline</td><td>KB32</td><td>1,519.2 us</td><td>12,850.6 us</td><td>3,337.9 us</td><td>16.600 us</td><td>7,490.2 us</td><td>23.900 us</td><td>-</td><td>-</td><td>-</td><td>2.52 KB</td>
+</tr><tr><td>Parse</td><td>Pipeline</td><td>KB4</td><td>9,188.4 us</td><td>76,690.6 us</td><td>19,920.1 us</td><td>205.800 us</td><td>44,822.4 us</td><td>278.500 us</td><td>-</td><td>-</td><td>-</td><td>3.27 KB</td>
+</tr><tr><td>Open</td><td>Pipeline</td><td>KB4</td><td>1,487.3 us</td><td>12,584.7 us</td><td>3,268.8 us</td><td>17.500 us</td><td>7,334.8 us</td><td>23.900 us</td><td>-</td><td>-</td><td>-</td><td>2.52 KB</td>
+</tr><tr><td>Parse</td><td>Pipeline</td><td>KB8</td><td>9,472.4 us</td><td>77,618.0 us</td><td>20,161.0 us</td><td>414.500 us</td><td>45,537.4 us</td><td>454.200 us</td><td>-</td><td>-</td><td>-</td><td>3.27 KB</td>
+</tr><tr><td>Open</td><td>Pipeline</td><td>KB8</td><td>1,605.8 us</td><td>13,627.7 us</td><td>3,539.7 us</td><td>17.100 us</td><td>7,937.9 us</td><td>22.700 us</td><td>-</td><td>-</td><td>-</td><td>2.52 KB</td>
+</tr><tr><td>Parse</td><td>Pipeline</td><td>MB4</td><td>198,311.4 us</td><td>85,678.3 us</td><td>22,254.6 us</td><td>184,036.300 us</td><td>237,793.3 us</td><td>190,483.800 us</td><td>7000.0000</td><td>3000.0000</td><td>-</td><td>3.27 KB</td>
+</tr><tr><td>Open</td><td>Pipeline</td><td>MB4</td><td>1,457.7 us</td><td>12,326.8 us</td><td>3,201.8 us</td><td>18.500 us</td><td>7,185.3 us</td><td>20.400 us</td><td>-</td><td>-</td><td>-</td><td>2.52 KB</td>
+</tr><tr><td>Find_Last_4MB</td><td>Pipeline</td><td>?</td><td>229,019.1 us</td><td>152,576.1 us</td><td>39,631.1 us</td><td>202,908.800 us</td><td>298,899.7 us</td><td>215,506.400 us</td><td>9000.0000</td><td>4000.0000</td><td>-</td><td>3.27 KB</td>
+</tr><tr><td>Parse</td><td>StreamReader</td><td>IMDB_Titles</td><td>2,080,142.7 us</td><td>603,227.1 us</td><td>156,686.0 us</td><td>1,931,441.600 us</td><td>2,316,243.6 us</td><td>2,023,971.100 us</td><td>680000.0000</td><td>-</td><td>-</td><td>2789146.93 KB</td>
+</tr><tr><td>Open</td><td>StreamReader</td><td>IMDB_Titles</td><td>570.9 us</td><td>4,852.5 us</td><td>1,260.4 us</td><td>4.500 us</td><td>2,825.6 us</td><td>7.400 us</td><td>-</td><td>-</td><td>-</td><td>3.4 KB</td>
+</tr><tr><td>Parse</td><td>StreamReader</td><td>KB16</td><td>1,501.2 us</td><td>11,927.2 us</td><td>3,098.0 us</td><td>86.000 us</td><td>7,043.0 us</td><td>134.100 us</td><td>-</td><td>-</td><td>-</td><td>137.32 KB</td>
+</tr><tr><td>Open</td><td>StreamReader</td><td>KB16</td><td>570.3 us</td><td>4,845.2 us</td><td>1,258.5 us</td><td>4.400 us</td><td>2,821.6 us</td><td>7.500 us</td><td>-</td><td>-</td><td>-</td><td>3.38 KB</td>
+</tr><tr><td>Parse</td><td>StreamReader</td><td>KB2</td><td>1,555.1 us</td><td>13,252.0 us</td><td>3,442.1 us</td><td>13.800 us</td><td>7,712.6 us</td><td>14.400 us</td><td>-</td><td>-</td><td>-</td><td>12.48 KB</td>
+</tr><tr><td>Open</td><td>StreamReader</td><td>KB2</td><td>554.9 us</td><td>4,699.1 us</td><td>1,220.6 us</td><td>5.500 us</td><td>2,738.3 us</td><td>7.900 us</td><td>-</td><td>-</td><td>-</td><td>3.38 KB</td>
+</tr><tr><td>Parse</td><td>StreamReader</td><td>KB32</td><td>1,605.7 us</td><td>12,205.7 us</td><td>3,170.4 us</td><td>168.000 us</td><td>7,276.9 us</td><td>189.500 us</td><td>-</td><td>-</td><td>-</td><td>282.61 KB</td>
+</tr><tr><td>Open</td><td>StreamReader</td><td>KB32</td><td>579.6 us</td><td>4,920.1 us</td><td>1,278.0 us</td><td>4.600 us</td><td>2,865.7 us</td><td>7.900 us</td><td>-</td><td>-</td><td>-</td><td>3.38 KB</td>
+</tr><tr><td>Parse</td><td>StreamReader</td><td>KB4</td><td>1,480.2 us</td><td>12,458.4 us</td><td>3,236.0 us</td><td>24.300 us</td><td>7,269.0 us</td><td>29.200 us</td><td>-</td><td>-</td><td>-</td><td>30.8 KB</td>
+</tr><tr><td>Open</td><td>StreamReader</td><td>KB4</td><td>541.2 us</td><td>4,592.8 us</td><td>1,193.0 us</td><td>4.600 us</td><td>2,675.2 us</td><td>8.400 us</td><td>-</td><td>-</td><td>-</td><td>3.38 KB</td>
+</tr><tr><td>Parse</td><td>StreamReader</td><td>KB8</td><td>1,544.0 us</td><td>12,818.1 us</td><td>3,329.4 us</td><td>49.900 us</td><td>7,499.9 us</td><td>54.300 us</td><td>-</td><td>-</td><td>-</td><td>70.61 KB</td>
+</tr><tr><td>Open</td><td>StreamReader</td><td>KB8</td><td>591.7 us</td><td>5,027.2 us</td><td>1,305.8 us</td><td>4.600 us</td><td>2,927.6 us</td><td>8.100 us</td><td>-</td><td>-</td><td>-</td><td>3.38 KB</td>
+</tr><tr><td>Parse</td><td>StreamReader</td><td>MB4</td><td>32,325.5 us</td><td>17,898.9 us</td><td>4,649.2 us</td><td>30,042.700 us</td><td>40,636.4 us</td><td>30,292.000 us</td><td>11000.0000</td><td>-</td><td>-</td><td>48647.19 KB</td>
+</tr><tr><td>Open</td><td>StreamReader</td><td>MB4</td><td>548.8 us</td><td>4,669.4 us</td><td>1,212.9 us</td><td>4.500 us</td><td>2,718.4 us</td><td>7.900 us</td><td>-</td><td>-</td><td>-</td><td>3.38 KB</td>
+</tr><tr><td>Find_Last_4MB</td><td>StreamReader</td><td>?</td><td>34,919.7 us</td><td>18,625.6 us</td><td>4,837.9 us</td><td>32,183.000 us</td><td>43,489.9 us</td><td>32,546.300 us</td><td>12000.0000</td><td>-</td><td>-</td><td>49505.82 KB</td>
 </tr></tbody></table>
 </body>
 </html>

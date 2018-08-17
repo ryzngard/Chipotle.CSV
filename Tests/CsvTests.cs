@@ -10,79 +10,49 @@ namespace test
     public class CsvTests
     {
         private static readonly Encoding _encoding = Encoding.UTF8;
-        public enum RowProviderType
+        public enum TokenizerType
         {
-            BytePipeline,
             Pipeline,
-            MemoryPool,
-            StreamedRowMemoryPool,
-            StreamReader,
-            StreamdRowMemoryPoolStreamLineParser
+            String,
+            ArrayPool
         }
 
-        private IRowProvider GetProvider(RowProviderType rowProviderType, Stream stream)
+        private ITokenizer GetTokenizer(TokenizerType rowProviderType, Stream stream)
         {
             switch(rowProviderType)
             {
-                case RowProviderType.BytePipeline: return new BytePipelineRowProvider(stream);
-                case RowProviderType.Pipeline: return new PipelineRowProvider(stream);
-                case RowProviderType.MemoryPool:
-                    return new MemoryPoolRowProvider(stream, config: new MemoryPoolRowProvider.Configuration()
-                    {
-                        RowParseMechanism = MemoryPoolRowProvider.RowParseMechanism.Upfront,
-                        LineParser = MemoryPoolRowProvider.LineParser.Default
-                    });
-
-                case RowProviderType.StreamedRowMemoryPool:
-                    return new MemoryPoolRowProvider(stream, config: new MemoryPoolRowProvider.Configuration()
-                    {
-                        RowParseMechanism = MemoryPoolRowProvider.RowParseMechanism.Streamed,
-                        LineParser = MemoryPoolRowProvider.LineParser.Default
-                    });
-
-                case RowProviderType.StreamdRowMemoryPoolStreamLineParser:
-                    return new MemoryPoolRowProvider(stream, config: new MemoryPoolRowProvider.Configuration()
-                    {
-                        RowParseMechanism = MemoryPoolRowProvider.RowParseMechanism.Streamed,
-                        LineParser = MemoryPoolRowProvider.LineParser.Streamed
-                    });
-
-                case RowProviderType.StreamReader:
-                    return new StreamReaderRowProvider(new StreamReader(stream));
-
+                case TokenizerType.Pipeline: return new PipelineStreamTokenizer(stream);
+                case TokenizerType.String: return new StreamReaderTokenizer(new StreamReader(stream));
+                case TokenizerType.ArrayPool: return new MemoryManagedTokenizer(stream);
                 default: throw new InvalidDataException();
             }
         }
 
         [Theory]
-        [InlineData(RowProviderType.BytePipeline)]
-        [InlineData(RowProviderType.MemoryPool)]
-        [InlineData(RowProviderType.StreamedRowMemoryPool)]
-        [InlineData(RowProviderType.StreamReader)]
-        [InlineData(RowProviderType.StreamdRowMemoryPoolStreamLineParser)]
-        public async Task BasicCsvParse(RowProviderType rowProviderType)
+        [InlineData(TokenizerType.Pipeline)]
+        [InlineData(TokenizerType.String)]
+        [InlineData(TokenizerType.ArrayPool)]
+        public async Task BasicCsvParse(TokenizerType rowProviderType)
         {
             using (var stream = GetStreamFromString("foo,bar,chunky,bacon"))
-            using (var csv = Csv.Parse(stream, GetProvider(rowProviderType, stream)))
+            using (var csv = GetTokenizer(rowProviderType, stream))
             {
                 var row = await csv.GetNextAsync();
 
                 Assert.Equal(4, row.Count());
 
-                Assert.Equal("foo", _encoding.GetString(row[0].ToArray()));
-                Assert.Equal("bar", _encoding.GetString(row[1].ToArray()));
-                Assert.Equal("chunky", _encoding.GetString(row[2].ToArray()));
-                Assert.Equal("bacon", _encoding.GetString(row[3].ToArray()));
+                Assert.Equal("foo", row[0].ToString());
+                Assert.Equal("bar", row[1].ToString());
+                Assert.Equal("chunky", row[2].ToString());
+                Assert.Equal("bacon", row[3].ToString());
             }
         }
 
         [Theory]
-        [InlineData(RowProviderType.BytePipeline)]
-        [InlineData(RowProviderType.MemoryPool)]
-        [InlineData(RowProviderType.StreamedRowMemoryPool)]
-        [InlineData(RowProviderType.StreamReader)]
-        [InlineData(RowProviderType.StreamdRowMemoryPoolStreamLineParser)]
-        public async Task MultilineCsvParse(RowProviderType rowProviderType)
+        [InlineData(TokenizerType.Pipeline)]
+        [InlineData(TokenizerType.String)]
+        [InlineData(TokenizerType.ArrayPool)]
+        public async Task MultilineCsvParse(TokenizerType rowProviderType)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("foo,bar,chunky,bacon");
@@ -94,25 +64,25 @@ namespace test
             }
 
             using (var stream = GetStreamFromString(sb.ToString()))
-            using (var csv = Csv.Parse(stream, GetProvider(rowProviderType, stream)))
+            using (var csv = GetTokenizer(rowProviderType, stream))
             {
                 var row = await csv.GetNextAsync();
 
                 Assert.Equal(4, row.Count());
 
-                Assert.Equal("foo", _encoding.GetString(row[0].ToArray()));
-                Assert.Equal("bar", _encoding.GetString(row[1].ToArray()));
-                Assert.Equal("chunky", _encoding.GetString(row[2].ToArray()));
-                Assert.Equal("bacon", _encoding.GetString(row[3].ToArray()));
+                Assert.Equal("foo", row[0].ToString());
+                Assert.Equal("bar", row[1].ToString());
+                Assert.Equal("chunky", row[2].ToString());
+                Assert.Equal("bacon", row[3].ToString());
 
                 row = await csv.GetNextAsync();
 
                 Assert.Equal(4, row.Count());
 
-                Assert.Equal("bacon", _encoding.GetString(row[0].ToArray()));
-                Assert.Equal("is", _encoding.GetString(row[1].ToArray()));
-                Assert.Equal("very", _encoding.GetString(row[2].ToArray()));
-                Assert.Equal("chunky", _encoding.GetString(row[3].ToArray()));
+                Assert.Equal("bacon", row[0].ToString());
+                Assert.Equal("is", row[1].ToString());
+                Assert.Equal("very", row[2].ToString());
+                Assert.Equal("chunky", row[3].ToString());
 
                 do
                 {

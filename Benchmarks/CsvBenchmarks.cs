@@ -8,19 +8,21 @@ using System.Linq;
 using System.IO;
 using System.Diagnostics;
 using Chipotle.CSV;
+using BenchmarkDotNet.Engines;
 
 namespace Benchmarks
 {
     [MinColumn, MaxColumn, MeanColumn, MedianColumn]
     [MemoryDiagnoser]
+    [SimpleJob(RunStrategy.ColdStart, launchCount: 1, warmupCount: 5, targetCount: 5, id: "FastAndDirtyJob")]
     public class CsvBenchmarks
     {
         public enum ParsingMethod
         {
             CsvHelper,
-            BytePipeline,
-            MemoryPool,
-            SMP
+            Pipeline,
+            StreamReader,
+            MemoryManaged
         };
 
         public IEnumerable<ParsingMethod> ParsingMethods()
@@ -32,18 +34,66 @@ namespace Benchmarks
             return Enum.GetValues(typeof(Resources.FileSize)).Cast<Resources.FileSize>();
         }
 
-        public IEnumerable<(ParsingMethod, Resources.FileSize)> ParsingFilePairs()
+        public IEnumerable<object[]> ParsingFilePairs()
         {
 
             return ParsingMethods()
-                .SelectMany(method => FileSizes().Select(size => (method, size)));
+                .SelectMany(method => FileSizes().Select(size => new object[] { method, size }));
         }
 
         [Benchmark]
         [ArgumentsSource(nameof(ParsingFilePairs))]
-        public Task<object> Parse((ParsingMethod, Resources.FileSize) pair)
+        public async Task<object> Parse(ParsingMethod method, Resources.FileSize fileSize)
         {
-            return ParseCsvFile(pair.Item1, pair.Item2);
+            switch (method)
+            {
+                case ParsingMethod.CsvHelper:
+                    {
+                        var reader = (CsvReader)Open(method, fileSize);
+
+                        int count = 0;
+
+                        while (await reader.ReadAsync())
+                        {
+                            count++;
+                            Debug.WriteLine(reader.ToString());
+                        }
+
+                        Debug.WriteLine($"Read {count} rows");
+
+                        return reader;
+                    }
+
+                default:
+                    {
+                        var tokenizer = (ITokenizer)GetTokenizer(method, fileSize);
+                        Debug.WriteLine($"Reading file, size = {fileSize}");
+
+                        ISection row;
+                        int count = 0;
+                        while (true)
+                        {
+                            row = await tokenizer.GetNextAsync();
+
+                            if (row == null)
+                            {
+                                break;
+                            }
+
+                            count++;
+                        }
+
+                        Debug.WriteLine($"Read {count} rows");
+                        return tokenizer;
+                    }
+            }
+        }
+
+        [Benchmark]
+        [ArgumentsSource(nameof(ParsingFilePairs))]
+        public IDisposable Open(ParsingMethod method, Resources.FileSize fileSize)
+        {
+            return GetTokenizer(method, fileSize);
         }
 
         [Benchmark]
@@ -51,23 +101,16 @@ namespace Benchmarks
         public async Task<object> Find_Last_4MB(ParsingMethod method)
         {
             const string ToFind = "596003.67";
-            Memory<byte> ToFindMemory = Encoding.UTF8.GetBytes(ToFind).AsMemory();
-
             const int ColumnIndex = 8;
 
             int rowNumber = 0;
             int rowCount = 0;
 
-            var stream = Resources.GetStream(Resources.FileSize.MB4);
-
-            IRowProvider rowProvider = null;
-
             switch (method)
             {
                 case ParsingMethod.CsvHelper:
                     {
-                        var streamReader = new StreamReader(stream);
-                        var reader = new CsvReader(streamReader, false);
+                        var reader = (CsvReader)Open(method, Resources.FileSize.MB4);
 
                         while (await reader.ReadAsync())
                         {
@@ -87,126 +130,86 @@ namespace Benchmarks
                         return reader;
                     }
 
-                case ParsingMethod.BytePipeline:
-                    // This is the default 
-                    break;
-
-                case ParsingMethod.MemoryPool:
-                    rowProvider = new MemoryPoolRowProvider(stream);
-                    break;
-
-                case ParsingMethod.SMP:
-                    rowProvider = new MemoryPoolRowProvider(stream, config: new MemoryPoolRowProvider.Configuration()
-                    {
-                        RowParseMechanism = MemoryPoolRowProvider.RowParseMechanism.Streamed,
-                        LineParser = MemoryPoolRowProvider.LineParser.Streamed
-                    });
-
-                    break;
-
                 default:
-                    throw new InvalidOperationException($"Parsing method is not handled! {method}");
-            }
-
-            {
-                var reader = Csv.Parse(stream, rowProvider: rowProvider);
-
-                while (true)
-                {
-                    var row = await reader.GetNextAsync();
-
-                    if (row == null)
                     {
-                        break;
+                        var csv = (ITokenizer)GetTokenizer(method, Resources.FileSize.MB4);
+
+                        while (true)
+                        {
+                            var row = await csv.GetNextAsync();
+                            if (row == null)
+                            {
+                                break;
+                            }
+
+                            rowCount++;
+
+                            if (ToFind.Equals(row[ColumnIndex].ToString()))
+                            {
+                                rowNumber = rowCount;
+                            }
+                        }
+
+                        if (rowCount != rowNumber)
+                        {
+                            throw new Exception("Failing benchmark because invalid conclusion was made");
+                        }
+                        return csv;
                     }
-
-                    rowCount++;
-
-                    if (row[ColumnIndex].SequenceEqual(ToFindMemory.Span))
-                    {
-                        rowNumber = rowCount;
-                    }
-                }
-
-                if (rowCount != rowNumber)
-                {
-                    throw new Exception($"Failing benchmark because invalid conclusion was made. Expected {rowCount} instead of {rowNumber}");
-                }
-
-                return reader;
             }
         }
 
-        private async Task<object> ParseCsvFile(ParsingMethod method, Resources.FileSize fileSize)
+        private IDisposable GetTokenizer(ParsingMethod method, Resources.FileSize fileSize)
         {
-            var stream = Resources.GetStream(fileSize);
-
-            IRowProvider rowProvider = null;
-
             switch (method)
             {
-                case ParsingMethod.CsvHelper:
-                    {
-                        var streamReader = new StreamReader(stream);
-                        var reader = new CsvReader(streamReader, false);
-
-                        int count = 0;
-
-                        while (await reader.ReadAsync())
-                        {
-                            count++;
-                            Debug.WriteLine(reader.ToString());
-                        }
-
-                        Debug.WriteLine($"Read {count} rows");
-
-                        return reader;
-                    }
-
-                case ParsingMethod.BytePipeline:
-                    // This is the default 
-                    break;
-
-                case ParsingMethod.MemoryPool:
-                    rowProvider = new MemoryPoolRowProvider(stream);
-                    break;
-
-                case ParsingMethod.SMP:
-                    rowProvider = new MemoryPoolRowProvider(stream, config: new MemoryPoolRowProvider.Configuration()
-                    {
-                        RowParseMechanism = MemoryPoolRowProvider.RowParseMechanism.Streamed,
-                        LineParser = MemoryPoolRowProvider.LineParser.Streamed
-                    });
-
-                    break;
-
-                default:
-                    throw new InvalidOperationException($"Parsing method is not handled! {method}");
+                case ParsingMethod.CsvHelper: return GetCsvHelperReader(fileSize);
+                case ParsingMethod.Pipeline: return GetPipelineTokenizer(fileSize);
+                case ParsingMethod.StreamReader: return GetStreamReaderTokenizer(fileSize);
+                case ParsingMethod.MemoryManaged: return GetMemoryManagedTokenizer(fileSize);
+                default: throw new InvalidOperationException();
             }
+        }
 
+        private CsvReader GetCsvHelperReader(Resources.FileSize fileSize)
+        {
+            var config = new CsvHelper.Configuration.Configuration()
             {
-                var csv = Csv.Parse(stream, rowProvider: rowProvider);
+                Delimiter = Resources.GetSeperator(fileSize).ToString(),
+                BadDataFound = (data) => Debug.WriteLine($"Bad Data Found: {data}")
+            };
 
-                Debug.WriteLine($"Reading file, size = {stream.Length}");
+            var stream = new StreamReader(Resources.GetStream(fileSize));
 
-                IRow<byte> row;
-                int count = 0;
-                while (true)
-                {
-                    row = await csv.GetNextAsync();
+            return new CsvReader(stream, config);
+        }
 
-                    if (row == null)
-                    {
-                        break;
-                    }
+        private ITokenizer GetPipelineTokenizer(Resources.FileSize fileSize)
+        {
+            return GetTokenizer<PipelineStreamTokenizer>(fileSize);
+        }
 
-                    count++;
-                }
+        private ITokenizer GetStreamReaderTokenizer(Resources.FileSize fileSize)
+        {
+            return new StreamReaderTokenizer(new StreamReader(Resources.GetStream(fileSize)), disposeStream: true);
+        }
 
-                Debug.WriteLine($"Read {count} rows");
+        private ITokenizer GetMemoryManagedTokenizer(Resources.FileSize fileSize)
+        {
+            return GetTokenizer<MemoryManagedTokenizer>(fileSize);
+        }
 
-                return csv;
-            }
+        private ITokenizer GetTokenizer<T>(Resources.FileSize fileSize)
+            where T : class, ITokenizer
+        {
+            return (ITokenizer)Activator.CreateInstance(typeof(T), new object[] {
+                Resources.GetStream(fileSize),
+                new TokenizerSettings(
+                    new byte[] { (byte)'\n', (byte)'\r' },
+                    new byte[] { (byte)Resources.GetSeperator(fileSize) },
+                    Encoding.UTF8,
+                    true)
+            });
         }
     }
 }

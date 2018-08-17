@@ -14,7 +14,8 @@ namespace Benchmarks
             KB8,
             KB16,
             KB32,
-            MB4
+            MB4,
+            IMDB_Titles
         }
 
         public static Stream GetStream(FileSize size)
@@ -34,7 +35,17 @@ namespace Benchmarks
                 case FileSize.KB16: return "16KB.csv";
                 case FileSize.KB32: return "32KB.csv";
                 case FileSize.MB4: return "4MB.csv";
+                case FileSize.IMDB_Titles: return "imdb.titles.tsv";
                 default: throw new InvalidOperationException($"Unknown file for {size}");
+            }
+        }
+
+        public static char GetSeperator(FileSize size)
+        {
+            switch(size)
+            {
+                case FileSize.IMDB_Titles: return '\t';
+                default: return ',';
             }
         }
     }

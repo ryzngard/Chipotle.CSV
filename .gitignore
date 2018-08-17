@@ -3,3 +3,5 @@
 .vscode
 .vs
 *.log
+
+csv/imdb.titles.tsv
