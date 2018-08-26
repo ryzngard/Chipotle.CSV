@@ -60,7 +60,6 @@ namespace Chipotle.CSV
 
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
             if (disposing)
             {
                 _readTokenSource.Cancel();
@@ -69,6 +68,8 @@ namespace Chipotle.CSV
                 _readTokenSource.Dispose();
                 _readTask.Dispose();
             }
+
+            base.Dispose(disposing);
         }
     }
 }

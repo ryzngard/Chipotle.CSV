@@ -69,6 +69,8 @@ namespace Chipotle.CSV
 
                     if (consumeSectionDelimiters)
                     {
+                        memoryStartIndex++;
+
                         if (IsSectionDelimiter(b))
                         {
                             continue;
@@ -85,7 +87,7 @@ namespace Chipotle.CSV
                         // Current memory represents a row. Write it to be read by the reader.
                         // Memory should be trimmed to only number of bytes read. It may have 
                         // been overallocated
-                        QueueSection(memoryStartIndex, memoryIndex+1);
+                        QueueSection(memoryStartIndex, memoryIndex);
                         consumeSectionDelimiters = true;
                         memoryStartIndex = i;
                     }
