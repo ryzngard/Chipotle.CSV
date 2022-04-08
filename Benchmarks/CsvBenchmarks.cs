@@ -9,6 +9,7 @@ using System.IO;
 using System.Diagnostics;
 using Chipotle.CSV;
 using BenchmarkDotNet.Engines;
+using System.Globalization;
 
 namespace Benchmarks
 {
@@ -173,7 +174,7 @@ namespace Benchmarks
 
         private CsvReader GetCsvHelperReader(Resources.FileSize fileSize)
         {
-            var config = new CsvHelper.Configuration.Configuration()
+            var config = new CsvHelper.Configuration.CsvConfiguration(CultureInfo.CurrentCulture)
             {
                 Delimiter = Resources.GetSeperator(fileSize).ToString(),
                 BadDataFound = (data) => Debug.WriteLine($"Bad Data Found: {data}")
