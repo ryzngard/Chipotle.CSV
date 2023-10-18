@@ -24,7 +24,7 @@ namespace Chipotle.CSV
         {
         }
 
-        public MultiThreadedStreamTokenizer(Stream stream, TokenizerSettings settings)
+        public MultiThreadedStreamTokenizer(Stream stream, TokenizerSettings? settings)
             : base(stream, settings)
         {
         }

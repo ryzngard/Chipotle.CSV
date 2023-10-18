@@ -6,7 +6,8 @@
 
   
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net8</TargetFramework>
+      <LangVersion>Latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

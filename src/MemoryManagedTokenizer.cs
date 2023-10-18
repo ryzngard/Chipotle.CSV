@@ -20,11 +20,13 @@ namespace Chipotle.CSV
         {
         }
 
-        public MemoryManagedTokenizer(Stream stream, TokenizerSettings settings)
+        // TODO: Use primary constructor
+        public MemoryManagedTokenizer(Stream stream, TokenizerSettings? settings)
             : base(stream, settings)
         {
         }
 
+        // TODO: Show track value source
         protected override Task<ISection> GetNextAsyncInternal()
         {
 
@@ -139,6 +141,7 @@ namespace Chipotle.CSV
             }
         }
 
+        // TODO: File local type
         private class MemoryManagedSection : MemoryOwningSection
         {
             private readonly Memory<byte> _memory;

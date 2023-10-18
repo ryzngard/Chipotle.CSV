@@ -1,11 +1,14 @@
 ﻿using Chipotle.CSV;
+
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Xunit;
 
-namespace test
+// TODO: Convert to file scoped namespace
+namespace Tests
 {
     public class CsvTests
     {
@@ -19,7 +22,8 @@ namespace test
 
         private ITokenizer GetTokenizer(TokenizerType rowProviderType, Stream stream)
         {
-            switch(rowProviderType)
+            // TODO: Convert to switch expression
+            switch (rowProviderType)
             {
                 case TokenizerType.Pipeline: return new PipelineStreamTokenizer(stream);
                 case TokenizerType.String: return new StreamReaderTokenizer(new StreamReader(stream));
@@ -41,6 +45,7 @@ namespace test
 
                 Assert.Equal(4, row.Count());
 
+                // TODO: Alt+F1 shows inline hints
                 Assert.Equal("foo", row[0].ToString());
                 Assert.Equal("bar", row[1].ToString());
                 Assert.Equal("chunky", row[2].ToString());

@@ -18,7 +18,7 @@ namespace Chipotle.CSV
             Encoding.UTF8,
             false);
 
-        public StreamTokenizer(Stream stream, TokenizerSettings settings = null)
+        public StreamTokenizer(Stream stream, TokenizerSettings? settings = null)
         {
             this.Stream = stream;
             this.Settings = settings ?? DefaultSettings;
@@ -52,6 +52,7 @@ namespace Chipotle.CSV
             Disposed = true;
         }
 
+        // TODO: Use Expression body
         protected bool IsSectionDelimiter(byte value)
         {
             return Settings.SectionDelimiters.Any(b => b == value);
