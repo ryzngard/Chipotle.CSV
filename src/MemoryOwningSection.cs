@@ -6,95 +6,94 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Chipotle.CSV
+namespace Chipotle.CSV;
+
+internal class MemoryOwningSection : ISection
 {
-    internal class MemoryOwningSection : ISection
+    private static Memory<byte> Empty = new();
+
+    private readonly int[] _segmentHints;
+    private readonly Encoding _encoding;
+    private readonly IMemoryOwner<byte> _memoryOwner;
+
+    public MemoryOwningSection(IMemoryOwner<byte> memoryOwner, List<int> segmentHints, Encoding encoding)
     {
-        private static Memory<byte> Empty = new Memory<byte>();
+        _encoding = encoding;
+        _segmentHints = segmentHints.ToArray();
+        _memoryOwner = memoryOwner;
+    }
 
-        private readonly int[] _segmentHints;
-        private readonly Encoding _encoding;
-        private readonly IMemoryOwner<byte> _memoryOwner;
+    ~MemoryOwningSection()
+    {
+        Dispose(false);
+    }
 
-        public MemoryOwningSection(IMemoryOwner<byte> memoryOwner, List<int> segmentHints, Encoding encoding)
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            _encoding = encoding;
-            _segmentHints = segmentHints.ToArray();
-            _memoryOwner = memoryOwner;
+            _memoryOwner?.Dispose();
         }
+    }
 
-        ~MemoryOwningSection()
+    public ISegment this[int index]
+    {
+        get
         {
-            Dispose(false);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (disposing)
+            if (index > _segmentHints.Length || index < 0)
             {
-                _memoryOwner?.Dispose();
+                throw new IndexOutOfRangeException();
             }
-        }
 
-        public ISegment this[int index]
-        {
-            get
+            int pivot = 0;
+            var memory = this.Memory;
+
+            if (index == _segmentHints.Length)
             {
-                if (index > _segmentHints.Length || index < 0)
-                {
-                    throw new IndexOutOfRangeException();
-                }
-
-                int pivot = 0;
-                var memory = this.Memory;
-
-                if (index == _segmentHints.Length)
-                {
-                    if (index == 0)
-                    {
-                        return new ByteSegment(Memory, _encoding);
-                    }
-
-                    pivot = _segmentHints[index - 1];
-                    if (Memory.Length == pivot)
-                    {
-                        return new ByteSegment(Empty, _encoding);
-                    }
-
-                    return new ByteSegment(Memory.Slice(pivot + 1), _encoding);
-                }
-
-                pivot = _segmentHints[index];
-
                 if (index == 0)
                 {
-                    return new ByteSegment(Memory.Slice(0, pivot), _encoding);
+                    return new ByteSegment(Memory, _encoding);
                 }
 
-                var prevPivot = _segmentHints[index - 1];
-                return new ByteSegment(Memory.Slice(prevPivot + 1, pivot - prevPivot - 1), _encoding);
+                pivot = _segmentHints[index - 1];
+                if (Memory.Length == pivot)
+                {
+                    return new ByteSegment(Empty, _encoding);
+                }
+
+                return new ByteSegment(Memory.Slice(pivot + 1), _encoding);
             }
-        }
 
-        protected virtual Memory<byte> Memory => _memoryOwner.Memory;
-        public ISegment this[string key] => throw new NotImplementedException();
+            pivot = _segmentHints[index];
 
-        public IEnumerator<ISegment> GetEnumerator()
-        {
-            return Enumerable.Range(0, _segmentHints.Length + 1)
-                    .Select(i => this[i])
-                    .GetEnumerator();
-        }
+            if (index == 0)
+            {
+                return new ByteSegment(Memory.Slice(0, pivot), _encoding);
+            }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            var prevPivot = _segmentHints[index - 1];
+            return new ByteSegment(Memory.Slice(prevPivot + 1, pivot - prevPivot - 1), _encoding);
         }
+    }
+
+    protected virtual Memory<byte> Memory => _memoryOwner.Memory;
+    public ISegment this[string key] => throw new NotImplementedException();
+
+    public IEnumerator<ISegment> GetEnumerator()
+    {
+        return Enumerable.Range(0, _segmentHints.Length + 1)
+                .Select(i => this[i])
+                .GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

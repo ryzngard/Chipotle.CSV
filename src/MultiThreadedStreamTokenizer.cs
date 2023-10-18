@@ -5,71 +5,70 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Chipotle.CSV
+namespace Chipotle.CSV;
+
+public abstract class MultiThreadedStreamTokenizer : StreamTokenizer
 {
-    public abstract class MultiThreadedStreamTokenizer : StreamTokenizer
+    private CancellationTokenSource _readTokenSource = new();
+    private Task _readTask;
+    private int _streamReadCount = 0;
+    private bool _needsToStart => Interlocked.CompareExchange(ref _streamReadCount, 1, 0) == 0;
+
+    protected abstract Task Read(CancellationToken token);
+    protected abstract Task<ISection> GetNextAsyncInternal();
+
+    protected bool ReadFinished { get; private set; }
+
+    public MultiThreadedStreamTokenizer(Stream stream)
+        : base(stream)
     {
-        private CancellationTokenSource _readTokenSource = new CancellationTokenSource();
-        private Task _readTask;
-        private int _streamReadCount = 0;
-        private bool _needsToStart => Interlocked.CompareExchange(ref _streamReadCount, 1, 0) == 0;
+    }
 
-        protected abstract Task Read(CancellationToken token);
-        protected abstract Task<ISection> GetNextAsyncInternal();
+    public MultiThreadedStreamTokenizer(Stream stream, TokenizerSettings? settings)
+        : base(stream, settings)
+    {
+    }
 
-        protected bool ReadFinished { get; private set; }
-
-        public MultiThreadedStreamTokenizer(Stream stream)
-            : base(stream)
+    public override Task<ISection> GetNextAsync()
+    {
+        if (_needsToStart)
         {
+            BeginRead();
         }
 
-        public MultiThreadedStreamTokenizer(Stream stream, TokenizerSettings? settings)
-            : base(stream, settings)
+        if (Completed)
         {
+            return Task.FromResult<ISection>(null);
         }
 
-        public override Task<ISection> GetNextAsync()
+        return GetNextAsyncInternal();
+    }
+
+    private void BeginRead()
+    {
+        if (_readTask != null)
         {
-            if (_needsToStart)
-            {
-                BeginRead();
-            }
-
-            if (Completed)
-            {
-                return Task.FromResult<ISection>(null);
-            }
-
-            return GetNextAsyncInternal();
+            throw new InvalidOperationException();
         }
 
-        private void BeginRead()
+        _readTask = Task.Run(async () =>
         {
-            if (_readTask != null)
-            {
-                throw new InvalidOperationException();
-            }
+            await Read(_readTokenSource.Token);
+            ReadFinished = true;
+        }, _readTokenSource.Token);
+    }
 
-            _readTask = Task.Run(async () =>
-            {
-                await Read(_readTokenSource.Token);
-                ReadFinished = true;
-            }, _readTokenSource.Token);
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _readTokenSource.Cancel();
+            _readTask.Wait();
+
+            _readTokenSource.Dispose();
+            _readTask.Dispose();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _readTokenSource.Cancel();
-                _readTask.Wait();
-
-                _readTokenSource.Dispose();
-                _readTask.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
+        base.Dispose(disposing);
     }
 }

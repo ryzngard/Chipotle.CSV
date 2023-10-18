@@ -1,7 +1,5 @@
-﻿// TODO: Show global usings
-namespace Tests;
+﻿namespace Tests;
 
-// TODO: Show nullable pragma
 #nullable enable
 
 public class DemoTests
@@ -17,7 +15,6 @@ public class DemoTests
         Assert.True(arr1 is [_, 2, _, 4]);            // _ is a discard, matches any element
     }
 
-    // TODO: Extended property patterns
     [Fact]
     public void TestPropertyPatterns()
     {
@@ -27,6 +24,11 @@ public class DemoTests
 
         // Before
         Assert.True(order is { Burrito: { IsHealthy: true, IsTasty: true }, Cost: <= 30.00, Drink: null });
+
+        if (order is { Burrito: { IsHealthy: true }, Cost: <= 30.00, Drink: null })
+        {
+
+        }
 
         // After
         Assert.True(order is { Burrito.IsHealthy: true, Burrito.IsTasty: true, Cost: <= 30.00, Drink: null });

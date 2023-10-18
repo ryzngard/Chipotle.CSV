@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Chipotle.CSV
-{
-    public interface ISegment : IDisposable
-    {
-    }
+namespace Chipotle.CSV;
 
-    public interface ISegment<T> : ISegment
-    {
-        ReadOnlyMemory<T> Value { get; }
-    }
+public interface ISegment : IDisposable
+{
+}
+
+public interface ISegment<T> : ISegment
+{
+    ReadOnlyMemory<T> Value { get; }
 }

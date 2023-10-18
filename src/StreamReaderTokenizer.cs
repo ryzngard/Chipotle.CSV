@@ -5,62 +5,61 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chipotle.CSV
+namespace Chipotle.CSV;
+
+public class StreamReaderTokenizer : ITokenizer
 {
-    public class StreamReaderTokenizer : ITokenizer
+    private readonly StreamReader _stream;
+    private readonly bool _disposeStream;
+    private readonly char _seperator;
+    private bool _disposed = false;
+
+    public StreamReaderTokenizer(StreamReader streamReader, char seperator = ',', bool disposeStream = false)
     {
-        private readonly StreamReader _stream;
-        private readonly bool _disposeStream;
-        private readonly char _seperator;
-        private bool _disposed = false;
+        _stream = streamReader;
+        _disposeStream = disposeStream;
+        _seperator = seperator;
+    }
 
-        public StreamReaderTokenizer(StreamReader streamReader, char seperator = ',', bool disposeStream = false)
+    ~StreamReaderTokenizer()
+    {
+        Dispose(false);
+    }
+
+    public bool Completed { get; private set; }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    public async Task<ISection> GetNextAsync()
+    {
+        if (_disposed)
         {
-            _stream = streamReader;
-            _disposeStream = disposeStream;
-            _seperator = seperator;
+            throw new InvalidOperationException();
         }
 
-        ~StreamReaderTokenizer()
+        if (_stream.EndOfStream)
         {
-            Dispose(false);
+            return null;
         }
 
-        public bool Completed { get; private set; }
+        var line = await _stream.ReadLineAsync();
+        return new StringSection(line.Split(_seperator));
+    }
 
-        public void Dispose()
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        public async Task<ISection> GetNextAsync()
-        {
-            if (_disposed)
+            if (_disposeStream)
             {
-                throw new InvalidOperationException();
+                _stream?.Dispose();
             }
-
-            if (_stream.EndOfStream)
-            {
-                return null;
-            }
-
-            var line = await _stream.ReadLineAsync();
-            return new StringSection(line.Split(_seperator));
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_disposeStream)
-                {
-                    _stream?.Dispose();
-                }
-            }
-
-            _disposed = true;
-        }
+        _disposed = true;
     }
 }

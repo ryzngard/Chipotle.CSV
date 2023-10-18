@@ -2,25 +2,24 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Chipotle.CSV
+namespace Chipotle.CSV;
+
+class StringSegment : ISegment<char>
 {
-    class StringSegment : ISegment<char>
+    private readonly string _value;
+    public StringSegment(string value)
     {
-        private readonly string _value;
-        public StringSegment(string value)
-        {
-            _value = value ?? string.Empty;
-        }
+        _value = value ?? string.Empty;
+    }
 
-        public ReadOnlyMemory<char> Value => _value.AsMemory();
+    public ReadOnlyMemory<char> Value => _value.AsMemory();
 
-        public override string ToString()
-        {
-            return _value;
-        }
+    public override string ToString()
+    {
+        return _value;
+    }
 
-        public void Dispose()
-        {
-        }
+    public void Dispose()
+    {
     }
 }
