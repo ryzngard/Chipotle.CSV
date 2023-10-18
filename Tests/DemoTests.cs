@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xunit;
-
+﻿// TODO: Show global usings
 namespace Tests;
 
 // TODO: Show nullable pragma

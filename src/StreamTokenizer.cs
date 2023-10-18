@@ -10,6 +10,8 @@ namespace Chipotle.CSV
     public abstract class StreamTokenizer : ITokenizer
     {
         protected readonly TokenizerSettings Settings;
+
+        // TODO: Show navigate to source on "Stream"
         protected readonly Stream Stream;
 
         private static TokenizerSettings DefaultSettings = new TokenizerSettings(

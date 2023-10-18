@@ -1,13 +1,4 @@
-﻿using Chipotle.CSV;
-
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xunit;
-
-// TODO: Convert to file scoped namespace
+﻿// TODO: Convert to file scoped namespace
 namespace Tests
 {
     public class CsvTests

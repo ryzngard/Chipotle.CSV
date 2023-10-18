@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Chipotle.CSV
 {
+    // TODO: Show off inheritance margin
     public class MemoryManagedTokenizer : MultiThreadedStreamTokenizer
     {
         private readonly MemoryPool<byte> _memoryPool = MemoryPool<byte>.Shared;
